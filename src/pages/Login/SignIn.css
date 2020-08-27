@@ -1,0 +1,11 @@
+
+.login-Card{
+    width:45vw;
+}
+
+.login-Card>.ant-card-body{
+    margin: 1vw;
+    padding-top: 1vw;
+    width: 95%;
+    height: 95%;
+}

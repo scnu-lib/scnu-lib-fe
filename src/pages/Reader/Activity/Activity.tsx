@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react'
 import { Carousel,message,Card,Space} from 'antd';
 import { listactApi } from '@/Services/activity';
 import {Link} from 'umi'
+import './Activity.css'
 //活动列表页
 let d = new Date()
 const recentlist = [{src:'https://img9.doubanio.com/view/photo/l/public/p1188029166.webp',id:'1',title:'傲慢与偏见',date:'2020.08.26~08.29'},

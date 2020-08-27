@@ -1,0 +1,43 @@
+
+.Activity{
+    display: flex;
+    align-items: center;
+
+}
+
+.Activity>.ant-space-item:first-child{
+    width: 70vw;
+    height: 40vw;
+}
+.Activity>.ant-space-item:nth-child(2){
+    width:100%;
+}
+.recent-map{
+
+    width:100%;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.recent-map>.ant-space-item{
+
+    width: 27vw;
+    height: 25vw;
+}
+.recent-map>.ant-space-item:last-child{
+    margin-right:8px;
+}
+.recent-Act{width: 100%;text-align: center;}
+
+.ant-card-body{
+    padding:0px;
+}
+
+.recent-Act>.ant-space{
+   
+}
+
+.ant-carousel,.slick-slider,.slick-track,.slick-cloned,.slick-list{
+    height:100%;
+
+}

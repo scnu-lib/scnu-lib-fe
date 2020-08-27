@@ -80,10 +80,14 @@ function SignUp(props:any) {
             </Select>
           </Form.Item>
         );
-      
+      const inputformitemstyle = {
+        width:'95%',
+        height:'95%'
+      }
       
     return (
-        <Card style={{width:'480px',height:'500px',marginTop:'-250px',marginLeft:'-240px'}}>
+      <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+        <Card >
         <Form
         {...formItemLayout}
         form={form}
@@ -94,9 +98,10 @@ function SignUp(props:any) {
           prefix: '86',
         }}
         scrollToFirstError
-        style={{marginTop:'10px'}}
+        style={{margin:'1vw'}}
       >
         <Form.Item
+
           name="email"
           label="E-mail"
           rules={[
@@ -114,6 +119,7 @@ function SignUp(props:any) {
         </Form.Item>
   
         <Form.Item
+
           name="password"
           label="密码"
           rules={[
@@ -128,6 +134,7 @@ function SignUp(props:any) {
         </Form.Item>
   
         <Form.Item
+
           name="confirm"
           label="确认密码"
           dependencies={['password']}
@@ -151,6 +158,7 @@ function SignUp(props:any) {
         </Form.Item>
   
         <Form.Item
+
           name="nickname"
           label=
               '昵称'
@@ -163,6 +171,7 @@ function SignUp(props:any) {
       
   
         <Form.Item
+
           name="phone"
           label={<span>
             电话号码&nbsp;<Tooltip title="帮助我们更好地通知你">
@@ -176,6 +185,7 @@ function SignUp(props:any) {
         </Form.Item>
   
         <Form.Item
+
           name="wechat"
           label="微信号码"
           rules={[{ required: true, message: '请输入你的微信号码！' }]}
@@ -183,6 +193,7 @@ function SignUp(props:any) {
             <Input />
         </Form.Item>
         <Form.Item
+
           name="agreement"
           valuePropName="checked"
           rules={[
@@ -201,6 +212,7 @@ function SignUp(props:any) {
         </Form.Item>
       </Form>
       </Card>
+      </div>
     )
 }
 

@@ -27,8 +27,8 @@ function SignIn(props:any) {
         }
     }
     return (
-        <Card style={{width:'480px',marginTop:'-240px',
-        marginLeft:'-240px'}}>
+      <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+        <Card className="login-Card">
              <Form
       name="normal_login"
       className="login-form"
@@ -69,6 +69,7 @@ function SignIn(props:any) {
       </Form.Item>
     </Form>
         </Card>
+        </div>
     )
 }
 
