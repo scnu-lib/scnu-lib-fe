@@ -1,0 +1,207 @@
+import React from 'react'
+import {
+    Card,
+    Form,
+    Input,
+    Tooltip,
+    Cascader,
+    Select,
+    Row,
+    Col,
+    Checkbox,
+    Button,
+    AutoComplete,
+    message
+  } from 'antd';
+  import { QuestionCircleOutlined } from '@ant-design/icons';
+import {history} from 'umi'
+import { signupApi } from '@/Services/auth';
+//注册页面
+const { Option } = Select;
+const AutoCompleteOption = AutoComplete.Option;
+
+function SignUp(props:any) {
+    const formItemLayout = {
+        labelCol: {
+          xs: { span: 24 },
+          sm: { span: 8 },
+        },
+        wrapperCol: {
+          xs: { span: 24 },
+          sm: { span: 16 },
+        },
+      };
+      const tailFormItemLayout = {
+        wrapperCol: {
+          xs: {
+            span: 24,
+            offset: 0,
+          },
+          sm: {
+            span: 16,
+            offset: 8,
+          },
+        },
+      };
+        const [form] = Form.useForm();
+      
+        const onFinish = async (values:any) => {
+          const user = {
+              username:values.email,
+              password:values.password,
+              name:values.name,
+              wechat:values.wechat,
+              phone:values.phone
+          }
+          try{
+            const res = await signupApi(user)
+            console.log(res)
+            if(res.status===200)
+            {
+            history.push('/login')
+            message.success('注册成功！')
+            }
+          }
+          catch(err){
+            console.log(err.response)
+            if(err.response.data.code==='error.account.register.username_exists')
+                message.error('用户名已被使用!')
+            else if(err.response.data.code==='error.generic.malformed_request')
+                message.error('格式错误！')
+          }
+
+        };
+      
+        const prefixSelector = (
+          <Form.Item name="prefix" noStyle>
+            <Select style={{ width: 70 }}>
+              <Option value="86">+86</Option>
+              <Option value="87">+87</Option>
+            </Select>
+          </Form.Item>
+        );
+      
+      
+    return (
+        <Card style={{width:'480px',height:'500px',marginTop:'-250px',marginLeft:'-240px'}}>
+        <Form
+        {...formItemLayout}
+        form={form}
+        name="register"
+        onFinish={onFinish}
+        initialValues={{
+          residence: ['zhejiang', 'hangzhou', 'xihu'],
+          prefix: '86',
+        }}
+        scrollToFirstError
+        style={{marginTop:'10px'}}
+      >
+        <Form.Item
+          name="email"
+          label="E-mail"
+          rules={[
+            {
+              type: 'email',
+              message: '请输入合法的邮箱地址！',
+            },
+            {
+              required: true,
+              message: '请输入你的邮箱地址！',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+  
+        <Form.Item
+          name="password"
+          label="密码"
+          rules={[
+            {
+              required: true,
+              message: '请输入你的密码！',
+            },
+          ]}
+          hasFeedback
+        >
+          <Input.Password />
+        </Form.Item>
+  
+        <Form.Item
+          name="confirm"
+          label="确认密码"
+          dependencies={['password']}
+          hasFeedback
+          rules={[
+            {
+              required: true,
+              message: '请确认你的密码！',
+            },
+            ({ getFieldValue }) => ({
+              validator(rule, value) {
+                if (!value || getFieldValue('password') === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject('确认密码与密码不一致！');
+              },
+            }),
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
+  
+        <Form.Item
+          name="nickname"
+          label=
+              '昵称'
+              
+          rules={[{ required: true, message: '请输入你的昵称！', whitespace: true }]}
+        >
+          <Input />
+        </Form.Item>
+  
+      
+  
+        <Form.Item
+          name="phone"
+          label={<span>
+            电话号码&nbsp;<Tooltip title="帮助我们更好地通知你">
+              <QuestionCircleOutlined />
+            </Tooltip>
+            
+          </span>}
+          rules={[{ required: true, message: '请输入你的电话号码！' }]}
+        >
+          <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+        </Form.Item>
+  
+        <Form.Item
+          name="wechat"
+          label="微信号码"
+          rules={[{ required: true, message: '请输入你的微信号码！' }]}
+        >
+            <Input />
+        </Form.Item>
+        <Form.Item
+          name="agreement"
+          valuePropName="checked"
+          rules={[
+            { validator:(_, value) => value ? Promise.resolve() : Promise.reject('请同意协议！') },
+          ]}
+          {...tailFormItemLayout}
+        >
+          <Checkbox>
+           我已经阅读并同意 <a href="">用户协议</a>
+          </Checkbox>
+        </Form.Item>
+        <Form.Item {...tailFormItemLayout}>
+          <Button type="primary" htmlType="submit">
+            注册
+          </Button>
+        </Form.Item>
+      </Form>
+      </Card>
+    )
+}
+
+export default SignUp
