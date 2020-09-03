@@ -4,7 +4,7 @@ import PageNotFound from "../Pages/PageNotFound";
 import Activity from "../Pages/Reader/Activity/Activity";
 import ActivityDetail from "../Pages/Reader/Activity/ActivityDetail";
 import RegisteredAct from "../Pages/Reader/Activity/RegisteredAct";
-//import { isLogined, isadmin } from "../Utils/auth";
+import { isLogined, isadmin } from "../Utils/auth";
 import UserSetting from "../Pages/User/UserSetting";
 import User from "../Pages/User/User";
 import Notions from "../Pages/Reader/Activity/Notions";
@@ -37,16 +37,22 @@ export const activityRoutes = [{
     exact:true,
     isShow:false
 },{
+    path:'/home/listact',
+    title:'活动列表',
+    isShow:!isadmin,
+    exact:false
+},
+{
     path:'/home/RegisteredAct',
     title:'已报名活动',
     component:RegisteredAct,
     exact:true,
-    isShow:true,//(isLogined() && !isadmin)//不是管理员才显示，管理员不能报名，只能浏览活动
+    isShow:(isLogined() && !isadmin)//不是管理员才显示，管理员不能报名，只能浏览活动
 },{
     path:'/home/admin',
     title:'活动管理',
     component:AdminHome,
-    isShow:true,//isadmin,//管理员才显示
+    isShow:isadmin,//管理员才显示
     exact:false
 },{
     path:'/home/usersetting',

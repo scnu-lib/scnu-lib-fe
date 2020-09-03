@@ -2,8 +2,8 @@ import React,{useEffect,useState} from 'react'
 import { Card, List, Avatar, Space,Button} from 'antd';
 import { listactApi } from '@/Services/activity';
 import { Link } from 'umi';
-//已报名活动页
-function RegisteredAct(props:any) {
+
+function Activitylist() {
     const [listData,setListData] = useState([{
         "id": 0,
         "title": "string",
@@ -17,7 +17,7 @@ function RegisteredAct(props:any) {
           "string"
         ]
     }])
-    const getPage = async (label='registered',page=0,size=4) =>{
+    const getPage = async (label='text',page=0,size=3) =>{
         const res = await listactApi(label,page,size);
         setListData(res.data)
     }
@@ -65,4 +65,4 @@ function RegisteredAct(props:any) {
     )
 }
 
-export default RegisteredAct
+export default Activitylist

@@ -6,8 +6,8 @@
 }
 
 .Activity>.ant-space-item:first-child{
-    width: 70vw;
-    height: 40vw;
+    width: 60vw;
+    height: 30vw;
 }
 .Activity>.ant-space-item:nth-child(2){
     width:100%;

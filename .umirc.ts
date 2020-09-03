@@ -29,18 +29,25 @@ export default defineConfig({
           exact:true,
           isShow:false
       },{
+        path:'/home/listact',
+        title:'活动列表',
+        component:'@/pages/Reader/Activity/Activitylist',
+        isShow:!isadmin,
+        exact:false
+      },{
           path:'/home/RegisteredAct',
           title:'已报名活动',
           component:'@/pages/Reader/Activity/RegisteredAct',
           exact:true,
-          //isShow:(isLogined() && !isadmin)//不是管理员才显示，管理员不能报名，只能浏览活动
+          isShow:(isLogined() && !isadmin)//不是管理员才显示，管理员不能报名，只能浏览活动
       },{
           path:'/home/admin',
           title:'活动管理',
           component:'@/pages/Admin/AdminHome',
           isShow:isadmin,//管理员才显示
           exact:false
-      },{
+      },
+      {
           path:'/home/usersetting',
           title:'用户设置',
           component:'@/pages/User/UserSetting',

@@ -17,6 +17,6 @@ export const changeactApi = (activityID:number,newact:object) =>{
     return put(`${serverUrl}/activity/activities/${activityID}`,newact)
 }
 
-export const actsignupApi = (activityID:number,signact:object) =>{
-    return put(`${serverUrl}/activity/activities/${activityID}`,signact)
+export const actsignupApi = (activityID:number) =>{
+    return put(`${serverUrl}/activity/activities/${activityID}`,{id:activityID})
 }

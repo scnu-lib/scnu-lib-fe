@@ -56,7 +56,7 @@ function Frame(props:any) {
      {switchloginuser()}
      </div>
     </Header>
-    <Content style={{ padding: '0 50px',
+    <Content style={{ padding: '10px 50px',
                     height:'100%'}}>
       <div className="site-layout-content">{props.children}</div>
     </Content>
