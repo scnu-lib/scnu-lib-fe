@@ -32,8 +32,8 @@ function Activity(props:any) {
         setRecent(res.data)
     }
     useEffect(()=>{
-        //getrecentAct()
-        setRecent(recentlist)
+        getrecentAct()
+        //setRecent(recentlist)
     },[])
     return (
     <Space direction='vertical'  className="Activity">

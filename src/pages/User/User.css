@@ -1,0 +1,7 @@
+.notify-card{
+    height: 80.7vh;
+}
+#notify-form > .ant-form-item {
+    margin: 4vw;
+    margin-bottom: 24px;
+}

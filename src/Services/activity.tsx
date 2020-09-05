@@ -10,17 +10,21 @@ export const createactApi = (title:string,startTime:Date,endTime:Date,signUpDead
 }
 
 export const detailApi = (activityID:number) =>{
-    return get(`${serverUrl}/activity/activities/${activityID}`,activityID)
+    return get(`${serverUrl}/activity/activities/${activityID}`,{activityID})
 }
 
 export const changeactApi = (activityID:number,newact:object) =>{
-    return put(`${serverUrl}/activity/activities/${activityID}`,newact)
+    return put(`${serverUrl}/activity/activities/${activityID}`,{activityID},newact)
 }
 
-export const actsignupApi = (activityID:number) =>{
-    return put(`${serverUrl}/activity/activities/${activityID}`,{id:activityID})
+export const actsignupApi = (activityID:number,userID:number) =>{
+    return put(`${serverUrl}/activity/activities/${activityID}/sign-up/${userID}`,{activityID,userID})
 }
 
-export const listnotions = (userID:number) => {
-    return get(`${serverUrl}/notify/methods/`,{userID})
+export const listnotifyApi = (userID:number) => {
+    return get(`${serverUrl}/notify/methods/${userID}`,{userID})
+}
+
+export const changenotifyApi = (userID:number,newnotify:object) => {
+    return put(`${serverUrl}/notify/methods/${userID}`,{userID},{newnotify})
 }

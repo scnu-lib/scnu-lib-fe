@@ -1,4 +1,4 @@
-import { post } from '../Utils/request'
+import { post,get,put } from '../Utils/request'
 import { serverUrl } from '../Utils/config'
 
 export const loginApi = (user:object) => {
@@ -7,4 +7,21 @@ export const loginApi = (user:object) => {
 
 export const signupApi = (user:object) => {
     return post(`${serverUrl}/account/accounts`,user)
+}
+
+export const getnotifyApi = (userID:string) => {
+    return get(`${serverUrl}/notify/methods/`,{userID})
+}
+export const changenotifyApi = (userID:string,wechat:string,email:string) => {
+    const changednotify = {
+        userID:userID,
+        wechat:{
+            enabled:true,
+            wxid:wechat
+        },email:{
+            enabled:true,
+            address:email
+        }
+    }
+    return put(`${serverUrl}/notify/methods/`,changednotify)
 }

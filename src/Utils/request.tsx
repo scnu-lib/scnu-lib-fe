@@ -29,9 +29,10 @@ instance.interceptors.response.use(function (response) {
     return Promise.reject(error);
   });
 
-export const get = (url:string,params:any) => {
+export const get = (url:string,params:object) => {
+    const config = {params:{...params}}
     return instance.get(url,
-        {...params}
+        config
     )
 }
 
@@ -39,8 +40,12 @@ export const post =(url:string,data:object) => {
     return instance.post(url,data)
 }
 
-export const put = (url:string,data:object) => {
-    return instance.put(url,data)
+export const put = (url:string,params:any=undefined,data:any = undefined) => {
+    const config = {
+      params:{...params},
+      data:{...data}
+    } 
+    return instance.put(url,config)
 }
 
 export const del = (url:string) => {

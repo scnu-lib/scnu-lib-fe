@@ -9,7 +9,7 @@ export default{
         console.log(req)
         res.status(400).json({code:'error.generic.malformed_request'})
     },
-    'GET /activity/activities':(req:any,res:any)=>{
+    'GET /activity/activities/':(req:any,res:any)=>{
         res.setHeader('Access-Control-Allow-Origin', '*');
         console.log(req)
         res.status(200).json([ {"id": 0,
