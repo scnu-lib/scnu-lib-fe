@@ -3,7 +3,8 @@ import { Form, Input, Button, Checkbox,Card, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './SignIn.css'
 import {loginApi} from '../../Services/auth'
-import { setToken } from '../../Utils/auth';
+import { setToken,setUserID } from '../../Utils/auth';
+import { changeUserID } from '@/reducers/UserAction';
 //登录页面
 function SignIn(props:any) {
     const onFinish = async (values:any) => {
@@ -14,7 +15,11 @@ function SignIn(props:any) {
         try{
             const res = await loginApi(user)//post得到token后设置缓存，跳转刷新
             console.log(res)
+            const Payload = decodeURIComponent(escape(window.atob((res.data.jwt).split('.')[1])))
+            const UserID = JSON.parse(Payload).name//从jwt获得userid
+            console.log(UserID)
             setToken(res.data.jwt)
+            setUserID(UserID)
             props.history.push('/')
             message.success('登录成功！')
             

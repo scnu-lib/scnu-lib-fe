@@ -20,3 +20,7 @@ export const changeactApi = (activityID:number,newact:object) =>{
 export const actsignupApi = (activityID:number) =>{
     return put(`${serverUrl}/activity/activities/${activityID}`,{id:activityID})
 }
+
+export const listnotions = (userID:number) => {
+    return get(`${serverUrl}/notify/methods/`,{userID})
+}

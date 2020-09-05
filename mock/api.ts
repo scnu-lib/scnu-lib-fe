@@ -2,7 +2,7 @@
 export default{
     'POST /account/login':(req:any,res:any)=>{
         res.setHeader('Access-Control-Allow-Origin', '*');
-        res.status(200).json({jwt:'token'})
+        res.status(200).json({jwt:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ'})
     },
     'POST /account/accounts':(req:any,res:any)=>{
         res.setHeader('Access-Control-Allow-Origin', '*');
@@ -84,4 +84,10 @@ export default{
           "string"
         ]})
     },
+  'GET /notify/methods/':(req:any,res:any)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log(req)
+    res.status(404).code({"code": "error.notify.not_exists"}
+    )
+  }
 }

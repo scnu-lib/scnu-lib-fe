@@ -29,8 +29,13 @@
     "react": "^16.13.1",
     "react-axios": "^2.0.3",
     "react-dom": "^16.13.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "umi": "^3.2.16",
     "window": "^4.2.7",
     "yorkie": "^2.0.0"
+  },
+  "devDependencies": {
+    "redux-devtools-extension": "^2.13.8"
   }
 }

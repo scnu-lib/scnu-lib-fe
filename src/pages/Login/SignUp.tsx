@@ -49,9 +49,9 @@ function SignUp(props:any) {
           const user = {
               username:values.email,
               password:values.password,
-              name:values.name,
-              wechat:values.wechat,
-              phone:values.phone
+              details:{
+                name:values.name},
+              
           }
           try{
             const res = await signupApi(user)
@@ -102,22 +102,14 @@ function SignUp(props:any) {
       >
         <Form.Item
 
-          name="email"
-          label="E-mail"
-          rules={[
-            {
-              type: 'email',
-              message: '请输入合法的邮箱地址！',
-            },
-            {
-              required: true,
-              message: '请输入你的邮箱地址！',
-            },
-          ]}
+        name="nickname"
+        label=
+            '昵称'
+            
+        rules={[{ required: true, message: '请输入你的昵称！', whitespace: true }]}
         >
-          <Input />
+        <Input />
         </Form.Item>
-  
         <Form.Item
 
           name="password"
@@ -155,42 +147,6 @@ function SignUp(props:any) {
           ]}
         >
           <Input.Password />
-        </Form.Item>
-  
-        <Form.Item
-
-          name="nickname"
-          label=
-              '昵称'
-              
-          rules={[{ required: true, message: '请输入你的昵称！', whitespace: true }]}
-        >
-          <Input />
-        </Form.Item>
-  
-      
-  
-        <Form.Item
-
-          name="phone"
-          label={<span>
-            电话号码&nbsp;<Tooltip title="帮助我们更好地通知你">
-              <QuestionCircleOutlined />
-            </Tooltip>
-            
-          </span>}
-          rules={[{ required: true, message: '请输入你的电话号码！' }]}
-        >
-          <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
-        </Form.Item>
-  
-        <Form.Item
-
-          name="wechat"
-          label="微信号码"
-          rules={[{ required: true, message: '请输入你的微信号码！' }]}
-        >
-            <Input />
         </Form.Item>
         <Form.Item
 
