@@ -23,5 +23,5 @@ export const changenotifyApi = (userID:string,wechat:string,email:string) => {
             address:email
         }
     }
-    return put(`${serverUrl}/notify/methods/`,changednotify)
+    return put(`${serverUrl}/notify/methods/`,{userID},changednotify)//parameter设置了就会用问号传值，不用重复设置
 }

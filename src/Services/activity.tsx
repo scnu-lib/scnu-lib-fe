@@ -21,10 +21,3 @@ export const actsignupApi = (activityID:number,userID:number) =>{
     return put(`${serverUrl}/activity/activities/${activityID}/sign-up/${userID}`,{activityID,userID})
 }
 
-export const listnotifyApi = (userID:number) => {
-    return get(`${serverUrl}/notify/methods/${userID}`,{userID})
-}
-
-export const changenotifyApi = (userID:number,newnotify:object) => {
-    return put(`${serverUrl}/notify/methods/${userID}`,{userID},{newnotify})
-}

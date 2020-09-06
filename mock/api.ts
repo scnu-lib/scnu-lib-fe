@@ -87,7 +87,17 @@ export default{
   'GET /notify/methods/':(req:any,res:any)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
     console.log(req)
-    res.status(404).code({"code": "error.notify.not_exists"}
+    res.status(200).json({
+      "userID": 0,
+      "wechat": {
+        "enabled": true,
+        "wxid": "string"
+      },
+      "email": {
+        "enabled": true,
+        "address": "user@example.com"
+      }
+    }
     )
   }
 }
