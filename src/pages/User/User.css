@@ -5,3 +5,9 @@
     margin: 4vw;
     margin-bottom: 24px;
 }
+.notify-card>.ant-card-body{
+    margin:20px;
+}
+
+.notify-descriptions{
+}

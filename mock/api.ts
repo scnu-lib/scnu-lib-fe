@@ -99,5 +99,22 @@ export default{
       }
     }
     )
+  },
+  'PUT /notify/methods/:id':(req:any,res:any)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log(req)
+    res.status(200).json({
+      "userID": req.params.id,
+      "wechat": {
+        "enabled": true,
+        "wxid": req.data.wechat.wxid
+      },
+      "email": {
+        "enabled": true,
+        "address": req.data.email.address
+      }
+    }
+    )
   }
+  
 }

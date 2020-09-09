@@ -1,9 +1,16 @@
-const UserReducer = (state:any = '',action:object) => {
+const userReducer = (state:object = {wechat:{wxid:'123'},email:{address:'123@qq.com'}},action:object) => {
     switch(action.type){
-        case 'CREATE':return action.data
-        case 'DELETE':return ''
+        case 'CHANGE_USERINFO':return action.data
         default:return state
     }
-}//存放从后端拿到的user的信息，目前只有USERID
+}//把notify用redux记录，先写一个可以修改notify的reducer
 
-export default UserReducer
+export const changeUserinfo = (wxid:string,address:string) => {
+    return {
+        type:'CHANGE_USERINFO',
+        data:{
+            wechat:{wxid:wxid},email:{address:address}
+        }
+    }
+}//actioncreator 输入新的notify返回一个action
+export default userReducer

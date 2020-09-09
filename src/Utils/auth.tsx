@@ -10,12 +10,12 @@ export const setToken = (token:string):any =>{
     return localStorage.setItem('token',token)
 }
 
-/*export const isLogined = ():boolean => {
+export const isLogined = ():boolean => {
     if(getToken()){
         return true
     }
     return false
-}*/
+}
 
 export const clearToken = ():any =>{
     return localStorage.removeItem('token')
@@ -35,7 +35,7 @@ export const clearUserID = ():any =>{
     return localStorage.removeItem('UserID')
 }
 
-export const isLogined = ()=>{
+/*export const isLogined = ()=>{
     return true;
-}
+}*/
 export const isadmin = false //暂时用来区分是否为管理员

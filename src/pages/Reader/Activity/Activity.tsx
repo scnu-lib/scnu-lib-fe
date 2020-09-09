@@ -28,7 +28,6 @@ function Activity(props:any) {
     const [recent,setRecent] = useState([{src:'111',id:'222'}])
     const getrecentAct = async () =>{//把最近的活动拿到，暂时通过标签确定最近,只需要三个
         const res = await listactApi('recent',0,3);
-        console.log(res)
         setRecent(res.data)
     }
     useEffect(()=>{

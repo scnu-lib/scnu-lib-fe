@@ -1,84 +1,34 @@
 import React,{useState,useEffect} from 'react'
-import {Card, Form, Input, Button,Tooltip,message  } from 'antd'
+import {Card,Descriptions,Button,message,Space  } from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import './User.css'
 import { getnotifyApi, changenotifyApi } from '@/Services/auth';
 import { getUserID } from '@/Utils/auth';
+import {useDispatch,useSelector} from 'react-redux'
+import {changeUserinfo} from '../../reducers/userReducer'
+import Changeuser from './Changeuser';
 //User
 
-
 const User = (props:any) => {
-    const [userinfo,setUserinfo] = useState({ wechat:{wxid:''},email:{address:''}})
-    const [init,setInit] = useState(false)//解决state异步问题
-    const updatenotify = () => {
-        getnotifyApi(getUserID()).then(res=>{
-            const notify = {
-                wechat:{wxid:res.data.wechat.wxid},email:{address:res.data.email.address}
-            }
-            setUserinfo(notify)
-            console.log(userinfo)
-        }).catch(err => console.log(err))
-    }
-    const changenotify = (values:object) =>{
-            changenotifyApi(getUserID(),values.wechat,values.email).then(res=>{
-                const notify = {
-                    wechat:{wxid:res.data.wechat.wxid},email:{address:res.data.email.address}
-                }
-                setUserinfo(notify)
-                console.log(userinfo)
-            }).catch(err=>{
-                console.log(err)
-            })
-       
-    }
+    const [showchange,setShowchange] = useState(false)//显示修改或者是展示模式，由于只涉及到这个组件，暂时用usestate来管理
+    const userinfo = useSelector(state=>state)//store显示
+    const dispatch = useDispatch()
     useEffect(()=>{
-        updatenotify()
-        //setUserinfo(2)
-        
-    },[])
-    const onFinish = values => {
-        console.log('Success:', values);
-        changenotify(values)
-        console.log(userinfo)
-      };
-    
-      const onFinishFailed = errorInfo => {
-        message.error('格式错误！')
-      };
+        getnotifyApi(getUserID()).then(res=>{
+            dispatch(changeUserinfo(res.data.wechat.wxid,res.data.email.address))
+          })
+    },[])//第一次调用渲染一次，从后端的到初始化数据用dispatch传到store，更新view
+    const toggleshow = () => {
+        setShowchange(!showchange)
+    }//翻转展示模式
     return (
         <Card className='notify-card' title="修改/保存你的联系方式">
-        <Form
-        name="notify-form"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        >
-        <Form.Item
-            label="微信号"
-            name="wechat"
-            rules={[{ required: true, message: '请输入你的微信号！' }]}
-            initialValue={userinfo.wechat.wxid}
-        >
-            <Input />
-        </Form.Item>
-
-        <Form.Item
-            label="email"
-            name="email"
-            rules={[{ required: true, message: '请输入你的邮箱！'},{
-                type: 'email',
-                message:'请输入正确格式的邮箱地址！'
-            }]}
-            initialValue={userinfo.email.address}
-        >
-            <Input />
-        </Form.Item>
-        <Form.Item >
-            <Button type="primary" htmlType="submit">
-            保存
-            </Button>
-        </Form.Item>
-        </Form>
+            {showchange?<Changeuser toggleshow={toggleshow}/>:
+             (<div><Descriptions className='notify-descriptions'column={1}>
+            <Descriptions.Item label="微信号">{userinfo.wechat.wxid}</Descriptions.Item>
+            <Descriptions.Item label="邮箱地址">{userinfo.email.address}</Descriptions.Item>
+            </Descriptions>
+            <Button onClick={(e=>{toggleshow()})}>修改</Button></div>)}
         </Card>
     )
 }

@@ -43,9 +43,9 @@ export const post =(url:string,data:object) => {
 export const put = (url:string,params:any=undefined,data:any = undefined) => {
     const config = {
       params:{...params},
-      data:{...data}
+     
     } 
-    return instance.put(url,config)
+    return instance.put(url,config,data)
 }
 
 export const del = (url:string) => {
