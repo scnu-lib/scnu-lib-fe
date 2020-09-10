@@ -9,16 +9,15 @@ import {changeUserinfo} from '../../reducers/userReducer'
 const Changeuser=(props:any) => {
     const userinfo = useSelector(state=>state)
     const dispatch = useDispatch()
-    const onFinish = values => {
-        console.log('Success:', values);
-        changenotifyApi(getUserID(),values.wechat,values.email).then(res=>{
+    const changenotify = (values:object) => {
             dispatch(changeUserinfo(values.wechat,values.email))
-            console.log(res)
-            message.success('保存成功！')
-            props.toggleshow()
-        }).catch(err=>{console.log(err)})//先用then后面再改成async，这里用户修改数据后按提交，把数据用api传到服务器，然后dispatch改变当前状态，然后返回到原来的展览页面
+    }
+    const onFinish = values => {
+        changenotify(values)
+        message.success('保存成功！')
+        props.toggleshow()
+        }//把后端通信整合到actioncreator中返回的函数
          
-      };
     
       const onFinishFailed = errorInfo => {
         message.error('格式错误！')
