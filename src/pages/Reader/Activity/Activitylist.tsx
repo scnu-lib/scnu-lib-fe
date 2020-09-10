@@ -23,7 +23,6 @@ function Activitylist() {
     }
     useEffect(()=>{
     getPage()
-    console.log(listData)
 },[])
 
     return (

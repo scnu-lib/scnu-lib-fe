@@ -7,8 +7,9 @@ import userReducer,{changeUserinfo} from '../reducers/userReducer'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import {getnotifyApi} from '../Services/auth'
 import { getUserID } from '@/Utils/auth';
+import unhandleRejection from '../robustness/unhandleRejection'
 const store = createStore(userReducer,composeWithDevTools())
-
+unhandleRejection()
 console.log(store.getState())
 store.subscribe(()=>console.log(store.getState()))
 

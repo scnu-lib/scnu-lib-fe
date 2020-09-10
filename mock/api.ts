@@ -14,6 +14,7 @@ export default{
         console.log(req)
         res.status(200).json([ {"id": 0,
         "title": "阅读马拉松",
+        "src":"https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
         "startTime": "2020-08-27",
         "endTime": "2020-08-27",
         "signUpDeadline": "2020-08-27",
@@ -24,6 +25,7 @@ export default{
           "string"
         ]}, {"id": 1,
         "title": "阅读马拉松",
+        "src":"https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
         "startTime": "2020-08-27",
         "endTime": "2020-08-27",
         "signUpDeadline": "2020-08-27",
@@ -34,6 +36,7 @@ export default{
           "string"
         ]}, {"id": 2,
         "title": "阅读马拉松",
+        "src":"https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
         "startTime": "2020-08-27",
         "endTime": "2020-08-27",
         "signUpDeadline": "2020-08-27",
@@ -44,6 +47,7 @@ export default{
           "string"
         ]}, {"id": 3,
         "title": "阅读马拉松",
+        "src":"https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
         "startTime": "2020-08-27",
         "endTime": "2020-08-27",
         "signUpDeadline": "2020-08-27",
@@ -54,6 +58,18 @@ export default{
           "string"
         ]},{"id": 4,
         "title": "阅读马拉松",
+        "src":"https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
+        "startTime": "2020-08-27",
+        "endTime": "2020-08-27",
+        "signUpDeadline": "2020-08-27",
+        "maxParticipant": 40,
+        "currentParticipant": 3,
+        "location": "图书馆（石牌）",
+        "labels": [
+          "string"
+        ]},{"id": 5,
+        "title": "阅读马拉松",
+        "src":"https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png",
         "startTime": "2020-08-27",
         "endTime": "2020-08-27",
         "signUpDeadline": "2020-08-27",

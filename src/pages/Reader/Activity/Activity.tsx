@@ -45,7 +45,7 @@ function Activity(props:any) {
             <span>近期活动</span>
             <Space className='recent-map' >
              {recent.map(note=>(
-                 <Card  className='note-Card'>
+                 <Card  className='note-Card' key={`${note.id}Card`}>
             <Link key={`${note.id}Link`} to={`/home/activitydetail/${note.id}`}><img src={note.src} key={note.id} alt={note.title} style={{width:'100%',height:'80%',objectFit:'cover'}}
             ></img>
                 <div className='note-title' style={{textAlign:'center'}}>{note.title}</div>
