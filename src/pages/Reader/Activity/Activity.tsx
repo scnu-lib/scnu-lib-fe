@@ -3,6 +3,8 @@ import { Carousel,message,Card,Space} from 'antd';
 import { listactApi } from '@/Services/activity';
 import {Link} from 'umi'
 import './Activity.css'
+import {useDispatch,useSelector} from 'react-redux'
+import {initList} from '../../../reducers/actReducer'
 //活动列表页
 let d = new Date()
 const recentlist = [{src:'https://img9.doubanio.com/view/photo/l/public/p1188029166.webp',id:'1',title:'傲慢与偏见',date:'2020.08.26~08.29'},
@@ -14,21 +16,25 @@ const recentlist = [{src:'https://img9.doubanio.com/view/photo/l/public/p1188029
 
 const contentStyle = [{
     id:1,
-    src:'http://pic.netbian.com/uploads/allimg/190222/203541-15508389415b13.jpg'
+    src:'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
   },{
     id:2,
-    src:'http://pic.netbian.com/uploads/allimg/170826/164902-15037373421e3a.jpg'
+    src:'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
   },{
     id:3,
-    src:'http://pic.netbian.com/uploads/allimg/170309/152836-14890445161bf2.jpg'
+    src:'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
   }];
 
  
 function Activity(props:any) {
-    const [recent,setRecent] = useState([{src:'111',id:'222'}])
-    const getrecentAct = async () =>{//把最近的活动拿到，暂时通过标签确定最近,只需要三个
-        const res = await listactApi('recent',0,3);
-        setRecent(res.data)
+    const recent = useSelector(state=>state.act)
+    const dispatch = useDispatch()
+    const getrecentAct =  () =>{//把最近的活动拿到，暂时通过标签确定最近,只需要三个
+        try{
+        dispatch(initList('recent',0,3))}
+        catch(err){
+            console.log(err)
+        }
     }
     useEffect(()=>{
         getrecentAct()

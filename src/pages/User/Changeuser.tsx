@@ -7,7 +7,7 @@ import { getUserID } from '@/Utils/auth';
 import {useDispatch,useSelector} from 'react-redux'
 import {changeUserinfo} from '../../reducers/userReducer'
 const Changeuser=(props:any) => {
-    const userinfo = useSelector(state=>state)
+    const userinfo = useSelector(state=>state.user)
     const dispatch = useDispatch()
     const changenotify = (values:object) => {
             dispatch(changeUserinfo(values.wechat,values.email))

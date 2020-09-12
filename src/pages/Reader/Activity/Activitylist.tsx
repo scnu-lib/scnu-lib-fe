@@ -1,25 +1,15 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect} from 'react'
 import { Card, List, Avatar, Space,Button} from 'antd';
-import { listactApi } from '@/Services/activity';
+import {useDispatch,useSelector} from 'react-redux'
+import {initList} from '../../../reducers/actReducer'
 import { Link } from 'umi';
 
 function Activitylist() {
-    const [listData,setListData] = useState([{
-        "id": 0,
-        "title": "string",
-        "startTime": "2020-08-27T06:38:14.739Z",
-        "endTime": "2020-08-27T06:38:14.739Z",
-        "signUpDeadline": "2020-08-27T06:38:14.739Z",
-        "maxParticipant": 0,
-        "currentParticipant": 0,
-        "location": "string",
-        "labels": [
-          "string"
-        ]
-    }])
-    const getPage = async (label='text',page=0,size=3) =>{
-        const res = await listactApi(label,page,size);
-        setListData(res.data)
+    const listData = useSelector(state=>state.act)
+    const dispatch = useDispatch()
+    const getPage = (label='text',page=0,size=4) =>{
+        dispatch(initList(label,page,size))
+        
     }
     useEffect(()=>{
     getPage()
@@ -33,7 +23,7 @@ function Activitylist() {
     pagination={{
       onChange: page => {
         console.log(page);
-        getPage('text',page,4)
+        getPage('text',page)
       },
       pageSize: 4,
     }}

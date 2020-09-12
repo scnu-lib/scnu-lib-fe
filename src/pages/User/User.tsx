@@ -11,7 +11,7 @@ import Changeuser from './Changeuser';
 
 const User = (props:any) => {
     const [showchange,setShowchange] = useState(false)//显示修改或者是展示模式，由于只涉及到这个组件，暂时用usestate来管理
-    const userinfo = useSelector(state=>state)//store显示
+    const userinfo = useSelector(state=>state.user)//store显示
     const dispatch = useDispatch()
     const getall = async () =>{
         const res = await getnotifyApi(getUserID())
