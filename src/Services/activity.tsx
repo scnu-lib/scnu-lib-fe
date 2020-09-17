@@ -5,8 +5,8 @@ export const listactApi = (label:string,page:number=0,size:number = 20) =>{
     return get(`${serverUrl}/activity/activities`,{label,page,size})
 }
 
-export const createactApi = (title:string,startTime:Date,endTime:Date,signUpDeadline:Date,maxParticipant:number,location:string,labels:[],details:object) =>{
-    return post(`${serverUrl}/activity/activities`,{title,startTime,endTime,signUpDeadline,maxParticipant,location,labels,details})
+export const createactApi = (act:object) =>{
+    return post(`${serverUrl}/activity/activities`,{...act})
 }
 
 export const detailApi = (activityID:number) =>{
@@ -21,3 +21,6 @@ export const actsignupApi = (activityID:number,userID:number) =>{
     return put(`${serverUrl}/activity/activities/${activityID}/sign-up/${userID}`,{activityID,userID})
 }
 
+export const volsignupApi = (activityID:number,userID:number,state:string,reason:string) =>{
+    return put(`${serverUrl}/activity/activities/${activityID}/volunteer-application/${userID}`,)
+}

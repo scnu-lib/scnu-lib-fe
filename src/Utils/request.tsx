@@ -30,7 +30,7 @@ instance.interceptors.response.use(function (response) {
   });
 
 export const get = (url:string,params:object) => {
-    const config = {params:{...params}}
+    const config = {params}
     return instance.get(url,
         config
     )
@@ -42,8 +42,7 @@ export const post =(url:string,data:object) => {
 
 export const put = (url:string,params:any=undefined,data:any = undefined) => {
     const config = {
-      params:{...params},
-     
+      params,
     } 
     return instance.put(url,config,data)
 }

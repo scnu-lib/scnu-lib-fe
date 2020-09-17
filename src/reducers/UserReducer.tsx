@@ -9,12 +9,18 @@ const userReducer = (state:object = {wechat:{wxid:'123'},email:{address:'123@qq.
 
 export const changeUserinfo =  (wxid:string,address:string) => {
     return async dispatch => {
+        try{
         const res = await changenotifyApi(getUserID(),wxid,address)
+        console.log(res)
         dispatch({
         type:'CHANGE_USERINFO',
         data:{
             wechat:{wxid:res.data.wechat.wxid},email:{address:res.data.email.address}
         }})
+    }
+    catch(err){
+        console.log(err)
+    }
     }
 
     

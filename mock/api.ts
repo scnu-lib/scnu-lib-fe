@@ -120,17 +120,32 @@ export default{
     res.setHeader('Access-Control-Allow-Origin', '*');
     console.log(req)
     res.status(200).json({
-      "userID": req.params.id,
+      "userID": 1,
       "wechat": {
         "enabled": true,
-        "wxid": req.data.wechat.wxid
+        "wxid": 2
       },
       "email": {
         "enabled": true,
-        "address": req.data.email.address
+        "address": 3
       }
     }
     )
+  },
+  'POST /activity/activities':(req:any,res:any)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(200).json({
+      "id": 0,
+      "title": "string",
+      "startTime": "2020-10-06T03:20:10.926Z",
+      "endTime": "2020-10-06T03:20:10.926Z",
+      "signUpDeadline": "2020-10-06T03:20:10.926Z",
+      "maxParticipant": 0,
+      "location": "string",
+      "labels": [
+        "string"
+      ]
+    }
+    )
   }
-  
 }
