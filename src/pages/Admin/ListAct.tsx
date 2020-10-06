@@ -1,16 +1,18 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { Card, Table, Button, Popconfirm } from 'antd';
+import {useDispatch,useSelector} from 'react-redux'
+import { initList } from '@/reducers/actReducer';
 //活动列表
 
-const dataSource = [
-  {
-    id: 1,
-    age: '香皂',
-    time: 5,
-  },
-];
-
 function ListAct(props: any) {
+  const dataSource = useSelector(store=>store.act)
+  const dispatch = useDispatch()
+  const getAct = (page:number = 0)=>{
+    dispatch(initList('all',page,20))
+  }
+  useEffect(()=>{
+    getAct()
+  },[])
   const columns = [
     {
       title: '活动id',
@@ -19,11 +21,11 @@ function ListAct(props: any) {
     },
     {
       title: '活动标题',
-      dataIndex: 'age',
+      dataIndex: 'title',
     },
     {
       title: '活动时间',
-      dataIndex: 'time',
+      dataIndex: 'startTime',
     },
     {
       title: '操作',
