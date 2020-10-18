@@ -6,7 +6,8 @@
     "postinstall": "umi generate tmp",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
-    "test:coverage": "umi-test --coverage"
+    "test:coverage": "umi-test --coverage",
+    "eslint":"eslint ."
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
@@ -37,6 +38,9 @@
     "yorkie": "^2.0.0"
   },
   "devDependencies": {
+    "eslint-plugin-jest": "^24.1.0",
+    "@umijs/fabric": "^2.2.2",
     "redux-devtools-extension": "^2.13.8"
   }
+
 }
