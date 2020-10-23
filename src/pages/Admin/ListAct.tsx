@@ -13,6 +13,7 @@ function ListAct(props: any) {
   useEffect(()=>{
     getAct()
   },[])
+
   const columns = [
     {
       title: '活动id',
@@ -28,12 +29,20 @@ function ListAct(props: any) {
       dataIndex: 'startTime',
     },
     {
+      title: '报名人数',
+      dataIndex: 'currentParticipant',
+    },
+    {
+      title: '最大报名人数',
+      dataIndex: 'maxParticipant',
+    },
+    {
       title: '操作',
       render: (txt: any, record: any, index: any) => {
+
         return (
           <>
-            <Button size="small">查看已报名学生</Button>
-            <Button style={{ margin: '0 1rem' }} type="primary" size="small">
+            <Button style={{ margin: '0 1rem' }} type="primary" size="small" onClick={()=>{props.history.push(`/home/adminAct/createact/${txt.id}`)}}> 
               修改
             </Button>
             <Popconfirm

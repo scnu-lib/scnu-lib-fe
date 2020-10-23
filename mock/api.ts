@@ -147,5 +147,21 @@ export default{
       ]
     }
     )
+  },
+  'PUT /activity/activities/:id':(req:any,res:any)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(200).json({
+      "id": 0,
+      "title": "string",
+      "startTime": "2020-10-06T03:20:10.926Z",
+      "endTime": "2020-10-06T03:20:10.926Z",
+      "signUpDeadline": "2020-10-06T03:20:10.926Z",
+      "maxParticipant": 0,
+      "location": "string",
+      "labels": [
+        "string"
+      ]
+    }
+    )
   }
 }
