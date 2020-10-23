@@ -163,5 +163,16 @@ export default{
       ]
     }
     )
+  },
+  'GET /account/accounts/':(req:any,res:any)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(200).json({
+      "id": 0,
+      "username": "string",
+      "role":[
+        "ROLE_USER"
+      ]
+    }
+    )
   }
 }

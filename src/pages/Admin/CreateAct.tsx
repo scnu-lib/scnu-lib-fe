@@ -30,8 +30,9 @@ function CreateAct(props: any) {
   useEffect(()=>{getAct()},[])
   let act = {
   }//只用做初始化，可以用let就行
-  if(!props.location.pathname.slice(25) === false){
-    act = useSelector(store=>store.act[initId]) || {}//存储有、无活动内容 刷新后store就又没了。。。
+  act = useSelector(store=>store.act[initId]) //存储有、无活动内容 刷新后store就又没了。。。
+  if(!props.location.pathname.slice(25) === true){
+    act = {}//不要在条件循环里面调用hook，不然可能会顺序错误
   }
   
 
