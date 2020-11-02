@@ -4,7 +4,7 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  //hash:true,
+  // hash:true,
   history: { type: 'hash' },
   routes: [
     { exact: true, path: '/', redirect: '/home' },
@@ -12,7 +12,7 @@ export default defineConfig({
       path: '/home',
       component: '@/pages/index',
       routes: [
-        //子路由页面通过props.children传递
+        // 子路由页面通过props.children传递
         {
           path: '/home/',
           redirect: '/home/activity',
@@ -43,13 +43,13 @@ export default defineConfig({
           title: '已报名活动',
           component: '@/pages/Reader/Activity/RegisteredAct',
           exact: true,
-          isShow: isLogined() && !isadmin, //不是管理员才显示，管理员不能报名，只能浏览活动
+          isShow: 1 // isLogined() && !isadmin, //不是管理员才显示，管理员不能报名，只能浏览活动
         },
         {
           path: '/home/adminAct',
           title: '活动管理',
           component: '@/pages/Admin/AdminAct',
-          isShow: isadmin, //管理员才显示
+          isShow: isadmin, // 管理员才显示
           exact: false,
           routes: [
             {
@@ -79,7 +79,7 @@ export default defineConfig({
           path: '/home/adminUser',
           title: '用户管理',
           component: '@/pages/Admin/AdminUser',
-          isShow: isadmin, //管理员才显示
+          isShow: isadmin, // 管理员才显示
           exact: false,
           routes: [
             {

@@ -18,7 +18,7 @@ function ListAct(props: any) {
     {
       title: '活动id',
       dataIndex: 'id',
-      key: 'id',
+      key: '_id',
     },
     {
       title: '活动标题',

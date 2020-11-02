@@ -1,1 +1,1 @@
-export const serverUrl = '' //服务器地址
+export const serverUrl = ''// 'https://lib.scnu.life' //服务器地址

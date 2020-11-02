@@ -1,5 +1,6 @@
 
 export default{
+
     'POST /account/login':(req:any,res:any)=>{
         res.setHeader('Access-Control-Allow-Origin', '*');
         res.status(200).json({jwt:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ'})
@@ -82,6 +83,7 @@ export default{
         {src:'https://img3.doubanio.com/view/photo/l/public/p1910907590.webp',id:'2',title:'the godfather'},
         {src:'https://img3.doubanio.com/view/photo/l/public/p462657443.webp',id:'3',title:'the dark knight'}])*/
     },
+
     'GET /activity/activities/:id':(req:any,res:any)=>{
         res.setHeader('Access-Control-Allow-Origin', '*');
         console.log(req)
@@ -166,7 +168,8 @@ export default{
   },
   'GET /account/accounts/':(req:any,res:any)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.status(200).json({
+    console.log(req)
+    res.status(202).json({
       "id": 0,
       "username": "string",
       "role":[

@@ -7,7 +7,7 @@ import { DownOutlined } from '@ant-design/icons';
 const { Header, Content, Footer } = Layout;
 function Frame(props:any) {
   const menu = (
-    <Menu onClick={p=>{//下拉菜单几个选项跳转，在home.tsx架设route
+    <Menu onClick={p=>{// 下拉菜单几个选项跳转，在home.tsx架设route
       if(p.key === 'logout')
       {
         clearToken()
@@ -31,9 +31,9 @@ function Frame(props:any) {
       </Menu.Item>
     </Menu>
   );
-  const switchloginuser = ():any =>{//鉴权判断登录框显示
+  const switchloginuser = ():any =>{// 鉴权判断登录框显示
     if(isLogined())
-    {//antd的子组件也不能同时传入多个
+    {// antd的子组件也不能同时传入多个
       return (<Dropdown overlay={menu}>
        <label>
        <Avatar>u</Avatar>username <DownOutlined />
@@ -47,12 +47,12 @@ function Frame(props:any) {
     <Header  >
       <Menu mode="horizontal" defaultSelectedKeys={['1']} style={{width:'50%'}}>
         {activityRoutes.map(route=>{
-            return route.isShow?(<Menu.Item key={route.path} 
-            ><Link to={route.path}>{route.title}</Link></Menu.Item>):null;//根据token判断显示是否登录
+            return route.isShow?(<Menu.Item key={route.path}
+            ><Link to={route.path}>{route.title}</Link></Menu.Item>):null;// 根据token判断显示是否登录
         } )}
-          
+
       </Menu>
-      <div className='sign-in-up' style={{height:'100%'}}> 
+      <div className='sign-in-up' style={{height:'100%'}}>
      {switchloginuser()}
      </div>
     </Header>
@@ -66,4 +66,4 @@ function Frame(props:any) {
 }
 
 export default Frame
-//BUG 刷新后
+// BUG 刷新后
