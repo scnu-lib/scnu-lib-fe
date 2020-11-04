@@ -1,4 +1,3 @@
-
 export default{
 
     'POST /account/login':(req:any,res:any)=>{
@@ -82,7 +81,7 @@ export default{
         ]}])/*json([{src:'https://img9.doubanio.com/view/photo/l/public/p1188029166.webp',id:'1',title:'pride and prejudice'},
         {src:'https://img3.doubanio.com/view/photo/l/public/p1910907590.webp',id:'2',title:'the godfather'},
         {src:'https://img3.doubanio.com/view/photo/l/public/p462657443.webp',id:'3',title:'the dark knight'}])*/
-    },
+     },
 
     'GET /activity/activities/:id':(req:any,res:any)=>{
         res.setHeader('Access-Control-Allow-Origin', '*');

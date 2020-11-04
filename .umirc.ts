@@ -22,20 +22,17 @@ export default defineConfig({
           title: '活动页',
           component: '@/pages/Reader/Activity/Activity',
           exact: true,
-          isShow: true,
         },
         {
           path: '/home/activitydetail/:id',
           title: '活动详情',
           component: '@/pages/Reader/Activity/ActivityDetail',
           exact: true,
-          isShow: false,
         },
         {
           path: '/home/listact',
           title: '活动列表',
           component: '@/pages/Reader/Activity/Activitylist',
-          isShow: !isadmin,
           exact: false,
         },
         {
@@ -43,33 +40,28 @@ export default defineConfig({
           title: '已报名活动',
           component: '@/pages/Reader/Activity/RegisteredAct',
           exact: true,
-          isShow: 1 // isLogined() && !isadmin, //不是管理员才显示，管理员不能报名，只能浏览活动
         },
         {
           path: '/home/adminAct',
           title: '活动管理',
           component: '@/pages/Admin/AdminAct',
-          isShow: isadmin, // 管理员才显示
           exact: false,
           routes: [
             {
               path: '/home/adminAct/createact',
               exact: false,
-              isShow: isadmin,
               title: '创建活动',
               component: '@/pages/Admin/CreateAct',
             },
             {
               path: '/home/adminAct/editact',
               exact: false,
-              isShow: isadmin,
               title: '活动编辑',
               component: '@/pages/Admin/EditAct',
             },
             {
               path: '/home/adminAct/listact',
               exact: false,
-              isShow: isadmin,
               title: '活动列表',
               component: '@/pages/Admin/ListAct',
             },
@@ -79,42 +71,42 @@ export default defineConfig({
           path: '/home/adminUser',
           title: '用户管理',
           component: '@/pages/Admin/AdminUser',
-          isShow: isadmin, // 管理员才显示
           exact: false,
           routes: [
             {
               path: '/home/adminUser/user',
               exact: false,
-              isShow: isadmin,
               title: '用户管理',
               component: '@/pages/Admin/User',
             },
             {
               path: '/home/adminUser/volunteer',
               exact: false,
-              isShow: isadmin,
               title: '志愿者管理',
               component: '@/pages/Admin/Volunteer',
             },
+            {
+              path:'/home/adminUser/usernotices/:id',
+              exact:true,
+              title: '用户联系方式',
+              component:'@/pages/Admin/AdminNotice',
+            }
           ],
         },
         {
           path: '/home/usersetting',
           title: '用户设置',
           component: '@/pages/User/UserSetting',
-          isShow: false,
         },
         {
           path: '/home/user',
           title: '用户中心',
           component: '@/pages/User/User',
-          isShow: false,
         },
         {
           path: '/home/notions',
           title: '通知中心',
           component: '@/pages/Reader/Activity/Notions',
-          isShow: false,
         },
       ],
     },
