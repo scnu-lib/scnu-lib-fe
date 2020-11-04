@@ -20,7 +20,6 @@ const usersettingReducer = (state:any = initstate,action:any)=>{
     }
 }
 export const changeSetting =  (newsetting: object) => {
-
     return async dispatch => {
         try{
         const res = await changesettingApi(newsetting.id,newsetting)

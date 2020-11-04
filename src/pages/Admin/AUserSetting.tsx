@@ -14,14 +14,13 @@ const tailLayout = {
 
 function AUserSetting(props:any) {
     const [form] = Form.useForm();
-    const usersetting = useSelector(store=>store.setting)
+    const usersetting = useSelector(store=>store.usersetting)
     const dispatch = useDispatch()
     useEffect(()=>{
-        dispatch(initSetting(props.match.params.id))
-        console.log(usersetting)
+        dispatch(initSetting(props.match.params.id))// 初始化用户信息
     },[])
     const changeusersetting = (newsetting:object) => {
-        dispatch(changeSetting(newsetting))
+        dispatch(changeSetting(newsetting))// 修改用户信息
     }
     const onFinish = values => {
       changeusersetting(values)
@@ -29,7 +28,7 @@ function AUserSetting(props:any) {
 
     return (
       <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
-        <Form.Item name="id" label="id" rules={[{ required: true }]} initialValue={usersetting.id}>
+        <Form.Item name="id" label="id" rules={[{ required: true }]} initialValue={usersetting.id} >
           <Input />
         </Form.Item>
         <Form.Item name="name" label="用户名" rules={[{ required: true, message:'请填写用户名！' }]} initialValue={usersetting.detail.name}>

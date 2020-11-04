@@ -7,7 +7,7 @@ function AdminNotice(props:any) {
     const userinfo = useSelector(state => state.user);
     const dispatch = useDispatch();
     useEffect(()=>{
-      initUserinfo(props.match.params.id)
+      dispatch(initUserinfo(props.match.params.id))
     },[])
     const changenotify = (values: object) => {
       dispatch(changeUserinfo(values.wechat, values.email, props.match.params.id));
@@ -25,7 +25,6 @@ function AdminNotice(props:any) {
       <div>
         <Form
           name="notify-form"
-          initialValues={{ remember: true }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
