@@ -1,4 +1,4 @@
-//用户管理reducer
+// 用户管理reducer
 import {listuserApi} from '@/Services/admin'
 import userReducer from './userReducer';
 const usermReducer = (state = [],action:object) =>{
@@ -7,12 +7,10 @@ const usermReducer = (state = [],action:object) =>{
         default:return [...state];
     }
 }
-
 export const initUserlist = (page:number = 0,size:number = 20)=>{
     return async dispatch =>{
         try{
         const res = await listuserApi(page,size)
-        console.log(res)
         dispatch({
             type:'INIT_USER',
             data:res.data

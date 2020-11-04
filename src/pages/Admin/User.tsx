@@ -35,7 +35,7 @@ function User(props:any) {
 
         return (
           <>
-            <Button style={{ margin: '0 1rem' }} type="primary" size="small" onClick={()=>{console.log('开发中')}}>
+            <Button style={{ margin: '0 1rem' }} type="primary" size="small" onClick={()=>{props.history.push(`/home/adminUser/userdetails/1`)}}>
               修改
             </Button>
               <Button type="primary"  size="small" onClick={()=>{props.history.push(`/home/adminUser/usernotices/1`)}}>

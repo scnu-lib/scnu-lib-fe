@@ -90,6 +90,12 @@ export default defineConfig({
               exact:true,
               title: '用户联系方式',
               component:'@/pages/Admin/AdminNotice',
+            },
+            {
+              path:'/home/adminUser/userdetails/:id',
+              exact: true,
+              title: '用户详情',
+              component:'@/pages/Admin/AUserSetting',
             }
           ],
         },

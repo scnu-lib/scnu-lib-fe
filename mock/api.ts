@@ -176,5 +176,35 @@ export default{
       ]
     }
     )
+  },
+  'GET /account/accounts/:id':(req:any,res:any)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log(req)
+    res.status(202).json({
+      "id": 0,
+      "username": "string",
+      "password": "string",
+      "detail": {
+        "name": "string"
+      },
+      "role": [
+        "ROLE_USER"
+      ]
+    })
+  },
+  'PUT /account/accounts/:id':(req:any,res:any)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log(req)
+    res.status(202).json({
+      "id": 0,
+      "username": "string",
+      "password": "string",
+      "detail": {
+        "name": "string"
+      },
+      "role": [
+        "ROLE_USER"
+      ]
+    })
   }
 }

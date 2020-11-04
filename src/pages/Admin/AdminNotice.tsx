@@ -1,12 +1,14 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import {  Form, Input, Button, message } from 'antd';
 import '../User/User.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeUserinfo } from '../../reducers/userReducer';
+import { changeUserinfo,initUserinfo } from '../../reducers/userReducer';
 function AdminNotice(props:any) {
-    console.log(props)
     const userinfo = useSelector(state => state.user);
     const dispatch = useDispatch();
+    useEffect(()=>{
+      initUserinfo(props.match.params.id)
+    },[])
     const changenotify = (values: object) => {
       dispatch(changeUserinfo(values.wechat, values.email, props.match.params.id));
     };
