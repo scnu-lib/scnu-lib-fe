@@ -65,6 +65,12 @@ export default defineConfig({
               title: '活动列表',
               component: '@/pages/Admin/ListAct',
             },
+            {
+              path: '/home/adminAct/actParticipants/:id',
+              exact:true,
+              title:'参与用户列表',
+              component:'@/pages/Admin/Actmanage/ActParticipants'
+            }
           ],
         },
         {

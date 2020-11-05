@@ -22,6 +22,7 @@ const validateMessages = {
 
 //创建活动页
 function CreateAct(props: any) {
+  let cardtitle = '修改活动'
   const initId = Number(props.location.pathname.slice(25))//url传参，判断是修改还是创建
   const dispatch = useDispatch()
   const getAct = (page:number = 0)=>{
@@ -33,6 +34,7 @@ function CreateAct(props: any) {
   act = useSelector(store=>store.act[initId]) //存储有、无活动内容 刷新后store就又没了。。。
   if(!props.location.pathname.slice(25) === true){
     act = {}//不要在条件循环里面调用hook，不然可能会顺序错误
+    cardtitle = '创建活动'
   }
   
 
@@ -51,6 +53,7 @@ function CreateAct(props: any) {
     try{
     if(!props.location.pathname.slice(25) === false){
       const res = await changeactApi(+props.location.pathname.slice(25),finalact)
+
       console.log(res)
     }else{
     const res = await createactApi(finalact)
@@ -67,7 +70,7 @@ function CreateAct(props: any) {
 
   
   return (
-    <Card title="创建活动">
+    <Card title={cardtitle}>
       <Form
         {...layout}
         name="nest-messages"

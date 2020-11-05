@@ -21,6 +21,9 @@ export const actsignupApi = (activityID:number,userID:number) =>{
     return put(`${serverUrl}/activity/activities/${activityID}/sign-up/${userID}`,{activityID,userID})
 }
 
+export const actsigninApi = (activityID:number,userID:number) =>{
+    return put(`${serverUrl}/activity/activities/${activityID}/sign-in/${userID}`,{activityID,userID},{userID})
+}
 export const volsignupApi = (activityID:number,userID:number,state:string,reason:string) =>{
     return put(`${serverUrl}/activity/activities/${activityID}/volunteer-application/${userID}`,)
 }

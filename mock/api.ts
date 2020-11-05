@@ -206,5 +206,21 @@ export default{
         "ROLE_USER"
       ]
     })
+  },
+  'GET /activity/activities/:activityID/sign-up':(req:any,res:any)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log(req)
+    res.status(202).json([{
+      "id":0,
+      "name":'456',
+      "role":['ROLE_USER'],
+      "connection":'123456',
+      "volunteer":true,
+    }])
+  },
+  'PUT /activity/activities/:acitivityID/sign-in/:userID':(req:any,res:any)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log(req)
+    res.status(200).json({'status':'ok'})
   }
 }
