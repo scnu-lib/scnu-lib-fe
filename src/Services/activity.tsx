@@ -1,4 +1,4 @@
-import { get, post, put } from '@/Utils/request'
+import { del, get, post, put } from '@/Utils/request'
 import { serverUrl } from '@/Utils/config'
 
 export const listactApi = (label:string,page:number=0,size:number = 20) =>{
@@ -24,6 +24,9 @@ export const actsignupApi = (activityID:number,userID:number) =>{
 export const actsigninApi = (activityID:number,userID:number) =>{
     return put(`${serverUrl}/activity/activities/${activityID}/sign-in/${userID}`,{activityID,userID},{userID})
 }
-export const volsignupApi = (activityID:number,userID:number,state:string,reason:string) =>{
-    return put(`${serverUrl}/activity/activities/${activityID}/volunteer-application/${userID}`,)
+export const volsignupApi = (activityID:number,userID:number) =>{
+    return put(`${serverUrl}/activity/activities/${activityID}/volunteer/${userID}`,{activityID,userID})
+}
+export const delvolApi = (activityID:number,userID:number)=>{
+    return del(`${serverUrl}/activity/activities/${activityID}/volunteer/${userID}`,{activityID,userID})
 }

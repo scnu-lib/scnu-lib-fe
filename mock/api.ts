@@ -216,11 +216,25 @@ export default{
       "role":['ROLE_USER'],
       "connection":'123456',
       "volunteer":true,
+    },{
+      "id":1,
+      "name":'456',
+      "role":['ROLE_USER'],
+      "connection":'123456',
+      "volunteer":false,
     }])
   },
   'PUT /activity/activities/:acitivityID/sign-in/:userID':(req:any,res:any)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
     console.log(req)
     res.status(200).json({'status':'ok'})
-  }
+  },
+  'PUT /activity/activities/:activityID/volunteer/:userID':(req:any,res:any)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(200).json({'id':1})
+  },
+  'DELETE /activity/activities/:activityID/volunteer/:userID':(req:any,res:any)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.status(200).json({'id':1})
+  },
 }
