@@ -237,4 +237,9 @@ export default{
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(200).json({'id':1})
   },
+  'PUT /activity/activities/:activityID/sign-up/:userID':(req:any,res:any)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log(req)
+    res.status(200).json({'status':'ok'})
+  }
 }

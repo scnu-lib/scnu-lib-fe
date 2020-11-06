@@ -1,5 +1,5 @@
 import { del, get, post, put } from '@/Utils/request'
-import { serverUrl } from '@/Utils/config'
+import { serverUrl,VolunteerApplicationState } from '@/Utils/config'
 
 export const listactApi = (label:string,page:number=0,size:number = 20) =>{
     return get(`${serverUrl}/activity/activities`,{label,page,size})
@@ -29,4 +29,8 @@ export const volsignupApi = (activityID:number,userID:number) =>{
 }
 export const delvolApi = (activityID:number,userID:number)=>{
     return del(`${serverUrl}/activity/activities/${activityID}/volunteer/${userID}`,{activityID,userID})
+}
+
+export const uservolsignupApi = (activityID:number,userID:number,state:VolunteerApplicationState,reason:string)=>{
+    return put(`${serverUrl}/activity/activities/${activityID}/volunteer-application/${userID}`,{state,reason})
 }

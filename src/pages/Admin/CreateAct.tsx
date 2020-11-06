@@ -1,9 +1,9 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect} from 'react';
 import { Form, Card, Input, Button, InputNumber,DatePicker, Space,TimePicker, message  } from 'antd';
 import moment from 'moment';
 import { createactApi,changeactApi } from '@/Services/activity';
 import {useSelector,useDispatch} from 'react-redux'
-import { initList } from '@/reducers/actReducer';
+import { initActDetail } from '@/reducers/actDetailReducer';
 const { RangePicker } = DatePicker;
 const layout = {
   labelCol: { span: 8 },
@@ -26,7 +26,7 @@ function CreateAct(props: any) {
   const initId = Number(props.location.pathname.slice(25))//url传参，判断是修改还是创建
   const dispatch = useDispatch()
   const getAct = (page:number = 0)=>{
-    dispatch(initList('all',page,20))
+    dispatch(initActDetail(props.match.params.id))
   }
   useEffect(()=>{getAct()},[])
   let act = {
