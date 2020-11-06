@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import { Card, Table, Button, Popconfirm,Tag,Space} from 'antd';
+import { Card, Table, Button, Popconfirm,Tag,Space, message} from 'antd';
 import {useDispatch,useSelector} from 'react-redux'
 import {delvol, initParticipants, signinvol} from '@/reducers/actParticipantsReducer'
 import { actsigninApi } from '@/Services/activity';
@@ -7,18 +7,18 @@ function ActParticipants(props:any) {
     const handlesignup =  async (record:object) => {//确认签到
         try{
             const res = await actsigninApi(props.match.params.id,record.id)
-            console.log(res)
+            message.success('签到成功！')
         }catch(err){
             console.log(err)
+            message.error('签到失败！')
         }
     }
     const handlevolsignup =  async (record:object) => {//志愿者报名
         dispatch(signinvol(props.match.params.id,record.id))
-       console.log(dataSource)
+        
     }
     const handledelvol =  async (record:object) => {//志愿者取消
         dispatch(delvol(props.match.params.id,record.id))
-       console.log(dataSource)
     }
     const dataSource = useSelector(store=>store.actParticipants)
     const dispatch = useDispatch()
@@ -69,7 +69,7 @@ function ActParticipants(props:any) {
           return (
             <>
                 <Space>
-                <Button type="primary" size="small" onClick={()=>handlevolsignup(record)}>
+                <Button type="primary" size="small" onClick={()=>{record.volunteer?handledelvol(record):handlevolsignup(record)}}>
                     {' '}
                     {record.volunteer?'取消志愿者':'报名志愿者'}
                 </Button>

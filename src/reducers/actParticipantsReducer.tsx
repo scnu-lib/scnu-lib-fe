@@ -1,5 +1,6 @@
-import { volsignupApi } from '@/Services/activity';
+import { delvolApi, volsignupApi } from '@/Services/activity';
 import {listactParticipantsApi} from '@/Services/admin'
+import {message} from 'antd'
 const initState = [{
     id:0,
     name:'456',
@@ -28,22 +29,26 @@ export const signinvol = (activityID:number,userID:number)=>{
                 type:'SIGNIN_VOLUNTEER',
                 data:res.data.id
             })
+            message.success('报名成功！')
         }catch(err){
             console.log(err)
+            message.error('报名失败！')
         }
+
     }
 }
 export const delvol = (activityID:number,userID:number)=>{
     return async dispatch => {
         try{
-            const res = await delvol(activityID,userID)
-
+            const res = await delvolApi(activityID,userID)
             dispatch({
                 type:'DELETE_VOLUNTEER',
                 data:res.data.id
             })
+            message.success('删除成功！')
         }catch(err){
             console.log(err)
+            message.error('删除失败！')
         }
     }
 }
