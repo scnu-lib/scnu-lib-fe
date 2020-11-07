@@ -31,6 +31,6 @@ export const delvolApi = (activityID:number,userID:number)=>{
     return del(`${serverUrl}/activity/activities/${activityID}/volunteer/${userID}`,{activityID,userID})
 }
 
-export const uservolsignupApi = (activityID:number,userID:number,state:VolunteerApplicationState,reason:string)=>{
+export const uservolsignupApi = (activityID:number,userID:number,state:VolunteerApplicationState,reason:string='null')=>{
     return put(`${serverUrl}/activity/activities/${activityID}/volunteer-application/${userID}`,{state,reason})
 }

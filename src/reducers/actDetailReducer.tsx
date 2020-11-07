@@ -21,7 +21,7 @@ const actDetailReducer = (state:any = initState,action:object) => {
         default:return state;
     }
 }
-export const changeActDetail = (activityID:number,)
+
 export const initActDetail = (activityID:number) => {
     return async dispatch => {
         try{

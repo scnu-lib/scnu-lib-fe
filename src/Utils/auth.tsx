@@ -37,4 +37,4 @@ export const clearUserID = (): any => {
 /*export const isLogined = () => {
   return true;
 };*/
-export const isadmin = true; // 暂时用来区分是否为管理员
+export const isadmin = false; // 暂时用来区分是否为管理员
