@@ -1,4 +1,4 @@
-export const serverUrl = 'https://lib.scnu.life'// 'https://lib.scnu.life' //服务器地址
+export const serverUrl = ''// 'https://lib.scnu.life' //服务器地址
 export enum VolunteerApplicationState {
     applied = 'APPLIED',
     accepted = 'ACCEPTED',

@@ -212,16 +212,8 @@ export default{
     console.log(req)
     res.status(202).json([{
       "id":0,
-      "name":'456',
-      "role":['ROLE_USER'],
-      "connection":'123456',
-      "volunteer":true,
     },{
       "id":1,
-      "name":'456',
-      "role":['ROLE_USER'],
-      "connection":'123456',
-      "volunteer":false,
     }])
   },
   'PUT /activity/activities/:acitivityID/sign-in/:userID':(req:any,res:any)=>{
@@ -241,5 +233,22 @@ export default{
     res.setHeader('Access-Control-Allow-Origin', '*');
     console.log(req)
     res.status(200).json({'status':'ok'})
+  },
+  'GET /activity/activities/:activityID/volunteer-application':(req:any,res:any)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log(req)
+    res.status(200).json([
+      {
+        "activityID": 0,
+        "userID": 0,
+        "state": "APPLIED",
+        "reason": "string"
+      },{
+        "activityID": 0,
+        "userID": 1,
+        "state": "APPLIED",
+        "reason": "string"
+      },
+    ])
   }
 }

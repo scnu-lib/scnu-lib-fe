@@ -28,7 +28,7 @@ export const changenotifyApi = (userID:string,wechat:string,email:string) => {
 
 export const changesettingApi = (userID:string,newsetting:object) => {
     return put(`${serverUrl}/account/accounts/${userID}`,{userID},newsetting)
-}//url是url,params是params，两个都要看，传参都是string不然会报错
+}// url是url,params是params，两个都要看，传参都是string不然会报错
 
 export const getsettingApi = (userID:string) => {
     return get(`${serverUrl}/account/accounts/${userID}`,{userID})

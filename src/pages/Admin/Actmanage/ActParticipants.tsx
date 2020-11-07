@@ -3,6 +3,7 @@ import { Card, Table, Button, Popconfirm,Tag,Space, message} from 'antd';
 import {useDispatch,useSelector} from 'react-redux'
 import {delvol, initParticipants, signinvol} from '@/reducers/actParticipantsReducer'
 import { actsigninApi } from '@/Services/activity';
+import { VolunteerApplicationState } from '@/Utils/config';
 function ActParticipants(props:any) {
     const handlesignup =  async (record:object) => {//确认签到
         try{
@@ -13,6 +14,7 @@ function ActParticipants(props:any) {
             message.error('签到失败！')
         }
     }
+    const handlevolreject = () => {}
     const handlevolsignup =  async (record:object) => {//志愿者报名
         dispatch(signinvol(props.match.params.id,record.id))
         
@@ -24,9 +26,11 @@ function ActParticipants(props:any) {
     const dispatch = useDispatch()
     const getParticipants = (activityID:string,pages:number = 0,size:number = 20)=>{
       dispatch(initParticipants(activityID,pages,size))
+      
     }
     useEffect(()=>{
       getParticipants(props.match.params.id)
+      console.log(dataSource)
     },[])
 
     const columns = [
@@ -47,13 +51,17 @@ function ActParticipants(props:any) {
       },
       {
         title: '是否为志愿者',
-        dataIndex: 'volunteer',
-        key:'volunteer',
-        render: (txt:boolean,record: any, index: any) => {
-            let color = txt ?'green':'geekblue';
-            return( 
-            <Tag color={color} key={index}>{txt?'是':'否'}</Tag>
-            )
+        dataIndex: 'state',
+        key:'state',
+        render: (txt:VolunteerApplicationState,record: any, index: any) => {
+            let color;
+            switch(txt){
+              case VolunteerApplicationState.accepted:color = 'green';return(<Tag color={color} key={txt}>通过</Tag>)
+              case VolunteerApplicationState.rejected:color = 'red';return(<Tag color={color} key={txt}>不通过</Tag>)
+              case VolunteerApplicationState.applied:color = 'geekblue';return(<Tag color={color} key={txt}>审核中</Tag>)
+              default:return;
+            }
+
         }
       },
       {
@@ -62,33 +70,31 @@ function ActParticipants(props:any) {
         key:'connnection'
       },
       {
-        title: '操作',
-        key:'action',
+        title: '志愿者申请',
+        key:'volaction',
         render: (txt: any, record: any, index: any) => {
-//回调函数再调用一次函数就可以使用作用域链上的变量
+          console.log(record)
+          switch(record.state){
+            case VolunteerApplicationState.accepted:return(<Button type="primary" size="small" key={txt} onClick={()=>{handledelvol(record)}}>取消志愿者</Button>)
+            case VolunteerApplicationState.rejected:return(<Button  type="primary" size="small" key={txt} onClick={()=>{handlevolsignup(record)}}>通过申请</Button>)
+            case VolunteerApplicationState.applied:return(<><Button  type="primary" size="small" key={txt} onClick={()=>{handlevolsignup(record)}}>通过申请</Button> <Button type="primary" size="small"  key={txt} onClick={()=>{handlevolreject(record)}}>拒绝申请</Button></>)
+            default:return;
+        }
+      }
+    }
+    , {
+      title: '签到',
+      key:'signaction',
+      render: (txt: any, record: any, index: any) => {
           return (
             <>
                 <Space>
-                <Button type="primary" size="small" onClick={()=>{record.volunteer?handledelvol(record):handlevolsignup(record)}}>
-                    {' '}
-                    {record.volunteer?'取消志愿者':'报名志愿者'}
-                </Button>
+                 
                 <Button type="primary" size="small" onClick={()=>handlesignup(record)}>
                     {' '}
                     签到
                 </Button>
-              <Popconfirm
-                title="确定删除此项？"
-                onCancel={() => console.log('用户取消删除')}
-                onConfirm={
-                  () => console.log('用户确认删除') // 此处调用api接口进行操作
-                }
-              >
-                <Button type="primary" danger size="small">
-                  {' '}
-                  删除
-                </Button>
-              </Popconfirm>
+             
               </Space>
             </>
           );
