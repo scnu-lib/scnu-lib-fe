@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react';
 import { Card, Table, Button, Popconfirm,Tag,Space, message} from 'antd';
 import {useDispatch,useSelector} from 'react-redux'
-import {delvol, initParticipants, signinvol} from '@/reducers/actParticipantsReducer'
+import {delvol, initParticipants, rejectvol, signinvol} from '@/reducers/actParticipantsReducer'
 import { actsigninApi } from '@/Services/activity';
 import { VolunteerApplicationState } from '@/Utils/config';
 function ActParticipants(props:any) {
@@ -14,7 +14,9 @@ function ActParticipants(props:any) {
             message.error('签到失败！')
         }
     }
-    const handlevolreject = () => {}
+    const handlevolreject = async (record:object) => {//拒绝志愿者
+      dispatch(rejectvol(props.match.params.id,record.id))
+    }
     const handlevolsignup =  async (record:object) => {//志愿者报名
         dispatch(signinvol(props.match.params.id,record.id))
         
@@ -73,11 +75,10 @@ function ActParticipants(props:any) {
         title: '志愿者申请',
         key:'volaction',
         render: (txt: any, record: any, index: any) => {
-          console.log(record)
           switch(record.state){
-            case VolunteerApplicationState.accepted:return(<Button type="primary" size="small" key={txt} onClick={()=>{handledelvol(record)}}>取消志愿者</Button>)
-            case VolunteerApplicationState.rejected:return(<Button  type="primary" size="small" key={txt} onClick={()=>{handlevolsignup(record)}}>通过申请</Button>)
-            case VolunteerApplicationState.applied:return(<><Button  type="primary" size="small" key={txt} onClick={()=>{handlevolsignup(record)}}>通过申请</Button> <Button type="primary" size="small"  key={txt} onClick={()=>{handlevolreject(record)}}>拒绝申请</Button></>)
+            case VolunteerApplicationState.accepted:return(<Button type="primary" size="small"  key='取消志愿者'onClick={()=>{handledelvol(record)}}>取消志愿者</Button>)
+            case VolunteerApplicationState.rejected:return(<Button  type="primary" size="small"  key='通过申请' onClick={()=>{handlevolsignup(record)}}>通过申请</Button>)
+            case VolunteerApplicationState.applied:return(<><Button  type="primary" size="small"  key='通过申请' onClick={()=>{handlevolsignup(record)}}>通过申请</Button> <Button type="primary" size="small" key='拒绝申请' onClick={()=>{handlevolreject(record)}}>拒绝申请</Button></>)
             default:return;
         }
       }

@@ -24,9 +24,7 @@ export const actsignupApi = (activityID:number,userID:number) =>{
 export const actsigninApi = (activityID:number,userID:number) =>{
     return put(`${serverUrl}/activity/activities/${activityID}/sign-in/${userID}`,{activityID,userID},{userID})
 }
-export const volsignupApi = (activityID:number,userID:number) =>{
-    return put(`${serverUrl}/activity/activities/${activityID}/volunteer/${userID}`,{activityID,userID})
-}
+
 export const delvolApi = (activityID:number,userID:number)=>{
     return del(`${serverUrl}/activity/activities/${activityID}/volunteer/${userID}`,{activityID,userID})
 }

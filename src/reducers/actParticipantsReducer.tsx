@@ -1,4 +1,4 @@
-import { delvolApi, volsignupApi } from '@/Services/activity';
+import { delvolApi, uservolsignupApi, volsignupApi } from '@/Services/activity';
 import {listactParticipantsApi,listactvolappliesApi} from '@/Services/admin'
 import {getnotifyApi,getsettingApi} from '@/Services/auth'
 import { VolunteerApplicationState } from '@/Utils/config';
@@ -11,19 +11,38 @@ const actParticipantsReducer = (state:any = initState,action:any) => {
         case 'ADD_PARTICIPANT':return [...state,action.data]
         case 'SIGNIN_VOLUNTEER':
         return state.map(p =>
-            p.id === action.data?{...p,volunteer:!p.volunteer}:p)// 申请为志愿者，先put到后端，然后获取相关id，修改前端的state，使用数组map遍历
+            p.id === action.data?{...p,state:VolunteerApplicationState.accepted}:p)// 申请为志愿者，先put到后端，然后获取相关id，修改前端的state，使用数组map遍历
         case 'DELETE_VOLUNTEER':
         return state.filter(p => p.id !== action.data)
+        case 'REJECT_VOLUNTEER':
+        return state.map(p=>p.id === action.data?{...p,state:VolunteerApplicationState.rejected}:p)
         default:return state;
+    }
+}
+export const rejectvol = (activityID:number,userID:number)=>{
+    return async dispatch => {
+        try{
+            const res = await uservolsignupApi(activityID,userID,VolunteerApplicationState.rejected)
+            dispatch({
+                type:'REJECT_VOLUNTEER',
+                data:res.data.userID
+
+            }
+            )
+            message.success('拒绝成功！')
+        }catch(err){
+            console.log(err)
+            message.error('拒绝失败！')
+        }
     }
 }
 export const signinvol = (activityID:number,userID:number)=>{
     return async dispatch => {
         try{
-            const res = await volsignupApi(activityID,userID)
+            const res = await uservolsignupApi(activityID,userID,VolunteerApplicationState.accepted)
             dispatch({
                 type:'SIGNIN_VOLUNTEER',
-                data:res.data.id
+                data:res.data.userID
             })
             message.success('报名成功！')
         }catch(err){

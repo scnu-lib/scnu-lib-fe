@@ -181,7 +181,7 @@ export default{
     res.setHeader('Access-Control-Allow-Origin', '*');
     console.log(req)
     res.status(202).json({
-      "id": 0,
+      "id": 1,
       "username": "string",
       "password": "string",
       "detail": {
@@ -250,5 +250,17 @@ export default{
         "reason": "string"
       },
     ])
+  },
+  'PUT /activity/activities/:activityID/volunteer-application/:userID':(req:any,res:any)=>{
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log(req)
+    res.status(200).json(
+      {
+        "activityID": 0,
+        "userID": 1,
+        "state": "REJECTED",
+        "reason": "string"
+      }
+    )
   }
 }
