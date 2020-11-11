@@ -41,7 +41,14 @@ export const initSetting = (userID:string) => {
                 data:res.data
             })
         }catch(err){
-            console.log(err)
+            if(err?.response?.status === 404){
+                message.error('用户不存在！');
+            }else if(err?.response?.status === 403){
+                message.error('没有权限！');
+            }
+            else{
+                throw err;
+            }
         }
     }
 }

@@ -34,7 +34,19 @@ export const clearUserID = (): any => {
   return window.localStorage.removeItem('UserID');
 };
 
+export const getRoles = (): any => {
+  return window.localStorage.getItem('roles');
+};
+
+export const setRoles = (roles: string): any => {
+  return window.localStorage.setItem('roles', roles);
+};
+
+export const clearRoles = (): any => {
+  return window.localStorage.removeItem('roles');
+};
+
 /*export const isLogined = () => {
   return true;
 };*/
-export const isadmin = true; // 暂时用来区分是否为管理员
+export const isadmin = getRoles() !== 'ROLES_USER'?true:false; // 暂时用来区分是否为管理员

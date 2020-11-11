@@ -4,3 +4,8 @@ export enum VolunteerApplicationState {
     accepted = 'ACCEPTED',
     rejected = 'REJECTED'
 }
+export enum Roles {
+    user = 'ROLE_USER',
+    librarian = 'ROLE_LIBRARIAN',
+    admin = 'ROLE_ADMIN'
+}

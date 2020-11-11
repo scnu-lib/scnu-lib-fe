@@ -16,6 +16,7 @@ import {
   import { QuestionCircleOutlined } from '@ant-design/icons';
 import {history} from 'umi'
 import { signupApi } from '@/Services/auth';
+import Httperror from '@/error/Httperror';
 //注册页面
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
@@ -50,24 +51,21 @@ function SignUp(props:any) {
               username:values.email,
               password:values.password,
               details:{
-                name:values.name},
+                name:values.nickname},
               
           }
           try{
             const res = await signupApi(user)
-            console.log(res)
-            if(res.status===200)
-            {
             history.push('/login')
             message.success('注册成功！')
-            }
           }
           catch(err){
-            console.log(err.response)
             if(err.response.data.code==='error.account.register.username_exists')
                 message.error('用户名已被使用!')
             else if(err.response.data.code==='error.generic.malformed_request')
                 message.error('格式错误！')
+            else
+                throw err
           }
 
         };
@@ -93,10 +91,6 @@ function SignUp(props:any) {
         form={form}
         name="register"
         onFinish={onFinish}
-        initialValues={{
-          residence: ['zhejiang', 'hangzhou', 'xihu'],
-          prefix: '86',
-        }}
         scrollToFirstError
         style={{margin:'1vw'}}
       >
@@ -110,6 +104,16 @@ function SignUp(props:any) {
         >
         <Input />
         </Form.Item>
+        <Form.Item
+
+          name="email"
+          label=
+              '邮箱'
+              
+          rules={[{ required: true, message: '请输入你的邮箱！', whitespace: true }]}
+          >
+<Input />
+</Form.Item>
         <Form.Item
 
           name="password"
@@ -158,7 +162,7 @@ function SignUp(props:any) {
           {...tailFormItemLayout}
         >
           <Checkbox>
-           我已经阅读并同意 <a href="">用户协议</a>
+           我已经阅读并同意 <a href=''>用户协议</a>
           </Checkbox>
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>

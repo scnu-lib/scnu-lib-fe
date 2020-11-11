@@ -1,8 +1,24 @@
-export default{
 
+export default{
+  'GET /activity/activities/:id':(req:any,res:any)=>{
+    res.status(200).json({
+      "id": 0,
+      "title": "string",
+      "startTime": "2020-11-11T13:40:37.829Z",
+      "endTime": "2020-11-11T13:40:37.829Z",
+      "signUpDeadline": "2020-11-11T13:40:37.829Z",
+      "maxParticipant": 0,
+      "location": "string",
+      "labels": [
+        "string"
+      ]
+    })
+  }
+}
+/*
+export default{
     'POST /account/login':(req:any,res:any)=>{
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.status(200).json({jwt:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ'})
+      res.status(200).json({jwt:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklEIjoiSm9obiBEb2UiLCJyb2xlcyI6IlJPTEVfVVNFUiJ9.hKTaxy2Q0JsQskQzKYK3gpgescbQDa6aF5a0CDX6vVc'})
     },
     'POST /account/accounts':(req:any,res:any)=>{
         res.setHeader('Access-Control-Allow-Origin', '*');
@@ -78,9 +94,9 @@ export default{
         "location": "图书馆（石牌）",
         "labels": [
           "string"
-        ]}])/*json([{src:'https://img9.doubanio.com/view/photo/l/public/p1188029166.webp',id:'1',title:'pride and prejudice'},
+        ]}])json([{src:'https://img9.doubanio.com/view/photo/l/public/p1188029166.webp',id:'1',title:'pride and prejudice'},
         {src:'https://img3.doubanio.com/view/photo/l/public/p1910907590.webp',id:'2',title:'the godfather'},
-        {src:'https://img3.doubanio.com/view/photo/l/public/p462657443.webp',id:'3',title:'the dark knight'}])*/
+        {src:'https://img3.doubanio.com/view/photo/l/public/p462657443.webp',id:'3',title:'the dark knight'}])
      },
 
     'GET /activity/activities/:id':(req:any,res:any)=>{
@@ -264,3 +280,4 @@ export default{
     )
   }
 }
+*/

@@ -4,6 +4,7 @@ import moment from 'moment';
 import { createactApi,changeactApi } from '@/Services/activity';
 import {useSelector,useDispatch} from 'react-redux'
 import { initActDetail } from '@/reducers/actDetailReducer';
+import PropertyRequiredError from '@/error/PropertyRequiredError';
 const { RangePicker } = DatePicker;
 const layout = {
   labelCol: { span: 8 },
@@ -25,14 +26,17 @@ function CreateAct(props: any) {
   let cardtitle = '修改活动'
   const initId = Number(props.location.pathname.slice(25))//url传参，判断是修改还是创建
   const dispatch = useDispatch()
-  const getAct = (page:number = 0)=>{
+  const getAct = ()=>{
+    if(!props.location.pathname.slice(25)){}
+    else{
     dispatch(initActDetail(props.match.params.id))
+    }
   }
   useEffect(()=>{getAct()},[])
   let act = {
   }//只用做初始化，可以用let就行
   act = useSelector(store=>store.act[initId]) //存储有、无活动内容 刷新后store就又没了。。。
-  if(!props.location.pathname.slice(25) === true){
+  if(!props.location.pathname.slice(25)){
     act = {}//不要在条件循环里面调用hook，不然可能会顺序错误
     cardtitle = '创建活动'
   }
@@ -53,8 +57,10 @@ function CreateAct(props: any) {
     try{
     if(!props.location.pathname.slice(25) === false){
       const res = await changeactApi(+props.location.pathname.slice(25),finalact)
-
-      console.log(res)
+      if(res?.hasOwnProperty('title')||res?.hasOwnProperty('maxParticipant')||res?.hasOwnProperty('location')||res?.hasOwnProperty('labels')||res?.hasOwnProperty('description'))
+      {
+        throw new PropertyRequiredError('res')
+      }
     }else{
     const res = await createactApi(finalact)
     console.log(res)
@@ -63,8 +69,20 @@ function CreateAct(props: any) {
     message.success('发布成功！')
     //props.history.push('/')
     }catch(err){
-      console.log(err)
-      message.error('发布失败！')
+      if(err instanceof PropertyRequiredError){
+        message.error('后台数据错误！')
+        
+      }
+      else if(err?.response?.status === 400){
+        message.error('最大参与者数量小于现有参与者数量！')
+      }
+      else if(err?.response?.status === 401){
+        message.error('权限不足！')
+      }else if(err?.response?.status === 404){
+        message.error('活动不存在！')
+      }else{
+        throw err;
+      }
     }
   };
 
@@ -81,7 +99,7 @@ function CreateAct(props: any) {
           name={['act', 'title']}
           label="标题"
           rules={[{ required: true }]}
-          initialValue={act.title}
+          initialValue={act?.title}
         >
           <Input />
         </Form.Item>
@@ -95,7 +113,7 @@ function CreateAct(props: any) {
           name={['act', 'maxParticipant']}
           label="活动最大人数"
           rules={[{ type: 'number', min: 0, },{required:true}]}
-          initialValue={act.maxParticipant}
+          initialValue={act?.maxParticipant?act?.maxParticipant:''}
         >
           <InputNumber />
         </Form.Item>
@@ -103,7 +121,7 @@ function CreateAct(props: any) {
           name={['act', 'location']}
           label="活动地点"
           rules={[{required:true}]}
-          initialValue={act.location}
+          initialValue={act?.location}
         >
           <Input />
         </Form.Item>
@@ -111,11 +129,11 @@ function CreateAct(props: any) {
           name={['act', 'labels']}
           label="活动标签（标签之间用逗号隔开）"
           rules={[{required:true}]}
-          initialValue={act.labels}
+          initialValue={act?.labels?act?.labels:''}
         >
           <Input />
         </Form.Item>
-        <Form.Item name={['act', 'description']} label="活动简介" rules={[{required:true}]} initialValue={act.description}>
+        <Form.Item name={['act', 'description']} label="活动简介" rules={[{required:true}]} initialValue={act?.description?act?.description:''}>
           <Input.TextArea />
         </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>

@@ -33,7 +33,7 @@ const Changeuser = (props: any) => {
           label="微信号"
           name="wechat"
           rules={[{ required: true, message: '请输入你的微信号！' }]}
-          initialValue={userinfo.wechat.wxid}
+          initialValue={userinfo?.wechat?.wxid}
         >
           <Input />
         </Form.Item>
@@ -48,7 +48,7 @@ const Changeuser = (props: any) => {
               message: '请输入正确格式的邮箱地址！',
             },
           ]}
-          initialValue={userinfo.email.address}
+          initialValue={userinfo?.email?.address}
         >
           <Input />
         </Form.Item>

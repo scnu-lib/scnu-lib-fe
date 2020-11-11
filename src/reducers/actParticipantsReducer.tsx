@@ -1,3 +1,4 @@
+import PropertyRequiredError from '@/error/PropertyRequiredError';
 import { delvolApi, uservolsignupApi, volsignupApi } from '@/Services/activity';
 import {listactParticipantsApi,listactvolappliesApi} from '@/Services/admin'
 import {getnotifyApi,getsettingApi} from '@/Services/auth'
@@ -31,8 +32,17 @@ export const rejectvol = (activityID:number,userID:number)=>{
             )
             message.success('拒绝成功！')
         }catch(err){
-            console.log(err)
-            message.error('拒绝失败！')
+
+            if(err.response.status){
+            if(err.response.status === 401){
+                message.error('权限不足！')
+            }else if(err.response.status === 404){
+                message.error('活动不存在！')
+            }else{
+                throw err;
+            }}else
+                throw err;
+
         }
     }
 }
@@ -46,8 +56,15 @@ export const signinvol = (activityID:number,userID:number)=>{
             })
             message.success('报名成功！')
         }catch(err){
-            console.log(err)
-            message.error('报名失败！')
+            if(err.response.status){
+            if(err.response.status === 401){
+                message.error('权限不足！')
+            }else if(err.response.status === 404){
+                message.error('活动不存在！')
+            }else{
+                throw err;
+            }}else
+                throw err;
         }
 
     }
@@ -62,8 +79,15 @@ export const delvol = (activityID:number,userID:number)=>{
             })
             message.success('删除成功！')
         }catch(err){
-            console.log(err)
-            message.error('删除失败！')
+            if(err.response.status){
+            if(err.response.status === 401){
+                message.error('权限不足！')
+            }else if(err.response.status === 404){
+                message.error('活动不存在！')
+            }else{
+                throw err;
+            }}else
+                throw err;
         }
     }
 }
@@ -73,10 +97,18 @@ export const initParticipants = (activityID:number,page:number,size:number) => {
         const volres = await listactParticipantsApi(activityID,page,size)// 获得所有志愿者id
         const volappliesres = await listactvolappliesApi(activityID)// 获得正在申请志愿者的id和状态
         const volapplies = volappliesres.data
+        if(!(volres.data instanceof Array)){
+            throw new PropertyRequiredError('volres')
+        }
         volres.data.forEach(async (v:object)=>{// 用forEach把封装好的志愿者信息加到vol里，这里用map直接返回会返回几个promise，很难搞定
             const notifyres = await getnotifyApi(String(v.id))// 获得通知方式
             const settingres = await getsettingApi(String(v.id))// 获得用户名
             const apply = volapplies.find((note:object)=>note.userID === v.id)// 找到申请信息
+            if(!notifyres?.data?.wechat?.enabled&&!notifyres?.data?.email?.enabled)throw new PropertyRequiredError('notify');
+            if(typeof settingres.data === 'object'&&(!settingres.data.hasOwnProperty('id')||!settingres.data.hasOwnProperty('detail')||!settingres.data.hasOwnProperty('role')))
+            {
+                throw new PropertyRequiredError('setting');
+            }
             const note =  {
                 id:settingres.data.id,
                 name:settingres.data.detail.name,
@@ -93,7 +125,23 @@ export const initParticipants = (activityID:number,page:number,size:number) => {
         })
 
         }catch(err){
-            console.log(err)
+            if(err instanceof PropertyRequiredError){
+                message.error('后台数据出错！')
+            }
+            else if(err?.response?.status){
+            if(err.response.status === 401){
+                message.error('权限不足！')
+            }else if(err.response.status === 404){
+                if(err.response.data.code === 'error.generic.not_exists'){
+                    message.error('用户不存在！')
+                }else
+                    message.error('活动不存在！')
+            }else{
+                throw err;
+            }
+        }else{
+            throw err;
+        }
         }
     }
 }

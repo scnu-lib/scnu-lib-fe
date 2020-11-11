@@ -2,7 +2,6 @@ import React,{useState,useEffect} from 'react'
 import {Card,Descriptions,Button,message,Space  } from 'antd'
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import './User.css'
-import { getnotifyApi, changenotifyApi } from '@/Services/auth';
 import { getUserID } from '@/Utils/auth';
 import {useDispatch,useSelector} from 'react-redux'
 import {changeUserinfo,initUserinfo} from '../../reducers/userReducer'
@@ -26,8 +25,8 @@ const User = (props:any) => {
         <Card className='notify-card' title="修改/保存你的联系方式">
             {showchange?<Changeuser toggleshow={toggleshow}/>:
              (<div><Descriptions className='notify-descriptions'column={1}>
-            <Descriptions.Item label="微信号">{userinfo.wechat.wxid}</Descriptions.Item>
-            <Descriptions.Item label="邮箱地址">{userinfo.email.address}</Descriptions.Item>
+            <Descriptions.Item label="微信号">{userinfo?.wechat?.wxid}</Descriptions.Item>
+            <Descriptions.Item label="邮箱地址">{userinfo?.email?.address}</Descriptions.Item>
             </Descriptions>
             <Button onClick={(e=>{toggleshow()})}>修改</Button></div>)}
         </Card>

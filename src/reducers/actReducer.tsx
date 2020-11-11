@@ -1,5 +1,6 @@
 import { listactApi } from '@/Services/activity'
-//活动的reducer，功能有初始化（与后端通信）
+import { message } from 'antd'
+// 活动的reducer，功能有初始化（与后端通信）
 const initState = [
     {"id": 0,
     "title": "阅读马拉松",
@@ -12,7 +13,7 @@ const initState = [
     "location": "图书馆（石牌）",
     "labels": [
       "string"
-    ]}, 
+    ]},
 ]
 const actReducer = (state = initState,action:object) => {
     switch(action.type){
@@ -22,13 +23,15 @@ const actReducer = (state = initState,action:object) => {
 }
 export const initList = (label:string,page:number = 0,size:number = 20) =>{
     return async dispatch =>{
-
+        try{
         const res = await listactApi(label,page,size)
-        console.log(res.data)
         dispatch({
             type:'INIT',
             data:res.data
         })
+    }catch(err){
+        message.error('请求失败，请稍后重试！')
+    }
     }
 }
 export default actReducer
