@@ -1,8 +1,19 @@
 @import '~antd/lib/style/themes/default.less';
 
 
-
-.ant-layout-header{
+@media(max-width:600px)
+{
+    
+    .ant-menu-submenu{
+        display: block;
+        width:30%;
+    }
+    .ant-menu{
+        display: block;
+        width:50%;
+    }
+}
+.ant-layout-header {
     background: white;
     width: 100%;
     display: flex;

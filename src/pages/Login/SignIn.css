@@ -1,8 +1,27 @@
 
 .login-Card{
-    width:45vw;
+    width:35vw;
 }
-
+.ant-col{
+    width:100%;
+}
+.ant-row{
+    justify-content:center;
+    
+}
+.sign-title{
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 10px;
+    margin-top: -10px;
+    color:#d46b08;
+}
+@media(max-width:600px){
+    .login-Card{
+        
+        width:80vw;
+    }
+}
 .login-Card>.ant-card-body{
     margin: 1vw;
     padding-top: 1vw;

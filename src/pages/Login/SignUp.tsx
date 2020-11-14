@@ -84,8 +84,11 @@ function SignUp(props:any) {
       }
       
     return (
-      <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
-        <Card >
+      <div   style={{width:'100vw',height:'100vh',display:'flex',justifyContent:'center',alignItems:'center'}}>
+        <Card className="login-Card">
+        <div className='sign-title'>
+            注册账户
+        </div>
         <Form
         {...formItemLayout}
         form={form}
@@ -93,31 +96,27 @@ function SignUp(props:any) {
         onFinish={onFinish}
         scrollToFirstError
         style={{margin:'1vw'}}
+        
       >
         <Form.Item
-
+        
         name="nickname"
-        label=
-            '昵称'
-            
+      
         rules={[{ required: true, message: '请输入你的昵称！', whitespace: true }]}
         >
-        <Input />
+        <Input placeholder='昵称' />
         </Form.Item>
         <Form.Item
 
           name="email"
-          label=
-              '邮箱'
-              
+          
           rules={[{ required: true, message: '请输入你的邮箱！', whitespace: true }]}
           >
-<Input />
+<Input placeholder='邮箱'/>
 </Form.Item>
         <Form.Item
-
           name="password"
-          label="密码"
+   
           rules={[
             {
               required: true,
@@ -126,13 +125,13 @@ function SignUp(props:any) {
           ]}
           hasFeedback
         >
-          <Input.Password />
+          <Input.Password           placeholder='密码'/>
         </Form.Item>
   
         <Form.Item
 
           name="confirm"
-          label="确认密码"
+ 
           dependencies={['password']}
           hasFeedback
           rules={[
@@ -150,10 +149,9 @@ function SignUp(props:any) {
             }),
           ]}
         >
-          <Input.Password />
+          <Input.Password           placeholder='确认密码'/>
         </Form.Item>
         <Form.Item
-
           name="agreement"
           valuePropName="checked"
           rules={[

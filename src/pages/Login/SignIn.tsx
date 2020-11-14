@@ -48,8 +48,11 @@ function SignIn(props:any) {
         }
     }
     return (
-      <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+      <div style={{width:'100vw',height:'100vh',display:'flex',justifyContent:'center',alignItems:'center'}}>
         <Card className="login-Card">
+        <div className='sign-title'>
+            登录
+        </div>
              <Form
       name="normal_login"
       className="login-form"
