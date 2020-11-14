@@ -1,4 +1,4 @@
-import PropertyRequiredError from '@/error/PropertyRequiredError';
+import PropertyRequiredError, { CheckActproperty } from '@/error/PropertyRequiredError';
 import { detailApi,changeactApi,createactApi } from '@/Services/activity';
 import { message } from 'antd';
 
@@ -29,15 +29,7 @@ export const initActDetail = (activityID:number) => {
         try{
 
             const res = await detailApi(activityID)
-            if(!(res.data instanceof Array)){
-                throw new PropertyRequiredError('res')
-            }
-            res.data.forEach(note=>{
-                if(note?.hasOwnProperty('id')||note?.hasOwnProperty('title')||note?.hasOwnProperty('startTime')||note?.hasOwnProperty('endTime')||note?.hasOwnProperty('signUpDeadline')||note?.hasOwnProperty('maxParticipant')||note?.hasOwnProperty('location')||note?.hasOwnProperty('labels'))
-                {
-                    throw new PropertyRequiredError('detail')
-                }
-            })
+            CheckActproperty(res.data)
             dispatch({
                 type:'INIT_ACTIVITY',
                 data:res.data

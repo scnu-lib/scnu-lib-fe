@@ -33,7 +33,7 @@ function ActivityDetail(props:any) {
     return (
         <Card className='detail-card'>
             <div className='detail-card-text'>
-            <img src={detail.src}></img>
+            <img className='detail-card-text-img' src={detail.src}></img>
             <div className='detail-card-text-words'>
                 <h2>{detail.title}</h2>
                 <p>开始时间:{detail.startTime}</p>
