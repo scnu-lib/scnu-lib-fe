@@ -100,11 +100,6 @@ export default defineConfig({
           ],
         },
         {
-          path: '/home/usersetting',
-          title: '用户设置',
-          component: '@/pages/User/UserSetting',
-        },
-        {
           path: '/home/user',
           title: '用户中心',
           component: '@/pages/User/User',

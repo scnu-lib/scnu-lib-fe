@@ -38,7 +38,7 @@ function ActivityDetail(props:any) {
                 <h2>{detail.title}</h2>
                 <p>开始时间:{detail.startTime}</p>
                 <p>地点:{detail.location}</p>
-                {issigned?<><Button disabled>已报名</Button><Button onClick={()=>{handlevolsignup(detail.id,getUserID())}}>报名志愿者</Button></>:<Button onClick={
+                {issigned?<><Button disabled>已报名</Button><Button style={{marginLeft:'2px'}}onClick={()=>{handlevolsignup(detail.id,getUserID())}}>报名志愿者</Button></>:<Button onClick={
                    ()=>{ isLogined()?handlesignupact(detail.id):message.error('请先登录！')}
                 }>报名参加</Button>}
                 </div>

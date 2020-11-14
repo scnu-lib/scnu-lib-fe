@@ -41,7 +41,7 @@ function Frame(props:any) {
     return (
     <Layout className="layout">
     <Header  className="navbg_selector">
-      <Menu  className="navbg_selector" mode="horizontal" defaultSelectedKeys={['/home/activity']} style={{width:'50%'}}>
+      <Menu  className="navbg_selector" mode="horizontal" defaultSelectedKeys={['/home/activity']} >
         {activityRoutes.map(route=>{
             return route.isShow?(<Menu.Item key={route.path}
             ><Link to={route.path}>{route.title}</Link></Menu.Item>):null;// 根据token判断显示是否登录
