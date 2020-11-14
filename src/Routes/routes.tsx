@@ -12,8 +12,8 @@ import AdminAct from '../pages/Admin/AdminAct';
 import AdminUser from '../pages/Admin/AdminUser';
 import CreateAct from '../Pages/Admin/CreateAct';
 import EditAct from '../Pages/Admin/EditAct';
-import ListAct from '../Pages/Admin/ListAct';
-//主页路由
+import ListAct from '../pages/Admin/ListAct';
+// 主页路由
 export const mainRoutes = [
   {
     path: '/login',
@@ -28,7 +28,7 @@ export const mainRoutes = [
     component: PageNotFound,
   },
 ];
-//活动页路由
+// 活动页路由
 export const activityRoutes = [
   {
     path: '/home/activity',
@@ -55,20 +55,20 @@ export const activityRoutes = [
     title: '已报名活动',
     component: RegisteredAct,
     exact: true,
-    isShow: isLogined() && !isadmin, //不是管理员才显示，管理员不能报名，只能浏览活动
+    isShow: isLogined() && !isadmin, // 不是管理员才显示，管理员不能报名，只能浏览活动
   },
   {
     path: '/home/adminAct',
     title: '活动管理',
     component: AdminAct,
-    isShow: isadmin, //管理员才显示
+    isShow: isadmin, // 管理员才显示
     exact: false,
   },
   {
     path: '/home/adminUser',
     title: '用户管理',
     component: AdminUser,
-    isShow: isadmin, //管理员才显示
+    isShow: isadmin, // 管理员才显示
     exact: false,
   },
   {
@@ -81,13 +81,8 @@ export const activityRoutes = [
     component: User,
     isShow: false,
   },
-  {
-    path: '/home/notions',
-    component: Notions,
-    isShow: false,
-  },
 ];
-//活动管理路由
+// 活动管理路由
 export const adminRoutes = [
   {
     path: '/home/adminAct/createact',
@@ -97,13 +92,6 @@ export const adminRoutes = [
     component: CreateAct,
   },
   {
-    path: '/home/adminAct/editact',
-    exact: true,
-    isShow: isadmin,
-    title: '活动编辑',
-    component: EditAct,
-  },
-  {
     path: '/home/adminAct/listact',
     exact: true,
     isShow: isadmin,
@@ -111,7 +99,7 @@ export const adminRoutes = [
     component: ListAct,
   },
 ];
-//用户管理路由
+// 用户管理路由
 export const adminUserRoutes = [
   {
     path: '/home/adminUser/user',
@@ -119,12 +107,5 @@ export const adminUserRoutes = [
     isShow: isadmin,
     title: '用户管理',
     component: CreateAct,
-  },
-  {
-    path: '/home/adminUser/volunteer',
-    exact: true,
-    isShow: isadmin,
-    title: '志愿者管理',
-    component: EditAct,
-  },
+  }
 ];

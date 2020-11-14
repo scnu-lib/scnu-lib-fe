@@ -1,19 +1,20 @@
-
-#root,body{
+body,html,#root,.flex{
     width: 100%;
-    height: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
 }
 
+.ant-layout-content{
+    padding: 20px 50px;
+}
 a {
     color: rgba(0, 0, 0, 0.65);
 }
 
-.ant-layout-header{
-    background-color:white;
-    width: 100vw;
-    display: flex;
-    justify-content: space-between;
-}
+
 
 .note-Card,.ant-card-body{
     width: 100%;

@@ -4,10 +4,14 @@
     align-items: center;
 
 }
-
+.slick-slide>div,.slick-slide>div>img{
+    display: block;
+    width: 100%;
+    height:100%;
+}
 .Activity>.ant-space-item:first-child{
-    width: 60vw;
-    height: 30vw;
+    width: 100%;
+    height: 37vw;
 }
 .Activity>.ant-space-item:nth-child(2){
     width:100%;
@@ -20,9 +24,16 @@
     justify-content: center;
 }
 .recent-map>.ant-space-item{
-
+    margin: 15px 15px;
     width: 27vw;
-    height: 25vw;
+    height: 17vw;
+}
+@media(max-width:600px){
+    .recent-map>.ant-space-item{
+        margin: 15px 0px;
+        width: 100%;
+        height: 34vw;
+    }
 }
 .recent-map>.ant-space-item:last-child{
     margin-right:8px;

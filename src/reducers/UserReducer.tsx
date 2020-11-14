@@ -60,3 +60,4 @@ export const initUserinfo = (userID:number) => {
         }
     } 
 }
+export default userReducer

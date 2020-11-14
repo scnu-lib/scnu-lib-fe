@@ -86,12 +86,6 @@ export default defineConfig({
               component: '@/pages/Admin/User',
             },
             {
-              path: '/home/adminUser/volunteer',
-              exact: false,
-              title: '志愿者管理',
-              component: '@/pages/Admin/Volunteer',
-            },
-            {
               path:'/home/adminUser/usernotices/:id',
               exact:true,
               title: '用户联系方式',
@@ -114,12 +108,7 @@ export default defineConfig({
           path: '/home/user',
           title: '用户中心',
           component: '@/pages/User/User',
-        },
-        {
-          path: '/home/notions',
-          title: '通知中心',
-          component: '@/pages/Reader/Activity/Notions',
-        },
+        }
       ],
     },
     {

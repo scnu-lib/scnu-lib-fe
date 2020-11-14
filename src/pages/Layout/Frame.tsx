@@ -4,6 +4,7 @@ import { Layout, Menu,Button,Dropdown,Avatar,Badge  } from 'antd';
 import { activityRoutes } from '../../Routes/routes';
 import { isLogined, clearToken } from '../../Utils/auth';
 import { DownOutlined } from '@ant-design/icons';
+import './Frame.less'
 const { Header, Content, Footer } = Layout;
 function Frame(props:any) {
   const menu = (
@@ -14,17 +15,12 @@ function Frame(props:any) {
         history.push('/')
       }else if(p.key === 'User'){
         history.push('/home/user')
-      }else if(p.key === 'notion'){
-        history.push('/home/notions')
       }else{
         history.push('/')
       }
     }}>
       <Menu.Item key='User'>
           用户中心
-      </Menu.Item>
-      <Menu.Item key='notion'>
-          通知中心 <Badge count={25} />
       </Menu.Item>
       <Menu.Item key='logout'>
           退出
@@ -44,20 +40,19 @@ function Frame(props:any) {
   }
     return (
     <Layout className="layout">
-    <Header  >
-      <Menu mode="horizontal" defaultSelectedKeys={['1']} style={{width:'50%'}}>
+    <Header  className="navbg_selector">
+      <Menu  className="navbg_selector" mode="horizontal" defaultSelectedKeys={['/home/activity']} style={{width:'50%'}}>
         {activityRoutes.map(route=>{
             return route.isShow?(<Menu.Item key={route.path}
             ><Link to={route.path}>{route.title}</Link></Menu.Item>):null;// 根据token判断显示是否登录
         } )}
 
       </Menu>
-      <div className='sign-in-up' style={{height:'100%'}}>
+      <div className='sign-in-up' style={{height:'100%',minHeight:'525px'}}>
      {switchloginuser()}
      </div>
     </Header>
-    <Content style={{ padding: '10px 50px',
-                    height:'100%'}}>
+    <Content className='layout-content'>
       <div className="site-layout-content">{props.children}</div>
     </Content>
     <Footer style={{ textAlign: 'center' }}>华师阅马开发小分队</Footer>
