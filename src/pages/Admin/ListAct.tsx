@@ -48,11 +48,11 @@ function ListAct(props: any) {
         return (
           <>
           <Space>
-          <Button type="primary" size="small" onClick={()=>{props.history.push(`/home/adminAct/actParticipants/${txt.id}`)}}>
+          <Button type="default" size="small" onClick={()=>{props.history.push(`/home/adminAct/actParticipants/${txt.id}`)}}>
             {' '}
               报名用户
             </Button>
-            <Button type="primary" size="small" onClick={()=>{props.history.push(`/home/adminAct/createact/${txt.id}`)}}>
+            <Button type="default" size="small" onClick={()=>{props.history.push(`/home/adminAct/createact/${txt.id}`)}}>
             {' '}
               修改活动
             </Button>
@@ -64,7 +64,7 @@ function ListAct(props: any) {
                 () => console.log('用户确认删除') // 此处调用api接口进行操作
               }
             >
-              <Button type="primary" danger size="small">
+              <Button type='default' danger size="small">
                 {' '}
                 删除活动
               </Button>

@@ -9,3 +9,9 @@
 .site-layout-background {
   background: #fff;
 }
+@media(max-width:1100px){
+  .ant-layout-has-sider.site-layout-background{
+    min-width: 600px;
+    min-height: 800px;
+  }
+}

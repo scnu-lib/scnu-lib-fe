@@ -16,7 +16,7 @@ function ActivityDetail(props:any) {
         dispatch(initActDetail(props.match.params.id))
 
     },[])
-    const handlesignupact = (id:any)=>{
+    const handlesignupact = (id:number)=>{
         actsignupApi(props.match.params.id,id).then(res=>{
             message.success('报名成功！')
             setIssigned(true)

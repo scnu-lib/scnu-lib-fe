@@ -19,11 +19,12 @@ function AdminUser(props: any) {
           className="site-layout-background"
           style={{ padding: '24px 0' }}
         >
-          <Sider className="site-layout-background" width={200}>
+          <div className='site-layout-sider'>
+          <Sider  width='100%'>
             <Menu
               mode="inline"
-              defaultSelectedKeys={['1']}
-              defaultOpenKeys={['sub1']}
+              defaultSelectedKeys={['/home/adminUser/user']}
+              defaultOpenKeys={['/home/adminUser/user']}
               style={{ height: '100%' }}
             >
               {adminUserRoutes.map(route => {
@@ -34,11 +35,12 @@ function AdminUser(props: any) {
                   >
                     {route.title}
                   </Menu.Item>
-                ) : null; //根据token判断显示是否登录
+                ) : null; // 根据token判断显示是否登录
               })}
             </Menu>
           </Sider>
-          <Content style={{ padding: '0 24px', minHeight: 440 }}>
+          </div>
+          <Content style={{ padding: '10px 24px', minWidth:'400px',minHeight: '800px' }}>
             {props.children}
           </Content>
         </Layout>

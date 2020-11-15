@@ -9,10 +9,10 @@ export const signupApi = (user:object) => {
     return post(`${serverUrl}/account/accounts`,user)
 }
 
-export const getnotifyApi = (userID:string) => {
+export const getnotifyApi = (userID:number) => {
     return get(`${serverUrl}/notify/methods/`,{userID})
 }
-export const changenotifyApi = (userID:string,wechat:string,email:string) => {
+export const changenotifyApi = (userID:number,wechat:string,email:string) => {
     const changednotify = {
         userID,
         wechat:{
@@ -26,10 +26,10 @@ export const changenotifyApi = (userID:string,wechat:string,email:string) => {
     return put(`${serverUrl}/notify/methods/${userID}`,{userID},changednotify)// parameter设置了就会用问号传值，不用重复设置
 }
 
-export const changesettingApi = (userID:string,newsetting:object) => {
+export const changesettingApi = (userID:number,newsetting:object) => {
     return put(`${serverUrl}/account/accounts/${userID}`,{userID},newsetting)
 }// url是url,params是params，两个都要看，传参都是string不然会报错
 
-export const getsettingApi = (userID:string) => {
+export const getsettingApi = (userID:number) => {
     return get(`${serverUrl}/account/accounts/${userID}`,{userID})
 }

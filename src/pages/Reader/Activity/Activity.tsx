@@ -36,10 +36,13 @@ function Activity(props:any) {
     },[])
     return (
     <Space direction='vertical'  className="Activity .flex" size="large">
-        <Carousel autoplay >
-               {contentStyle.map(note=>(
-               <img  src={note.src} key={note.id} alt={String(note.id)}></img>
-               ))}
+        <Carousel className='act-carousel'autoplay >
+               {recent.map((note:object,index:number)=>
+               {
+                return index<4? (
+                    <Link className='act-carousel-link' key={`${note.id}Link`} to={`/home/activitydetail/${note.id}`}  >
+               <img  className='act-carousel-link-img' src={note.src} key={note.id} alt={String(note.id)}></img>
+               </Link>):null})}
         </Carousel>
         <Space direction="vertical" className="recent-Act"size="middle" >
             {recent.length?<span style={{margin:'24px',fontSize:'22px',fontWeight:500,textAlign:'center',color:'#5c6b77',textTransform:'capitalize'}}>近期活动</span>

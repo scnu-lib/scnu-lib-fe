@@ -14,19 +14,15 @@ function AdminNotice(props:any) {
     };
     const onFinish = values => {
       changenotify(values);
-      message.success('保存成功！');
 
     }; // 把后端通信整合到actioncreator中返回的函数
 
-    const onFinishFailed = errorInfo => {
-      message.error('格式错误！');
-    };
+
     return (
       <div>
         <Form
           name="notify-form"
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
         >
           <Form.Item
             label="微信号"

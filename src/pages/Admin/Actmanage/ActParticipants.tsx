@@ -26,7 +26,7 @@ function ActParticipants(props:any) {
     }
     const dataSource = useSelector(store=>store.actParticipants)
     const dispatch = useDispatch()
-    const getParticipants = (activityID:string,pages:number = 0,size:number = 20)=>{
+    const getParticipants = (activityID:number,pages:number = 0,size:number = 20)=>{
       dispatch(initParticipants(activityID,pages,size))
       
     }
@@ -58,9 +58,9 @@ function ActParticipants(props:any) {
         render: (txt:VolunteerApplicationState,record: any, index: any) => {
             let color;
             switch(txt){
-              case VolunteerApplicationState.accepted:color = 'green';return(<Tag color={color} key={txt}>通过</Tag>)
-              case VolunteerApplicationState.rejected:color = 'red';return(<Tag color={color} key={txt}>不通过</Tag>)
-              case VolunteerApplicationState.applied:color = 'geekblue';return(<Tag color={color} key={txt}>审核中</Tag>)
+              case VolunteerApplicationState.accepted:color = 'green';return(<Tag color={color} key={`${txt}通过`}>通过</Tag>)
+              case VolunteerApplicationState.rejected:color = 'red';return(<Tag color={color} key={`${txt}不通过`}>不通过</Tag>)
+              case VolunteerApplicationState.applied:color = 'geekblue';return(<Tag color={color} key={`${txt}审核中`}>审核中</Tag>)
               default:return;
             }
 

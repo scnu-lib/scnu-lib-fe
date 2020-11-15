@@ -46,7 +46,7 @@ function SignUp(props:any) {
       };
         const [form] = Form.useForm();
       
-        const onFinish = async (values:any) => {
+        const onFinish = async (values:object) => {
           const user = {
               username:values.email,
               password:values.password,

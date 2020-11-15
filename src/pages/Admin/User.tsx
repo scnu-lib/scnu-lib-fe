@@ -1,8 +1,9 @@
 import React,{useEffect} from 'react';
-import { Card, Table, Button, Popconfirm } from 'antd';
+import { Card, Table, Button, Popconfirm,Tag } from 'antd';
 import {useDispatch,useSelector} from 'react-redux'
 import { initList } from '@/reducers/actReducer';
 import { initUserlist } from '@/reducers/usermReducer';
+import { Roles } from '@/Utils/config';
 function User(props:any) {
   const dataSource = useSelector(store=>store.userlist)
   const dispatch = useDispatch()
@@ -28,6 +29,31 @@ function User(props:any) {
     {
       title: '用户权限',
       dataIndex: 'role',
+      render: (txt: any, record: any, index: any) => {
+        switch(txt[0]){
+          case 'ROLE_USER':return (
+            <Tag color='geekblue'>
+                用户
+            </Tag>
+          );
+          case 'ROLE_ADMIN':return(
+            <Tag color='orange'>
+                管理员
+            </Tag>
+          );
+          case 'ROLE_LIBRARIAN':return(
+            <Tag color='lime'>
+                图书馆管理员
+            </Tag>
+          )
+          default:return(
+            <Tag color='geekblue'>
+                用户
+            </Tag>
+          );
+        }
+
+      },
     },
     {
       title: '操作',
@@ -35,10 +61,10 @@ function User(props:any) {
 
         return (
           <>
-            <Button style={{ margin: '0 1rem' }} type="primary" size="small" onClick={()=>{props.history.push(`/home/adminUser/userdetails/1`)}}>
+            <Button style={{ margin: '0 1rem' }} type="default" size="small" onClick={()=>{props.history.push(`/home/adminUser/userdetails/1`)}}>
               修改
             </Button>
-              <Button type="primary"  size="small" onClick={()=>{props.history.push(`/home/adminUser/usernotices/1`)}}>
+              <Button type="default"  size="small" onClick={()=>{props.history.push(`/home/adminUser/usernotices/1`)}}>
                 {' '}
                 联系
               </Button>

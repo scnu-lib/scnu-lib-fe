@@ -59,14 +59,14 @@ export const activityRoutes = [
     isShow: isLogined() && !(getRoles() === Roles.admin) && !(getRoles() === Roles.librarian), // 不是管理员才显示，管理员不能报名，只能浏览活动
   },
   {
-    path: '/home/adminAct',
+    path: '/home/adminAct/listact',
     title: '活动管理',
     component: AdminAct,
     isShow: getRoles() === Roles.admin||getRoles() === Roles.librarian, // 管理员才显示
     exact: false,
   },
   {
-    path: '/home/adminUser',
+    path: '/home/adminUser/user',
     title: '用户管理',
     component: AdminUser,
     isShow: getRoles() === Roles.admin||getRoles() === Roles.librarian, // 管理员才显示

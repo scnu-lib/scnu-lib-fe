@@ -87,9 +87,40 @@ export default{
   "labels": [
     "string"
   ]})
-},'POST /account/login':(req:any,res:any)=>{
-  res.status(200).json({jwt:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklEIjoiSm9obiBEb2UiLCJyb2xlcyI6IlJPTEVfVVNFUiJ9.hKTaxy2Q0JsQskQzKYK3gpgescbQDa6aF5a0CDX6vVc'})
 },
+'POST /account/login':(req:any,res:any)=>{
+  res.status(200).json({jwt:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklEIjoiSm9obiBEb2UiLCJyb2xlcyI6IlJPTEVfQURNSU4ifQ.zz7jaaHUDDj3ACeuvLp3eOLX4Zq4NfmahfWBzScMZLc'})
+},
+'GET /activity/activities/:activityID/volunteer':(req:any,res:any)=>{
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.status(200).json([{
+    'activityID':0,
+    'userID':0
+  }])
+},'GET /notify/methods/:userID':(req:any,res:any)=>{
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.status(200).json({
+    "userID": 0,
+    "wechat": {
+      "enabled": true,
+      "wxid": "string"
+    },
+    "email": {
+      "enabled": true,
+      "address": "user@example.com"
+    }
+  })
+},'GET /account/accounts': {
+  data:[
+    {
+      "id": 0,
+      "username": "string",
+      "role": [
+        "ROLE_USER"
+      ]
+    }
+  ]
+}
 }
 /*
 export default{

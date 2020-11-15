@@ -11,7 +11,7 @@
 }
 .Activity>.ant-space-item:first-child{
     width: 100%;
-    height: 37vw;
+    height: 30vw;
 }
 .Activity>.ant-space-item:nth-child(2){
     width:100%;
@@ -27,14 +27,74 @@
     margin: 15px 15px;
     width: 27vw;
     height: 17vw;
+    border-radius: 15px;
+}
+.recent-map>.ant-space-item>.ant-card:hover{
+    box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.12);
+}
+.ant-carousel{
+    width: 70%;
+    margin:0 auto;
+    box-shadow: 0 5px 12px 4px rgba(0, 0, 0, 0.09);
+    border-radius: 30px;
+}
+.list-photo{
+    width:272px;
+}
+
+.ant-layout-sider-children{
+    width:100%;
+}
+.ant-layout-sider-children>.ant-menu{
+    width:100%;
+}
+.site-layout-sider{
+    width:200px;
+}
+.create-act-card>.ant-card-body{
+    padding: 10px;
+}
+.act-carousel-link-img{
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+.act-carousel-link{
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+@media(max-width:1100px){
+    .ant-layout.site-layout-background{
+        flex-wrap: wrap;
+    }
+    .site-layout-background{
+        width: 100%;
+    }
+    .site-layout-sider{
+        width: 100%;
+    }
 }
 @media(max-width:600px){
+    .list-photo{
+        width:100%;
+    }
     .recent-map>.ant-space-item{
         margin: 15px 0px;
         width: 100%;
         height: 34vw;
     }
+    .ant-carousel{
+        width: 100%;
+        height: 100%;
+        margin:0 auto;
+    }
+    .ant-space:first-child{
+        height: 100%;
+    }
 }
+
+
 .recent-map>.ant-space-item:last-child{
     margin-right:8px;
 }
@@ -51,4 +111,8 @@
 .ant-carousel,.slick-slider,.slick-track,.slick-cloned,.slick-list{
     height:100%;
 
+}
+.ant-pagination{
+    margin-bottom: 10px;
+    margin-right: 10px;
 }

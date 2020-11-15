@@ -1,4 +1,6 @@
+import PropertyRequiredError from '@/error/PropertyRequiredError';
 import {changesettingApi,getsettingApi} from '@/Services/auth'
+import { message } from 'antd';
 const initstate = {
     "id": 0,
     "username": "string",
@@ -23,24 +25,48 @@ export const changeSetting =  (newsetting: object) => {
     return async dispatch => {
         try{
         const res = await changesettingApi(newsetting.id,newsetting)
+        if(!res?.data?.hasOwnProperty('id')||!res?.data?.hasOwnProperty('username')||!res?.data?.hasOwnProperty('password')||!res?.data?.hasOwnProperty('detail')||!res?.data?.hasOwnProperty('role'))
+            {
+                throw new PropertyRequiredError('res');
+            }
         dispatch({
             type:'CHANGE_SETTING',
             data:res.data
         })
     }catch(err){
-        console.log(err)
+        if(err instanceof PropertyRequiredError){
+            message.error('后台数据错误！')
+        }
+        else{
+        if(err?.response?.status === 404){
+            message.error('用户不存在！');
+        }else if(err?.response?.status === 403){
+            message.error('没有权限！');
+        }
+        else{
+            throw err;
+        }
+    }
     }
 }
 }
-export const initSetting = (userID:string) => {
+export const initSetting = (userID:number) => {
     return async dispatch => {
         try{
             const res = await getsettingApi(userID)
+            if(!res?.data?.hasOwnProperty('id')||!res?.data?.hasOwnProperty('username')||!res?.data?.hasOwnProperty('password')||!res?.data?.hasOwnProperty('detail')||!res?.data?.hasOwnProperty('role'))
+            {
+                throw new PropertyRequiredError('res');
+            }
             dispatch({
                 type:'INIT_SETTING',
                 data:res.data
             })
         }catch(err){
+            if(err instanceof PropertyRequiredError){
+                message.error('后台数据错误！')
+            }
+            else{
             if(err?.response?.status === 404){
                 message.error('用户不存在！');
             }else if(err?.response?.status === 403){
@@ -49,6 +75,7 @@ export const initSetting = (userID:string) => {
             else{
                 throw err;
             }
+        }
         }
     }
 }

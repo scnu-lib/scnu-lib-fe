@@ -9,7 +9,7 @@ function Activitylist() {
     const dispatch = useDispatch()
     const getPage = (label='text',page=0,size=4) =>{
         dispatch(initList(label,page,size))
-        
+
     }
     useEffect(()=>{
     getPage()
@@ -28,15 +28,15 @@ function Activitylist() {
       pageSize: 4,
     }}
     dataSource={listData}
-   
+
     renderItem={item => {
         return(
       <List.Item
         key={item.id}
-        
+
         extra={
           <img
-            width={272}
+            className='list-photo'
             alt="logo"
             src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
           />

@@ -16,6 +16,7 @@ function AUserSetting(props:any) {
     const [form] = Form.useForm();
     const usersetting = useSelector(store=>store.usersetting)
     const dispatch = useDispatch()
+    console.log(usersetting.detail.name)
     useEffect(()=>{
         dispatch(initSetting(props.match.params.id))// 初始化用户信息
     },[])

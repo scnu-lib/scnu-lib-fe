@@ -3,7 +3,15 @@ import PropertyRequiredError from '@/error/PropertyRequiredError';
 import {listuserApi} from '@/Services/admin'
 import { message } from 'antd';
 import userReducer from './userReducer';
-const usermReducer = (state = [],action:object) =>{
+const usermReducer = (state = [
+    {
+      "id": 0,
+      "username": "string",
+      "role": [
+        "ROLE_LIBRARIAN"
+      ]
+    }
+  ],action:object) =>{
     switch(action.type){
         case 'INIT_USER':return [...action.data];
         default:return [...state];
@@ -13,13 +21,14 @@ export const initUserlist = (page:number = 0,size:number = 20)=>{
     return async dispatch =>{
         try{
         const res = await listuserApi(page,size)
-        if(!res.data.id){
+        console.log(res)
+        if(!res?.data?.hasOwnProperty('id')){
             throw new PropertyRequiredError('id')
         }
-        if(!res.data.username){
+        if(!res?.data?.hasOwnProperty('username')){
             throw new PropertyRequiredError('username')
         }
-        if(!res.data.role){
+        if(!res?.data?.hasOwnProperty('role')){
             throw new PropertyRequiredError('role')
         }
         dispatch({

@@ -88,7 +88,7 @@ function CreateAct(props: any) {
 
   
   return (
-    <Card title={cardtitle}>
+    <Card title={cardtitle} className='create-act-card'>
       <Form
         {...layout}
         name="nest-messages"

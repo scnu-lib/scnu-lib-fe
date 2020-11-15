@@ -101,8 +101,8 @@ export const initParticipants = (activityID:number,page:number,size:number) => {
             throw new PropertyRequiredError('volres')
         }
         volres.data.forEach(async (v:object)=>{// 用forEach把封装好的志愿者信息加到vol里，这里用map直接返回会返回几个promise，很难搞定
-            const notifyres = await getnotifyApi(String(v.id))// 获得通知方式
-            const settingres = await getsettingApi(String(v.id))// 获得用户名
+            const notifyres = await getnotifyApi(v.id)// 获得通知方式
+            const settingres = await getsettingApi(v.id)// 获得用户名
             const apply = volapplies.find((note:object)=>note.userID === v.id)// 找到申请信息
             if(!notifyres?.data?.wechat?.enabled&&!notifyres?.data?.email?.enabled)throw new PropertyRequiredError('notify');
             if(typeof settingres.data === 'object'&&(!settingres.data.hasOwnProperty('id')||!settingres.data.hasOwnProperty('detail')||!settingres.data.hasOwnProperty('role')))

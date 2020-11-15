@@ -9,7 +9,7 @@ import PropertyRequiredError from '@/error/PropertyRequiredError';
 
 //登录页面
 function SignIn(props:any) {
-    const onFinish = async (values:any) => {
+    const onFinish = async (values:object) => {
         const user = {
             username:values.username,
             password:values.password

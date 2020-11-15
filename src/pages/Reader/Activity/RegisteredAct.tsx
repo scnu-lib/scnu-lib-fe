@@ -47,7 +47,7 @@ function RegisteredAct(props:any) {
         
         extra={
           <img
-            width={272}
+            className='list-photo'
             alt="logo"
             src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
           />
