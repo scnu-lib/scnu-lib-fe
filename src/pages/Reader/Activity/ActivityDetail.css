@@ -3,18 +3,25 @@
     margin:0 auto;
     width: 50vw;
 }
+@media(min-width:1450px){
+    .detail-card{
+        width: 40vw;
+    }
+}
 .detail-card-text{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     padding:0vw ;
-    justify-content: center;
+    justify-content:center;
 }
 .detail-card-text>img{
-    width: 50%;
+    display: block;
+    width: 100%;
+
 }
 .detail-card-text-words{
-    width: 50%;
+    width: 100%;
     text-align: center;
       
     
@@ -24,7 +31,7 @@
 }
 .detail-card-text-words>h2{
     margin-top:2vw;
-    font-size:2vw;
+    font-size:32px;
     display: block;
 }
 .detail-content{
@@ -36,15 +43,18 @@
     display: block;
 }
 @media(max-width:600px){
+    .detail-card-text-img{
+        border-radius: 5px 5px 0 0;
+    }
     .detail-card-text>img{
-        width: 80vw;
+        width: 100%;
     }
     .site-layout-content{
         width: 80vw;
         padding: 0;
     }
     .detail-card-text{
-        width: 80vw;
+        width: 100%;
     }
     .detail-card{
         margin:0;
