@@ -13,7 +13,7 @@ export default {
         maxParticipant: 40,
         currentParticipant: 3,
         location: '图书馆（石牌）',
-        labels: ['string'],
+        labels: ['读书会'],
       },
       {
         id: 1,
@@ -25,7 +25,7 @@ export default {
         maxParticipant: 40,
         currentParticipant: 3,
         location: '图书馆（石牌）',
-        labels: ['string'],
+        labels: ['读书会'],
       },
       {
         id: 2,
@@ -37,7 +37,7 @@ export default {
         maxParticipant: 40,
         currentParticipant: 3,
         location: '图书馆（石牌）',
-        labels: ['string'],
+        labels: ['读书会'],
       },
       {
         id: 3,
@@ -49,7 +49,7 @@ export default {
         maxParticipant: 40,
         currentParticipant: 3,
         location: '图书馆（石牌）',
-        labels: ['string'],
+        labels: ['读书会'],
       },
       {
         id: 4,
@@ -61,7 +61,7 @@ export default {
         maxParticipant: 40,
         currentParticipant: 3,
         location: '图书馆（石牌）',
-        labels: ['string'],
+        labels: ['读书会'],
       },
       {
         id: 5,
@@ -73,7 +73,7 @@ export default {
         maxParticipant: 40,
         currentParticipant: 3,
         location: '图书馆（石牌）',
-        labels: ['string'],
+        labels: ['读书会'],
       },
     ]);
   },
@@ -106,16 +106,14 @@ export default {
       location: '图书馆（石牌）',
       issign: false,
       src: 'http://chuantu.xyz/t6/741/1605766913x1700339730.png',
-      labels: ['string'],
+      labels: ['读书会'],
     });
   },
   'POST /account/login': (req: any, res: any) => {
-    res
-      .status(200)
-      .json({
-        jwt:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklEIjoiSm9obiBEb2UiLCJyb2xlcyI6IlJPTEVfQURNSU4ifQ.zz7jaaHUDDj3ACeuvLp3eOLX4Zq4NfmahfWBzScMZLc',
-      });
+    res.status(200).json({
+      jwt:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklEIjoiSm9obiBEb2UiLCJyb2xlcyI6IlJPTEVfQURNSU4ifQ.zz7jaaHUDDj3ACeuvLp3eOLX4Zq4NfmahfWBzScMZLc',
+    });
   },
   // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklEIjoiSm9obiBEb2UiLCJyb2xlcyI6IlJPTEVfVVNFUiJ9.hKTaxy2Q0JsQskQzKYK3gpgescbQDa6aF5a0CDX6vVc
   // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklEIjoiSm9obiBEb2UiLCJyb2xlcyI6IlJPTEVfQURNSU4ifQ.zz7jaaHUDDj3ACeuvLp3eOLX4Zq4NfmahfWBzScMZLc

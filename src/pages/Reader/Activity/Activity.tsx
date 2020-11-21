@@ -1,26 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Carousel, message, Card, Space } from 'antd';
-import { listactApi } from '@/Services/activity';
+import { Carousel, message, Card, Space, Timeline } from 'antd';
+import { ClockCircleOutlined } from '@ant-design/icons';
 import { Link } from 'umi';
 import './Activity.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
 
 //活动列表页
-const contentStyle = [
-  {
-    id: 1,
-    src: 'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png',
-  },
-  {
-    id: 2,
-    src: 'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png',
-  },
-  {
-    id: 3,
-    src: 'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png',
-  },
-];
 
 function Activity(props: any) {
   const recent = useSelector(state => state.act);
@@ -40,24 +26,43 @@ function Activity(props: any) {
   }, []);
   return (
     <Space direction="vertical" className="Activity .flex" size="large">
-      <Carousel className="act-carousel" autoplay>
-        {recent.map((note: object, index: number) => {
-          return index < 4 ? (
-            <Link
-              className="act-carousel-link"
-              key={`${note.id}Link`}
-              to={`/home/activitydetail/${note.id}`}
+      <div className="Activity-item1">
+        <Carousel className="act-carousel" autoplay>
+          {recent.map((note: object, index: number) => {
+            return index < 4 ? (
+              <Link
+                className="act-carousel-link"
+                key={`${note.id}Link`}
+                to={`/home/activitydetail/${note.id}`}
+              >
+                <img
+                  className="act-carousel-link-img"
+                  src={note.src}
+                  key={note.id}
+                  alt={String(note.id)}
+                ></img>
+              </Link>
+            ) : null;
+          })}
+        </Carousel>
+        <Card className="TimeLine-card">
+          <Timeline className="TimeLine-card-act" mode="right">
+            <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
+            <Timeline.Item>
+              Solve initial network problems 2015-09-01
+            </Timeline.Item>
+            <Timeline.Item
+              dot={<ClockCircleOutlined style={{ fontSize: '16px' }} />}
+              color="red"
             >
-              <img
-                className="act-carousel-link-img"
-                src={note.src}
-                key={note.id}
-                alt={String(note.id)}
-              ></img>
-            </Link>
-          ) : null;
-        })}
-      </Carousel>
+              Technical testing 2015-09-01
+            </Timeline.Item>
+            <Timeline.Item>
+              Network problems being solved 2015-09-01
+            </Timeline.Item>
+          </Timeline>
+        </Card>
+      </div>
       <Space direction="vertical" className="recent-Act" size="middle">
         {recent.length ? (
           <span
