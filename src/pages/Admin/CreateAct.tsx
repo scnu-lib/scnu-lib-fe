@@ -13,7 +13,7 @@ import ImgCrop from 'antd-img-crop';
 import 'antd/es/modal/style';
 import 'antd/es/slider/style';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { changeActApi } from '@/Services/activity';
+import { createActApi, changeActApi } from '@/Services/activity';
 import { useSelector, useDispatch } from 'react-redux';
 import { initActDetail } from '@/reducers/actDetailReducer';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
@@ -42,7 +42,7 @@ function CreateAct(props: any) {
     if (!props.location.pathname.slice(25)) {
     } else {
       dispatch(initActDetail(props.match.params.id));
-      setState({ imageUrl: act.src, loading: false });
+      setState({ imageUrl: act?.src, loading: false });
     }
   };
   useEffect(() => {
@@ -107,7 +107,7 @@ function CreateAct(props: any) {
           throw new PropertyRequiredError('res');
         }
       } else {
-        const res = await createactApi(finalAct);
+        const res = await createActApi(finalAct);
         console.log(res);
       }
 
@@ -193,7 +193,7 @@ function CreateAct(props: any) {
           <Input />
         </Form.Item>
         <Form.Item
-          name={['act', 'startendTime']}
+          name={['act', 'startEndTime']}
           label="活动开始、结束时间"
           rules={[
             {
@@ -206,7 +206,7 @@ function CreateAct(props: any) {
           <RangePicker showTime format={dateFormat} />
         </Form.Item>
         <Form.Item
-          name={['act', 'signUpDeadline']}
+          name={['act', 'signUpDeadLine']}
           label="报名截止时间"
           rules={[
             { type: 'object', required: true, message: '请选择报名截止时间！' },

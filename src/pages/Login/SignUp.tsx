@@ -12,6 +12,7 @@ import {
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { signUpApi } from '@/Services/auth';
 import history from 'umi';
+import PropertyRequiredError from '@/error/PropertyRequiredError';
 //注册页面
 const { Option } = Select;
 const AutoCompleteOption = AutoComplete.Option;
@@ -51,14 +52,29 @@ function SignUp(props: any) {
     };
     try {
       const res = await signUpApi(user);
-      history.push('/login');
+      if (!res) {
+        throw new PropertyRequiredError('res');
+      }
+      if (!res?.hasOwnProperty('data')) {
+        throw new PropertyRequiredError('data');
+      }
+      if (
+        !res?.data?.hasOwnProperty('username') ||
+        !res?.data?.hasOwnProperty('password') ||
+        !res?.data?.hasOwnProperty('name')
+      ) {
+        throw new PropertyRequiredError('data');
+      }
+      props.history.push('/login');
       message.success('注册成功！');
     } catch (err) {
-      if (err.response.data.code === 'error.account.register.username_exists')
+      if (err.response?.data.code === 'error.account.register.username_exists')
         message.error('用户名已被使用!');
-      else if (err.response.data.code === 'error.generic.malformed_request')
+      else if (err.response?.data.code === 'error.generic.malformed_request')
         message.error('格式错误！');
-      else throw err;
+      else if (err instanceof PropertyRequiredError) {
+        message.error('Opps！后台数据出错，请联系程序猿');
+      } else throw err;
     }
   };
 

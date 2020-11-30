@@ -16,30 +16,33 @@ function SignIn(props: any) {
     try {
       const res = await loginApi(user); //post得到token后设置缓存，跳转刷新
       console.log(res);
-
-      if (!res.data.jwt) {
+      if (!res?.hasOwnProperty('data') || !res?.data?.hasOwnProperty('jwt')) {
         throw new PropertyRequiredError('jwt'); //jwt中属性不合法抛出错误
       }
       const payload = decodeURIComponent(
-        escape(window.atob(res.data.jwt.split('.')[1])),
+        escape(window.atob(res?.data?.jwt?.split('.')[1])),
       );
       const userID = JSON.parse(payload).userID; //从jwt获得userid
       const role = JSON.parse(payload).role; //从jwt获得roles
       setToken(res.data.jwt);
       setUserID(userID);
       setRole(role);
-      props.history.push('/');
+      location.replace('/');
       message.success('登录成功！');
     } catch (err) {
       //登录错误
       if (err instanceof PropertyRequiredError) {
         message.error('后台数据错误！');
       } else {
-        if (err.response.data.code === 'error.account.login.invalid_credential')
+        if (
+          err.response?.data.code === 'error.account.login.invalid_credential'
+        )
           message.error('用户名或密码错误！');
-        else if (err.response.data.code === 'error.generic.malformed_request')
+        else if (err.response?.data.code === 'error.generic.malformed_request')
           message.error('格式错误！');
-        else {
+        else if (err instanceof PropertyRequiredError) {
+          message.error('Opps！后台数据错误，请联系程序猿');
+        } else {
           throw err;
         }
       }

@@ -6,7 +6,7 @@ import {
   isLogined,
   clearToken,
   clearUserID,
-  clearRoles,
+  clearRole,
 } from '../../Utils/auth';
 import { DownOutlined } from '@ant-design/icons';
 import './Frame.less';
@@ -19,7 +19,7 @@ function Frame(props: any) {
         if (p.key === 'logout') {
           clearToken();
           clearUserID();
-          clearRoles();
+          clearRole();
           history.push('/');
           location.reload();
         } else if (p.key === 'User') {
