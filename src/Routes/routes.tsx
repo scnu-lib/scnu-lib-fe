@@ -4,16 +4,13 @@ import PageNotFound from '../Pages/PageNotFound';
 import Activity from '../Pages/Reader/Activity/Activity';
 import ActivityDetail from '../Pages/Reader/Activity/ActivityDetail';
 import RegisteredAct from '../Pages/Reader/Activity/RegisteredAct';
-import { isLogined, isadmin, getRoles } from '../Utils/auth';
-import UserSetting from '../Pages/User/UserSetting';
+import { isLogined, getRole } from '../Utils/auth';
 import User from '../Pages/User/User';
-import Notions from '../Pages/Reader/Activity/Notions';
 import AdminAct from '../pages/Admin/AdminAct';
 import AdminUser from '../pages/Admin/AdminUser';
 import CreateAct from '../Pages/Admin/CreateAct';
-import EditAct from '../Pages/Admin/EditAct';
 import ListAct from '../pages/Admin/ListAct';
-import { Roles } from '@/Utils/config';
+import { role } from '@/Utils/config';
 // 主页路由
 export const mainRoutes = [
   {
@@ -48,7 +45,7 @@ export const activityRoutes = [
   {
     path: '/home/listact',
     title: '活动列表',
-    isShow: !(getRoles() === Roles.admin) && !(getRoles() === Roles.librarian),
+    isShow: !(getRole() === role.admin) && !(getRole() === role.librarian),
     exact: false,
   },
   {
@@ -56,20 +53,23 @@ export const activityRoutes = [
     title: '已报名活动',
     component: RegisteredAct,
     exact: true,
-    isShow: isLogined() && !(getRoles() === Roles.admin) && !(getRoles() === Roles.librarian), // 不是管理员才显示，管理员不能报名，只能浏览活动
+    isShow:
+      isLogined() &&
+      !(getRole() === role.admin) &&
+      !(getRole() === role.librarian), // 不是管理员才显示，管理员不能报名，只能浏览活动
   },
   {
     path: '/home/adminAct/listact',
     title: '活动管理',
     component: AdminAct,
-    isShow: getRoles() === Roles.admin||getRoles() === Roles.librarian, // 管理员才显示
+    isShow: getRole() === role.admin || getRole() === role.librarian, // 管理员才显示
     exact: false,
   },
   {
     path: '/home/adminUser/user',
     title: '用户管理',
     component: AdminUser,
-    isShow: getRoles() === Roles.admin||getRoles() === Roles.librarian, // 管理员才显示
+    isShow: getRole() === role.admin || getRole() === role.librarian, // 管理员才显示
     exact: false,
   },
   {
@@ -83,14 +83,14 @@ export const adminRoutes = [
   {
     path: '/home/adminAct/createact',
     exact: false,
-    isShow:getRoles() === Roles.admin||getRoles() === Roles.librarian,
+    isShow: getRole() === role.admin || getRole() === role.librarian,
     title: '创建活动',
     component: CreateAct,
   },
   {
     path: '/home/adminAct/listact',
     exact: true,
-    isShow:getRoles() === Roles.admin||getRoles() === Roles.librarian,
+    isShow: getRole() === role.admin || getRole() === role.librarian,
     title: '活动列表',
     component: ListAct,
   },
@@ -100,8 +100,8 @@ export const adminUserRoutes = [
   {
     path: '/home/adminUser/user',
     exact: false,
-    isShow:getRoles() === Roles.admin,
+    isShow: getRole() === role.admin,
     title: '用户管理',
     component: CreateAct,
-  }
+  },
 ];

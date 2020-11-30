@@ -1,10 +1,10 @@
 export const serverUrl = ''; // 'https://lib.scnu.life' //服务器地址
-export enum VolunteerApplicationState {
+export enum volunteerApplicationState {
   applied = 'APPLIED',
   accepted = 'ACCEPTED',
   rejected = 'REJECTED',
 }
-export enum Roles {
+export enum role {
   user = 'ROLE_USER',
   librarian = 'ROLE_LIBRARIAN',
   admin = 'ROLE_ADMIN',

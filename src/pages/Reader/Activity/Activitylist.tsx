@@ -5,7 +5,7 @@ import { initList } from '../../../reducers/actReducer';
 import { Link } from 'umi';
 import Item from 'antd/lib/list/Item';
 
-function Activitylist() {
+function ActivityList() {
   const listData = useSelector(state => state.act);
   const dispatch = useDispatch();
   const getPage = (label = 'text', page = 0, size = 6) => {
@@ -60,4 +60,4 @@ function Activitylist() {
   );
 }
 
-export default Activitylist;
+export default ActivityList;

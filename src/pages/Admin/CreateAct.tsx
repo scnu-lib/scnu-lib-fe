@@ -6,17 +6,14 @@ import {
   Button,
   InputNumber,
   DatePicker,
-  Space,
-  TimePicker,
   message,
   Upload,
 } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import 'antd/es/modal/style';
 import 'antd/es/slider/style';
-import moment from 'moment';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { createactApi, changeactApi } from '@/Services/activity';
+import { changeActApi } from '@/Services/activity';
 import { useSelector, useDispatch } from 'react-redux';
 import { initActDetail } from '@/reducers/actDetailReducer';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
@@ -38,7 +35,7 @@ const validateMessages = {
 
 //创建活动页
 function CreateAct(props: any) {
-  let cardtitle = '修改活动';
+  let cardTitle = '修改活动';
   const initId = Number(props.location.pathname.slice(25)); //url传参，判断是修改还是创建
   const dispatch = useDispatch();
   const getAct = () => {
@@ -55,15 +52,15 @@ function CreateAct(props: any) {
   act = useSelector(store => store.act[initId]); //存储有、无活动内容 刷新后store就又没了。。。
   if (!props.location.pathname.slice(25)) {
     act = {}; //不要在条件循环里面调用hook，不然可能会顺序错误
-    cardtitle = '创建活动';
+    cardTitle = '创建活动';
   }
-  function getBase64(img, callback) {
+  function getBase64(img: Blob, callback: Function) {
     const reader = new FileReader();
     reader.addEventListener('load', () => callback(reader.result));
     reader.readAsDataURL(img);
   }
 
-  function beforeUpload(file) {
+  function beforeUpload(file: object) {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
       message.error('目前只支持JPG/PNG格式的图片！');
@@ -81,25 +78,24 @@ function CreateAct(props: any) {
         throw new PropertyRequiredError('imageUrl');
       }
       const src = state?.imageUrl;
-      const startTime = values.act.startendTime[0].format(dateFormat);
-      const endTime = values.act.startendTime[1].format(dateFormat);
-      const signUpDeadline = values.act.signUpDeadline.format(dateFormat);
-      const finalact = {
+      const startTime = values.act.startEndTime[0].format(dateFormat);
+      const endTime = values.act.startEndTime[1].format(dateFormat);
+      const signUpDeadLine = values.act.signUpDeadLine.format(dateFormat);
+      const finalAct = {
         src,
         startTime,
         endTime,
-        signUpDeadline,
+        signUpDeadLine,
         title: values.act.title,
         maxParticipant: values.act.maxParticipant,
         location: values.act.location,
         labels: values.act.labels,
         description: values.act.description,
       };
-      console.log(finalact);
       if (!props.location.pathname.slice(25) === false) {
-        const res = await changeactApi(
+        const res = await changeActApi(
           +props.location.pathname.slice(25),
-          finalact,
+          finalAct,
         );
         if (
           res?.hasOwnProperty('title') ||
@@ -111,7 +107,7 @@ function CreateAct(props: any) {
           throw new PropertyRequiredError('res');
         }
       } else {
-        const res = await createactApi(finalact);
+        const res = await createactApi(finalAct);
         console.log(res);
       }
 
@@ -136,7 +132,7 @@ function CreateAct(props: any) {
     }
   };
   const [state, setState] = useState({ imageUrl: '', loading: false });
-  const handleChange = info => {
+  const handleChange = (info: object) => {
     if (info.file.status === 'uploading') {
       setState({ loading: true });
       return;
@@ -158,7 +154,7 @@ function CreateAct(props: any) {
     </div>
   );
   return (
-    <Card title={cardtitle} className="create-act-card">
+    <Card title={cardTitle} className="create-act-card">
       <Form
         {...layout}
         name="nest-messages"

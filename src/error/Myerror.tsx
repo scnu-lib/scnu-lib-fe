@@ -1,8 +1,8 @@
 // 自定义error消除this.name = ''
-class Myerror extends Error{
-    constructor(message){
-        super(message);
-        this.name = this.constructor.name;
-    }
+class MyError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = this.constructor.name;
+  }
 }
-export default Myerror
+export default MyError;

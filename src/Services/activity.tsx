@@ -1,34 +1,60 @@
-import { del, get, post, put } from '@/Utils/request'
-import { serverUrl,VolunteerApplicationState } from '@/Utils/config'
+import { del, get, post, put } from '@/Utils/request';
+import { serverUrl, volunteerApplicationState } from '@/Utils/config';
 
-export const listactApi = (label:string,page:number=0,size:number = 20) =>{
-    return get(`${serverUrl}/activity/activities`,{label,page,size})
-}
+export const listActApi = (
+  label: string,
+  page: number = 0,
+  size: number = 20,
+) => {
+  return get(`${serverUrl}/activity/activities`, { label, page, size });
+};
 
-export const createactApi = (act:object) =>{
-    return post(`${serverUrl}/activity/activities`,{...act})
-}
+export const createActApi = (act: object) => {
+  return post(`${serverUrl}/activity/activities`, { ...act });
+};
 
-export const detailApi = (activityID:number) =>{
-    return get(`${serverUrl}/activity/activities/${activityID}`,{activityID})
-}
+export const detailApi = (activityID: number) => {
+  return get(`${serverUrl}/activity/activities/${activityID}`, { activityID });
+};
 
-export const changeactApi = (activityID:number,newact:object) =>{
-    return put(`${serverUrl}/activity/activities/${activityID}`,{activityID},newact)
-}
+export const changeActApi = (activityID: number, newAct: object) => {
+  return put(
+    `${serverUrl}/activity/activities/${activityID}`,
+    { activityID },
+    newAct,
+  );
+};
 
-export const actsignupApi = (activityID:number,userID:number) =>{
-    return put(`${serverUrl}/activity/activities/${activityID}/sign-up/${userID}`,{activityID,userID})
-}
+export const actSignUpApi = (activityID: number, userID: number) => {
+  return put(
+    `${serverUrl}/activity/activities/${activityID}/sign-up/${userID}`,
+    { activityID, userID },
+  );
+};
 
-export const actsigninApi = (activityID:number,userID:number) =>{
-    return put(`${serverUrl}/activity/activities/${activityID}/sign-in/${userID}`,{activityID,userID},{userID})
-}
+export const actSignInApi = (activityID: number, userID: number) => {
+  return put(
+    `${serverUrl}/activity/activities/${activityID}/sign-in/${userID}`,
+    { activityID, userID },
+    { userID },
+  );
+};
 
-export const delvolApi = (activityID:number,userID:number)=>{
-    return del(`${serverUrl}/activity/activities/${activityID}/volunteer/${userID}`,{activityID,userID})
-}
+export const delVolApi = (activityID: number, userID: number) => {
+  return del(
+    `${serverUrl}/activity/activities/${activityID}/volunteer/${userID}`,
+    { activityID, userID },
+  );
+};
 
-export const uservolsignupApi = (activityID:number,userID:number,state:VolunteerApplicationState,reason:string='null')=>{
-    return put(`${serverUrl}/activity/activities/${activityID}/volunteer-application/${userID}`,{state,reason})
-}
+export const userVolSignUpApi = (
+  activityID: number,
+  userID: number,
+  state: volunteerApplicationState,
+  reason: string = 'null',
+) => {
+  return put(
+    `${serverUrl}/activity/activities/${activityID}/volunteer-application/${userID}`,
+    { state, reason },
+  );
+};

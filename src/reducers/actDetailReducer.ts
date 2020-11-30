@@ -1,7 +1,7 @@
 import PropertyRequiredError, {
-  CheckActproperty,
+  checkActProperty,
 } from '@/error/PropertyRequiredError';
-import { detailApi, changeactApi, createactApi } from '@/Services/activity';
+import { detailApi } from '@/Services/activity';
 import { message } from 'antd';
 
 const initState = {
@@ -33,7 +33,7 @@ export const initActDetail = (activityID: number) => {
   return async dispatch => {
     try {
       const res = await detailApi(activityID);
-      CheckActproperty(res.data);
+      checkActProperty(res.data);
       dispatch({
         type: 'INIT_ACTIVITY',
         data: res.data,

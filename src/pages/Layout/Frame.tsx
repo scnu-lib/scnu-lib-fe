@@ -1,6 +1,6 @@
 import React from 'react';
 import { history, Link } from 'umi';
-import { Layout, Menu, Button, Dropdown, Avatar, Badge } from 'antd';
+import { Layout, Menu, Button, Dropdown, Avatar } from 'antd';
 import { activityRoutes } from '../../Routes/routes';
 import {
   isLogined,
@@ -33,7 +33,7 @@ function Frame(props: any) {
       <Menu.Item key="logout">退出</Menu.Item>
     </Menu>
   );
-  const switchloginuser = (): any => {
+  const SwitchLoginUser = (): any => {
     // 鉴权判断登录框显示
     if (isLogined()) {
       // antd的子组件也不能同时传入多个
@@ -76,7 +76,7 @@ function Frame(props: any) {
           className="sign-in-up"
           style={{ height: '100%', minHeight: '525px' }}
         >
-          {switchloginuser()}
+          {SwitchLoginUser()}
         </div>
       </Header>
       <Content className="layout-content">

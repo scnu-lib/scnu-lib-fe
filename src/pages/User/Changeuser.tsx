@@ -2,23 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Card, Form, Input, Button, Tooltip, message } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import './User.css';
-import { getnotifyApi, changenotifyApi } from '@/Services/auth';
+import { getNotifyApi, changeNotifyApi } from '@/Services/auth';
 import { getUserID } from '@/Utils/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeUserinfo } from '../../reducers/userReducer';
-const Changeuser = (props: any) => {
-  const userinfo = useSelector(state => state.user);
+import { changeUserInfo } from '../../reducers/userReducer';
+const ChangeUser = (props: any) => {
+  const userInfo = useSelector(state => state.user);
   const dispatch = useDispatch();
-  const changenotify = (values: object) => {
-    dispatch(changeUserinfo(values.wechat, values.email));
+  const changeNotify = (values: object) => {
+    dispatch(changeUserInfo(values.wechat, values.email));
   };
-  const onFinish = values => {
-    changenotify(values);
+  const onFinish = (values: object) => {
+    changeNotify(values);
     message.success('保存成功！');
-    props.toggleshow();
+    props.toggleShow();
   }; //把后端通信整合到actioncreator中返回的函数
 
-  const onFinishFailed = errorInfo => {
+  const onFinishFailed = (errorInfo: object) => {
     message.error('格式错误！');
   };
   return (
@@ -33,7 +33,7 @@ const Changeuser = (props: any) => {
           label="微信号"
           name="wechat"
           rules={[{ required: true, message: '请输入你的微信号！' }]}
-          initialValue={userinfo?.wechat?.wxid}
+          initialValue={userInfo?.wechat?.wxid}
         >
           <Input />
         </Form.Item>
@@ -48,7 +48,7 @@ const Changeuser = (props: any) => {
               message: '请输入正确格式的邮箱地址！',
             },
           ]}
-          initialValue={userinfo?.email?.address}
+          initialValue={userInfo?.email?.address}
         >
           <Input />
         </Form.Item>
@@ -62,4 +62,4 @@ const Changeuser = (props: any) => {
   );
 };
 
-export default Changeuser;
+export default ChangeUser;

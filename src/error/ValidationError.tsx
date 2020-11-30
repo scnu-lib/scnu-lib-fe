@@ -1,6 +1,6 @@
 // 值不合法error
 
-import Myerror from './Myerror'
-class ValidationError extends Myerror{}
+import MyError from './MyError';
+class ValidationError extends MyError {}
 
-export default ValidationError
+export default ValidationError;

@@ -1,10 +1,10 @@
-import Myerror from './Myerror';
+import MyError from './MyError';
 // http请求返回的错误
-class Httperror extends Myerror{
-    constructor(status,code){
-        super('Http request error status: '+status + code);
-        this.status = status;
-        this.code = code;
-    }
+class HttpError extends MyError {
+  constructor(status: string, code: string) {
+    super('Http request error status: ' + status + code);
+    this.status = status;
+    this.code = code;
+  }
 }
-export default Httperror
+export default HttpError;

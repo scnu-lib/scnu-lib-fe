@@ -1,15 +1,9 @@
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import React from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-} from '@ant-design/icons';
+import { Layout, Menu } from 'antd';
 import './AdminAct.css';
 import { adminUserRoutes } from '../../Routes/routes';
-import { Link } from 'umi';
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 function AdminUser(props: any) {
   return (
@@ -19,28 +13,34 @@ function AdminUser(props: any) {
           className="site-layout-background"
           style={{ padding: '24px 0' }}
         >
-          <div className='site-layout-sider'>
-          <Sider  width='100%'>
-            <Menu
-              mode="inline"
-              defaultSelectedKeys={['/home/adminUser/user']}
-              defaultOpenKeys={['/home/adminUser/user']}
-              style={{ height: '100%' }}
-            >
-              {adminUserRoutes.map(route => {
-                return route.isShow ? (
-                  <Menu.Item
-                    key={route.path}
-                    onClick={p => props.history.push(p.key)}
-                  >
-                    {route.title}
-                  </Menu.Item>
-                ) : null; // 根据token判断显示是否登录
-              })}
-            </Menu>
-          </Sider>
+          <div className="site-layout-sider">
+            <Sider width="100%">
+              <Menu
+                mode="inline"
+                defaultSelectedKeys={['/home/adminUser/user']}
+                defaultOpenKeys={['/home/adminUser/user']}
+                style={{ height: '100%' }}
+              >
+                {adminUserRoutes.map(route => {
+                  return route.isShow ? (
+                    <Menu.Item
+                      key={route.path}
+                      onClick={p => props.history.push(p.key)}
+                    >
+                      {route.title}
+                    </Menu.Item>
+                  ) : null; // 根据token判断显示是否登录
+                })}
+              </Menu>
+            </Sider>
           </div>
-          <Content style={{ padding: '10px 24px', minWidth:'400px',minHeight: '800px' }}>
+          <Content
+            style={{
+              padding: '10px 24px',
+              minWidth: '400px',
+              minHeight: '800px',
+            }}
+          >
             {props.children}
           </Content>
         </Layout>

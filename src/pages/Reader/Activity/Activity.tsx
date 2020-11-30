@@ -10,9 +10,8 @@ import { initList } from '../../../reducers/actReducer';
 
 function Activity(props: any) {
   const recent = useSelector(state => state.act);
-
   const dispatch = useDispatch();
-  const getrecentAct = () => {
+  const getRecentAct = () => {
     //把最近的活动拿到，暂时通过标签确定最近,只需要三个
     try {
       dispatch(initList('recent', 0, 3));
@@ -21,7 +20,7 @@ function Activity(props: any) {
     }
   };
   useEffect(() => {
-    getrecentAct();
+    getRecentAct();
     //setRecent(recentlist)
   }, []);
   return (
