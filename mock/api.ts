@@ -13,7 +13,9 @@ export default {
         maxParticipant: 40,
         currentParticipant: 3,
         location: '图书馆（石牌）',
-        labels: ['读书会'],
+        labels: ['读书会', '线下'],
+        volState: true,
+        maxVolParticipant: 30,
       },
       {
         id: 1,
@@ -25,7 +27,9 @@ export default {
         maxParticipant: 40,
         currentParticipant: 3,
         location: '图书馆（石牌）',
-        labels: ['读书会'],
+        labels: ['读书会', '线下'],
+        volState: true,
+        maxVolParticipant: 30,
       },
       {
         id: 2,
@@ -37,7 +41,9 @@ export default {
         maxParticipant: 40,
         currentParticipant: 3,
         location: '图书馆（石牌）',
-        labels: ['读书会'],
+        labels: ['读书会', '线下'],
+        volState: true,
+        maxVolParticipant: 30,
       },
       {
         id: 3,
@@ -49,7 +55,9 @@ export default {
         maxParticipant: 40,
         currentParticipant: 3,
         location: '图书馆（石牌）',
-        labels: ['读书会'],
+        labels: ['读书会', '线下'],
+        volState: true,
+        maxVolParticipant: 30,
       },
       {
         id: 4,
@@ -61,7 +69,9 @@ export default {
         maxParticipant: 40,
         currentParticipant: 3,
         location: '图书馆（石牌）',
-        labels: ['读书会'],
+        labels: ['读书会', '线下'],
+        volState: true,
+        maxVolParticipant: 30,
       },
       {
         id: 5,
@@ -73,7 +83,9 @@ export default {
         maxParticipant: 40,
         currentParticipant: 3,
         location: '图书馆（石牌）',
-        labels: ['读书会'],
+        labels: ['读书会', '线下'],
+        volState: true,
+        maxVolParticipant: 30,
       },
     ]);
   },
@@ -106,7 +118,7 @@ export default {
       location: '图书馆（石牌）',
       issign: false,
       src: 'http://chuantu.xyz/t6/741/1605766913x1700339730.png',
-      labels: ['读书会'],
+      labels: ['读书会', '线下'],
     });
   },
   'POST /account/login': (req: any, res: any) => {

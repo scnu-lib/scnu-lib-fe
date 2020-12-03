@@ -1,22 +1,22 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Card, Table, Button, Popconfirm, Space } from 'antd';
-import {useDispatch,useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '@/reducers/actReducer';
 // 活动列表
 
 function ListAct(props: any) {
-  const dataSource = useSelector(store=>store.act)
-  const dispatch = useDispatch()
-  const getAct = (page:number = 0)=>{
-    dispatch(initList('all',page,20))
-  }
-  useEffect(()=>{
-    getAct()
-  },[])
+  const dataSource = useSelector(store => store.act);
+  const dispatch = useDispatch();
+  const getAct = (page: number = 0) => {
+    dispatch(initList('all', page, 20));
+  };
+  useEffect(() => {
+    getAct();
+  }, []);
 
   const columns = [
     {
-      title: '活动id',
+      title: '序号',
       dataIndex: 'id',
       key: '_id',
     },
@@ -26,9 +26,19 @@ function ListAct(props: any) {
       key: 'title',
     },
     {
-      title: '活动时间',
+      title: '报名截止时间',
+      dataIndex: 'signUpDeadline',
+      key: 'signUpDeadline',
+    },
+    {
+      title: '开始时间',
       dataIndex: 'startTime',
       key: 'startTime',
+    },
+    {
+      title: '结束时间',
+      dataIndex: 'endTime',
+      key: 'endTime',
     },
     {
       title: '报名人数',
@@ -44,31 +54,44 @@ function ListAct(props: any) {
       title: '操作',
       key: '',
       render: (txt: any, record: any, index: any) => {
-
         return (
           <>
-          <Space>
-          <Button type="default" size="small" onClick={()=>{props.history.push(`/home/adminAct/actParticipants/${txt.id}`)}}>
-            {' '}
-              报名用户
-            </Button>
-            <Button type="default" size="small" onClick={()=>{props.history.push(`/home/adminAct/createact/${txt.id}`)}}>
-            {' '}
-              修改活动
-            </Button>
-
-            <Popconfirm
-              title="确定删除此项？"
-              onCancel={() => console.log('用户取消删除')}
-              onConfirm={
-                () => console.log('用户确认删除') // 此处调用api接口进行操作
-              }
-            >
-              <Button type='default' danger size="small">
+            <Space>
+              <Button
+                type="default"
+                size="small"
+                onClick={() => {
+                  props.history.push(
+                    `/home/adminAct/actParticipants/${txt.id}`,
+                  );
+                }}
+              >
                 {' '}
-                删除活动
+                报名详情
               </Button>
-            </Popconfirm>
+              <Button
+                type="default"
+                size="small"
+                onClick={() => {
+                  props.history.push(`/home/adminAct/createact/${txt.id}`);
+                }}
+              >
+                {' '}
+                修改活动
+              </Button>
+
+              <Popconfirm
+                title="确定删除此项？"
+                onCancel={() => console.log('用户取消删除')}
+                onConfirm={
+                  () => console.log('用户确认删除') // 此处调用api接口进行操作
+                }
+              >
+                <Button type="default" danger size="small">
+                  {' '}
+                  删除活动
+                </Button>
+              </Popconfirm>
             </Space>
           </>
         );

@@ -8,6 +8,7 @@ import {
   DatePicker,
   message,
   Upload,
+  Checkbox,
 } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import 'antd/es/modal/style';
@@ -17,6 +18,7 @@ import { createActApi, changeActApi } from '@/Services/activity';
 import { useSelector, useDispatch } from 'react-redux';
 import { initActDetail } from '@/reducers/actDetailReducer';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
+import moment from 'moment';
 const { RangePicker } = DatePicker;
 const layout = {
   labelCol: { span: 8 },
@@ -32,7 +34,10 @@ const validateMessages = {
     range: '${label}不能小于${min}',
   },
 };
-
+function disabledDate(current: object) {
+  // Can not select days before today and today
+  return current && current < moment().endOf('day');
+}
 //创建活动页
 function CreateAct(props: any) {
   let cardTitle = '修改活动';
@@ -43,6 +48,7 @@ function CreateAct(props: any) {
     } else {
       dispatch(initActDetail(props.match.params.id));
       setState({ imageUrl: act?.src, loading: false });
+      setVolCheckBox(act?.volState); //初始化各个组件
     }
   };
   useEffect(() => {
@@ -74,10 +80,10 @@ function CreateAct(props: any) {
 
   const onFinish = async (values: any) => {
     try {
-      if (!state?.imageUrl) {
-        throw new PropertyRequiredError('imageUrl');
-      }
-      const src = state?.imageUrl;
+      //if (!state?.imageUrl) {
+      //  throw new PropertyRequiredError('imageUrl');
+      //}
+      const src = 'text'; //state?.imageUrl
       const startTime = values.act.startEndTime[0].format(dateFormat);
       const endTime = values.act.startEndTime[1].format(dateFormat);
       const signUpDeadLine = values.act.signUpDeadLine.format(dateFormat);
@@ -89,8 +95,10 @@ function CreateAct(props: any) {
         title: values.act.title,
         maxParticipant: values.act.maxParticipant,
         location: values.act.location,
-        labels: values.act.labels,
-        description: values.act.description,
+        labels: values.act.labels.split(/,|，|、/),
+        detail: { description: values.act.description },
+        volState: volCheckBox,
+        maxVolParticipant: values.act.maxVolParticipant,
       };
       if (!props.location.pathname.slice(25) === false) {
         const res = await changeActApi(
@@ -102,7 +110,9 @@ function CreateAct(props: any) {
           res?.hasOwnProperty('maxParticipant') ||
           res?.hasOwnProperty('location') ||
           res?.hasOwnProperty('labels') ||
-          res?.hasOwnProperty('description')
+          res?.hasOwnProperty('description') ||
+          res?.hasOwnProperty('volState') ||
+          res?.hasOwnProperty('maxVolParticipant')
         ) {
           throw new PropertyRequiredError('res');
         }
@@ -110,7 +120,7 @@ function CreateAct(props: any) {
         const res = await createActApi(finalAct);
         console.log(res);
       }
-
+      console.log(finalAct);
       message.success('发布成功！');
       //props.history.push('/')
     } catch (err) {
@@ -130,6 +140,10 @@ function CreateAct(props: any) {
         throw err;
       }
     }
+  };
+  const [volCheckBox, setVolCheckBox] = useState(false);
+  const handleVolCheckBoxChange = (e: object) => {
+    setVolCheckBox(e.target.checked); //设置志愿者开启的状态
   };
   const [state, setState] = useState({ imageUrl: '', loading: false });
   const handleChange = (info: object) => {
@@ -153,6 +167,7 @@ function CreateAct(props: any) {
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
+
   return (
     <Card title={cardTitle} className="create-act-card">
       <Form
@@ -190,7 +205,7 @@ function CreateAct(props: any) {
           rules={[{ required: true }]}
           initialValue={act?.title}
         >
-          <Input />
+          <Input maxLength={20} />
         </Form.Item>
         <Form.Item
           name={['act', 'startEndTime']}
@@ -203,7 +218,11 @@ function CreateAct(props: any) {
             },
           ]}
         >
-          <RangePicker showTime format={dateFormat} />
+          <RangePicker
+            disabledDate={disabledDate}
+            showTime
+            format={dateFormat}
+          />
         </Form.Item>
         <Form.Item
           name={['act', 'signUpDeadLine']}
@@ -212,7 +231,11 @@ function CreateAct(props: any) {
             { type: 'object', required: true, message: '请选择报名截止时间！' },
           ]}
         >
-          <DatePicker showTime format={dateFormat} />
+          <DatePicker
+            disabledDate={disabledDate}
+            showTime
+            format={dateFormat}
+          />
         </Form.Item>
         <Form.Item
           name={['act', 'maxParticipant']}
@@ -234,7 +257,7 @@ function CreateAct(props: any) {
           name={['act', 'labels']}
           label="活动标签（标签之间用逗号隔开）"
           rules={[{ required: true }]}
-          initialValue={act?.labels ? act?.labels : ''}
+          initialValue={act?.labels ? act?.labels.join(',') : ''}
         >
           <Input />
         </Form.Item>
@@ -246,6 +269,24 @@ function CreateAct(props: any) {
         >
           <Input.TextArea />
         </Form.Item>
+        <Form.Item name={['act', 'volState']} className="volunteerCheckBox">
+          <Checkbox
+            defaultChecked={act?.volState}
+            onChange={handleVolCheckBoxChange}
+          >
+            {'开启志愿者报名'}
+          </Checkbox>
+        </Form.Item>
+        {volCheckBox ? (
+          <Form.Item
+            name={['act', 'maxVolParticipant']}
+            label="最大志愿者人数"
+            rules={[{ type: 'number', min: 0 }, { required: true }]}
+            initialValue={act?.maxVolParticipant ? act?.maxVolParticipant : ''}
+          >
+            <InputNumber min={1} defaultValue={10} />
+          </Form.Item>
+        ) : null}
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button type="primary" htmlType="submit">
             提交

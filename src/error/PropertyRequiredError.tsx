@@ -27,8 +27,6 @@ export function checkActProperty(act: object) {
     throw new PropertyRequiredError('location');
   } else if (!act?.hasOwnProperty('labels')) {
     throw new PropertyRequiredError('labels');
-  } else {
-    throw new PropertyRequiredError('others');
   }
 }
 export default PropertyRequiredError;

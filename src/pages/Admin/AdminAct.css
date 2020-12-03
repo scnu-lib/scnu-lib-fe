@@ -15,3 +15,8 @@
     min-height: 800px;
   }
 }
+
+.volunteerCheckBox>.ant-form-item-control>.ant-form-item-control-input>.ant-form-item-control-input-content{
+  display: flex;
+  justify-content: center;
+}
