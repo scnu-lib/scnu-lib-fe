@@ -33,7 +33,7 @@ export const activityRoutes = [
     title: '活动页',
     component: Activity,
     exact: true,
-    isShow: true,
+    isShow: false,
   },
   {
     path: '/home/activitydetail/:id',

@@ -66,9 +66,9 @@ function Activity(props: any) {
         {recent.length ? (
           <span
             style={{
-              margin: '24px',
-              fontSize: '22px',
-              fontWeight: 500,
+              margin: '22px',
+              fontSize: '24px',
+              fontWeight: 2000,
               textAlign: 'center',
               color: '#5c6b77',
               textTransform: 'capitalize',

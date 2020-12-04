@@ -40,7 +40,7 @@ function Frame(props: any) {
       return (
         <Dropdown overlay={menu}>
           <label>
-            <Avatar>u</Avatar>username <DownOutlined />
+            <Avatar>C</Avatar><div className='userName'>许峰</div> <DownOutlined />
           </label>
         </Dropdown>
       );
@@ -59,11 +59,14 @@ function Frame(props: any) {
   return (
     <Layout className="layout">
       <Header className="navbg_selector">
+        <div className="LOGO-Menu">
+        <a className="LOGO" onClick={()=>{history.replace('/')}}></a>
         <Menu
           className="navbg_selector"
           mode="horizontal"
           defaultSelectedKeys={['/home/activity']}
         >
+
           {activityRoutes.map(route => {
             return route.isShow ? (
               <Menu.Item key={route.path}>
@@ -71,11 +74,12 @@ function Frame(props: any) {
               </Menu.Item>
             ) : null; // 根据token判断显示是否登录
           })}
+
         </Menu>
+        </div>
 
         <div
           className="sign-in-up"
-          style={{ height: '100%', minHeight: '525px' }}
         >
           {SwitchLoginUser()}
         </div>
