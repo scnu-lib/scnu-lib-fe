@@ -1,4 +1,66 @@
 export default {
+  'GET /notify/methods/{userID}': (req:any,res:any)=> {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log(req);
+    res.status(200).json({
+      "userID": 0,
+      "wechat": {
+        "enabled": true,
+        "wxid": "string"
+      },
+      "email": {
+        "enabled": true,
+        "address": "user@example.com"
+      }
+    })
+  },
+  'GET /account/accounts/{userID}': (req:any,res:any)=> {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log(req);
+    res.status(200).json({
+      "id": 0,
+      "username": "string",
+      "password": "string",
+      "detail": {
+        "name": "string"
+      },
+      "role": [
+        "ROLE_USER"
+      ]
+    })
+  },
+  'GET /activity/activities/{activityID}/volunteer': (req:any,res:any)=> {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log(req);
+    res.status(200).json([
+      {
+        "activityID": 0,
+        "userID": 0
+      },{
+        "activityID": 0,
+        "userID": 1
+      }
+    ])
+  },
+  '/activity/activities/{activityID}/volunteer-application': (req:any,res:any)=> {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log(req);
+    res.status(200).json([
+      {
+        "activityID": 0,
+        "userID": 0,
+        "state": "APPLIED",
+        "reason": "string"
+      },[
+        {
+          "activityID": 0,
+          "userID": 1,
+          "state": "APPLIED",
+          "reason": "string"
+        }
+      ]
+    ])
+  },
   'GET /activity/activities/': (req: any, res: any) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     console.log(req);
@@ -427,5 +489,4 @@ export default{
       }
     )
   }
-}
-*/
+}*/

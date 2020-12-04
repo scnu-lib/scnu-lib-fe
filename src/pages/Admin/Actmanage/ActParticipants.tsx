@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
-import { Card, Table, Button, Popconfirm, Tag, Space, message } from 'antd';
+import { Card, Table, Button, Popconfirm, Tag, Space, message, Popover } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+
+import {
+  SmileOutlined,
+  CheckCircleOutlined
+} from '@ant-design/icons';
 import {
   delVol,
   initParticipants,
@@ -48,19 +53,20 @@ function ActParticipants(props: any) {
 
   const columns = [
     {
-      title: '用户id',
+      title: 'ID',
       dataIndex: 'id',
       key: '_id',
     },
     {
-      title: '用户名称',
+      title: '名称',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: '用户等级',
+      title: '等级',
       dataIndex: 'role',
       key: 'role',
+      responsive: ['md'],
     },
     {
       title: '是否为志愿者',
@@ -99,92 +105,70 @@ function ActParticipants(props: any) {
       title: '联系方式',
       dataIndex: 'connection',
       key: 'connnection',
+      responsive: ['md'],
+    }
+    ,
+    {
+      title: '签到',
+      key: 'signaction',
+      render: (txt: any, record: any, index: any) => {
+        return (
+          <Popover content={<div>确认签到</div>}>
+
+          <CheckCircleOutlined onClick={() => handleSignUp(record)}  />
+            
+          </Popover>
+        );
+      },
     },
     {
-      title: '志愿者申请',
+      title: '志愿者',
       key: 'volaction',
       render: (txt: any, record: any, index: any) => {
         switch (record.state) {
           case volunteerApplicationState.accepted:
             return (
-              <Button
-                type="primary"
-                size="small"
-                key="取消志愿者"
-                onClick={() => {
-                  handledelvol(record);
-                }}
-              >
-                取消志愿者
-              </Button>
+              <Popover content={<div>取消申请</div>}>
+              <SmileOutlined  rotate={180} onClick={() => {
+                handleDelVol(record);
+              }}/>
+              </Popover>
             );
           case volunteerApplicationState.rejected:
             return (
-              <Button
-                type="primary"
-                size="small"
-                key="通过申请"
-                onClick={() => {
-                  handlevolsignup(record);
-                }}
-              >
-                通过申请
-              </Button>
+              <Popover content={<div>通过申请</div>}>
+              <SmileOutlined   onClick={() => {
+                  handleVolSignUp(record);
+                }}/>
+              </Popover>
+             
             );
           case volunteerApplicationState.applied:
             return (
               <>
-                <Button
-                  type="primary"
-                  size="small"
-                  key="通过申请"
-                  onClick={() => {
-                    handlevolsignup(record);
-                  }}
-                >
-                  通过申请
-                </Button>{' '}
-                <Button
-                  type="primary"
-                  size="small"
-                  key="拒绝申请"
-                  onClick={() => {
-                    handlevolreject(record);
-                  }}
-                >
-                  拒绝申请
-                </Button>
+              
+              <Popover content={<div>取消申请</div>}>
+              <SmileOutlined  rotate={180} onClick={() => {
+                handleDelVol(record);
+              }}/>
+              </Popover>{' '}
+              <Popover content={<div>拒绝申请</div>}>
+              <SmileOutlined  rotate={180} onClick={() => {
+                handleVolReject(record);
+              }}/>
+              </Popover>
+
               </>
             );
           default:
             return;
         }
       },
-    },
-    {
-      title: '签到',
-      key: 'signaction',
-      render: (txt: any, record: any, index: any) => {
-        return (
-          <>
-            <Space>
-              <Button
-                type="primary"
-                size="small"
-                onClick={() => handleSignUp(record)}
-              >
-                {' '}
-                签到
-              </Button>
-            </Space>
-          </>
-        );
-      },
-    },
+    }
   ];
   return (
     <Card title="用户列表">
-      <Table columns={columns} dataSource={dataSource} />
+      <Table columns={columns} dataSource={dataSource} size="small"/>
     </Card>
   );
 }

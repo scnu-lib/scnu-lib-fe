@@ -2,9 +2,17 @@ import PropertyRequiredError from '@/error/PropertyRequiredError';
 import { delVolApi, userVolSignUpApi, volSignUpApi } from '@/Services/activity';
 import { listActParticipantsApi, listActVolAppliesApi } from '@/Services/admin';
 import { getNotifyApi, getSettingApi } from '@/Services/auth';
-import { volunteerApplicationState } from '@/Utils/config';
+import { role, volunteerApplicationState } from '@/Utils/config';
 import { message } from 'antd';
-const initState = [];
+const initState = [
+  {
+    id:0,
+    name:'许峰',
+    role:role.admin,
+    state:volunteerApplicationState.accepted,
+    connection:'xff9924@gmail.com'
+  }
+];
 const actParticipantsReducer = (state: any = initState, action: any) => {
   switch (action.type) {
     case 'INIT_PARTICIPANTS':
