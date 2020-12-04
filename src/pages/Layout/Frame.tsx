@@ -72,6 +72,7 @@ function Frame(props: any) {
             ) : null; // 根据token判断显示是否登录
           })}
         </Menu>
+
         <div
           className="sign-in-up"
           style={{ height: '100%', minHeight: '525px' }}
@@ -79,6 +80,15 @@ function Frame(props: any) {
           {SwitchLoginUser()}
         </div>
       </Header>
+      <div className='Hero ant-layout-content' style={{color:'@primary-color'}}>
+        <h2 className='Hero-title'>欢迎来到阅马活动系统</h2>
+        <p>华南师大图书馆————活动发布、报名、签到</p>
+        <div className='Hero-href'>
+        <a>QQ群</a>-
+        <a>关于</a>-
+        <a>联系我们</a>
+        </div>
+      </div>
       <Content className="layout-content">
         <div className="site-layout-content">{props.children}</div>
       </Content>
