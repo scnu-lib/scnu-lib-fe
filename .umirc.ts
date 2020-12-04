@@ -111,4 +111,7 @@ export default defineConfig({
       component: '@/pages/PageNotFound',
     },
   ],
+  "theme": {
+    "primary-color": "#1DA57A",
+  },
 });

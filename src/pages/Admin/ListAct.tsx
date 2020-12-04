@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react';
-import { Card, Table, Button, Popconfirm, Space } from 'antd';
+import { Card, Table, Button, Popconfirm, Space,Popover } from 'antd';
+
+import {
+  UserSwitchOutlined,
+  EditOutlined,
+  DeleteOutlined
+} from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '@/reducers/actReducer';
 // 活动列表
@@ -19,67 +25,60 @@ function ListAct(props: any) {
       title: '序号',
       dataIndex: 'id',
       key: '_id',
+      responsive: ['md'],
     },
     {
       title: '活动标题',
       dataIndex: 'title',
       key: 'title',
+
     },
     {
       title: '报名截止时间',
-      dataIndex: 'signUpDeadline',
       key: 'signUpDeadline',
+      responsive: ['md'],
+      render:(txt:any,record:any,index:any) => {
+        return (txt.signUpDeadline.slice(5).replace('-','.'))
+      }
     },
     {
-      title: '开始时间',
-      dataIndex: 'startTime',
-      key: 'startTime',
-    },
-    {
-      title: '结束时间',
-      dataIndex: 'endTime',
-      key: 'endTime',
+      title: '活动时间',
+      key: 'startendTime',
+
+      render:(txt:any,record:any,index:any) => {
+        return (txt.startTime.slice(5).replace('-','.')+'~'+txt.endTime.slice(5).replace('-','.'))
+      }
     },
     {
       title: '报名人数',
-      dataIndex: 'currentParticipant',
-      key: 'currentParticipant',
-    },
-    {
-      title: '最大报名人数',
-      dataIndex: 'maxParticipant',
-      key: 'maxParticipant',
+      key: 'Participant',
+      responsive: ['md'],
+      
+      render:(txt:any,record:any,index:any) => {
+        return (txt.currentParticipant+'/'+txt.maxParticipant)
+      }
     },
     {
       title: '操作',
       key: '',
+      fix:'right',
+
       render: (txt: any, record: any, index: any) => {
         return (
           <>
             <Space>
-              <Button
-                type="default"
-                size="small"
-                onClick={() => {
+            <Popover content={<div>查看用户列表</div>}>
+              <UserSwitchOutlined  onClick={() => {
                   props.history.push(
                     `/home/adminAct/actParticipants/${txt.id}`,
                   );
-                }}
-              >
-                {' '}
-                报名详情
-              </Button>
-              <Button
-                type="default"
-                size="small"
-                onClick={() => {
+                }}/>
+                </Popover>
+                <Popover content={<div>编辑该活动</div>}>
+             <EditOutlined  onClick={() => {
                   props.history.push(`/home/adminAct/createact/${txt.id}`);
-                }}
-              >
-                {' '}
-                修改活动
-              </Button>
-
+                }}/>
+              </Popover>
               <Popconfirm
                 title="确定删除此项？"
                 onCancel={() => console.log('用户取消删除')}
@@ -87,10 +86,7 @@ function ListAct(props: any) {
                   () => console.log('用户确认删除') // 此处调用api接口进行操作
                 }
               >
-                <Button type="default" danger size="small">
-                  {' '}
-                  删除活动
-                </Button>
+                <DeleteOutlined onClick={()=>{console.log('delete')}}/>
               </Popconfirm>
             </Space>
           </>
@@ -110,7 +106,7 @@ function ListAct(props: any) {
         </Button>
       }
     >
-      <Table columns={columns} dataSource={dataSource} />
+      {document.body.clientWidth<676?<Table columns={columns} dataSource={dataSource} size='small'  />:<Table columns={columns} dataSource={dataSource} size='middle'  />}
     </Card>
   );
 }

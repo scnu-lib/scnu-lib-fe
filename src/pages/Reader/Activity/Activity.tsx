@@ -26,7 +26,7 @@ function Activity(props: any) {
   return (
     <Space direction="vertical" className="Activity .flex" size="large">
       <div className="Activity-item1">
-        <Carousel className="act-carousel" autoplay>
+      {/*  <Carousel className="act-carousel" autoplay>
           {recent.map((note: object, index: number) => {
             return index < 4 ? (
               <Link
@@ -60,7 +60,7 @@ function Activity(props: any) {
               Network problems being solved 2015-09-01
             </Timeline.Item>
           </Timeline>
-        </Card>
+        </Card>*/}
       </div>
       <Space direction="vertical" className="recent-Act" size="middle">
         {recent.length ? (

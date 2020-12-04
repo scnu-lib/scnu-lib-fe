@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
-import { Card, Table, Button, Popconfirm, Tag } from 'antd';
+import { Card, Table, Button, Popover, Tag, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '@/reducers/actReducer';
 import { initUserList } from '@/reducers/usermReducer';
 import { Roles } from '@/Utils/config';
+import {
+  EditOutlined,
+  CommentOutlined
+} from '@ant-design/icons';
 function User(props: any) {
   const dataSource = useSelector(store => store.userList);
   const dispatch = useDispatch();
@@ -18,9 +22,10 @@ function User(props: any) {
   }, []);
   const columns = [
     {
-      title: '用户id',
+      title: 'ID',
       dataIndex: 'id',
       key: 'id',
+
     },
     {
       title: '用户名',
@@ -47,26 +52,17 @@ function User(props: any) {
       render: (txt: any, record: any, index: any) => {
         return (
           <>
-            <Button
-              style={{ margin: '0 1rem' }}
-              type="default"
-              size="small"
-              onClick={() => {
+            <Space>
+            <Popover content={<div>修改用户信息</div>}>
+            <EditOutlined  onClick={() => {
                 props.history.push(`/home/adminUser/userdetails/1`);
-              }}
-            >
-              修改
-            </Button>
-            <Button
-              type="default"
-              size="small"
-              onClick={() => {
+              }}/>
+              </Popover>
+              <Popover  content={<div>查看用户联系方式</div>}>
+           <CommentOutlined onClick={() => {
                 props.history.push(`/home/adminUser/usernotices/1`);
-              }}
-            >
-              {' '}
-              联系
-            </Button>
+              }} /></Popover>
+          </Space>
           </>
         );
       },

@@ -8,10 +8,10 @@ const { Content, Sider } = Layout;
 function AdminAct(props: any) {
   return (
     <Layout>
-      <Content style={{ padding: '0 50px' }}>
+      <Content className='AdminAct-content'>
         <Layout
           className="site-layout-background"
-          style={{ padding: '24px 0' }}
+          style={{ padding: '14px 0' }}
         >
           <div className="site-layout-sider">
             <Sider className="site-layout-background" width="100%">
@@ -37,8 +37,7 @@ function AdminAct(props: any) {
           <Content
             style={{
               padding: '10px 24px',
-              minWidth: '400px',
-              minHeight: '800px',
+
             }}
           >
             {props.children}

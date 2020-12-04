@@ -8,10 +8,10 @@ const { Content, Sider } = Layout;
 function AdminUser(props: any) {
   return (
     <Layout>
-      <Content style={{ padding: '0 50px' }}>
+      <Content style={{ padding: '0 0px' }}>
         <Layout
           className="site-layout-background"
-          style={{ padding: '24px 0' }}
+          style={{ padding: '14px 0' }}
         >
           <div className="site-layout-sider">
             <Sider width="100%">
@@ -37,8 +37,6 @@ function AdminUser(props: any) {
           <Content
             style={{
               padding: '10px 24px',
-              minWidth: '400px',
-              minHeight: '800px',
             }}
           >
             {props.children}

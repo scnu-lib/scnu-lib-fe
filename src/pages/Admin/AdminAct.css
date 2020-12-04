@@ -9,14 +9,14 @@
 .site-layout-background {
   background: #fff;
 }
-@media(max-width:1100px){
-  .ant-layout-has-sider.site-layout-background{
-    min-width: 600px;
-    min-height: 800px;
-  }
-}
+
 
 .volunteerCheckBox>.ant-form-item-control>.ant-form-item-control-input>.ant-form-item-control-input-content{
   display: flex;
   justify-content: center;
+}
+@media(min-width:1400px){
+  .AdminAct-content{
+  
+  }
 }
