@@ -91,17 +91,23 @@ export const signInVol = (activityID: number, userID: number) => {
     }
   };
 };
-export const delvol = (activityID: number, userID: number) => {
+export const delVol = (activityID: number, userID: number) => {
   return async dispatch => {
     try {
       const res = await delVolApi(activityID, userID);
+      if(!res?.data?.hasOwnProperty('id')){
+        throw new PropertyRequiredError('id');
+      }
       dispatch({
         type: 'DELETE_VOLUNTEER',
         data: res.data.id,
       });
       message.success('删除成功！');
     } catch (err) {
-      if (err.response.status) {
+      if(err instanceof PropertyRequiredError){
+        message.error('Opps!后台数据出错，请联系程序猿');
+      }
+      else if (err.response.status) {
         if (err.response.status === 401) {
           message.error('权限不足！');
         } else if (err.response.status === 404) {

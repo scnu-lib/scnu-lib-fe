@@ -16,7 +16,7 @@ import { actSignInApi } from '@/Services/Activity';
 import { volunteerApplicationState } from '@/Utils/Config';
 function ActParticipants(props: any) {
   const handleSignUp = async (record: object) => {
-    //确认签到
+    // 确认签到
     try {
       const res = await actSignInApi(props.match.params.id, record.id);
       message.success('签到成功！');
@@ -26,15 +26,15 @@ function ActParticipants(props: any) {
     }
   };
   const handleVolReject = async (record: object) => {
-    //拒绝志愿者
+    // 拒绝志愿者
     dispatch(rejectVol(props.match.params.id, record.id));
   };
   const handleVolSignUp = async (record: object) => {
-    //志愿者报名
+    // 志愿者报名
     dispatch(signInVol(props.match.params.id, record.id));
   };
   const handleDelVol = async (record: object) => {
-    //志愿者取消
+    // 志愿者取消
     dispatch(delVol(props.match.params.id, record.id));
   };
   const dataSource = useSelector(store => store.actParticipants);
@@ -116,7 +116,7 @@ function ActParticipants(props: any) {
           <Popover content={<div>确认签到</div>}>
 
           <CheckCircleOutlined onClick={() => handleSignUp(record)}  />
-            
+
           </Popover>
         );
       },
@@ -141,12 +141,12 @@ function ActParticipants(props: any) {
                   handleVolSignUp(record);
                 }}/>
               </Popover>
-             
+
             );
           case volunteerApplicationState.applied:
             return (
               <>
-              
+
               <Popover content={<div>取消申请</div>}>
               <SmileOutlined  rotate={180} onClick={() => {
                 handleDelVol(record);

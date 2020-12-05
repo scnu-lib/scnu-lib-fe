@@ -1,14 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { Carousel, message, Card, Space, Timeline, Tag } from 'antd';
+import { Carousel, message, Card, Space, Timeline, Tag ,Modal} from 'antd';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { Link } from 'umi';
 import './Activity.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
+import Labels from './Labels';
+import ActivityDetail from './ActivityDetail';
 
 //活动列表页
 
 function Activity(props: any) {
+  const [isDetailsVisible, setIsDetailsVisible] = useState(false);
+  const [modalDetail, setModalDetail] = useState({});//把活动详情做成一个小对话框，用state控制其打开和关闭
+  const showModal = (id:number) => {
+    setModalDetail(recent.find(note=>note.id===id));
+    setIsDetailsVisible(true);
+  };//这几个都是相应的控制活动的函数
+
+  const handleOk = () => {
+
+    setIsDetailsVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsDetailsVisible(false);
+  };
   const recent = useSelector(state => state.act);
   const dispatch = useDispatch();
   const getRecentAct = () => {
@@ -83,11 +100,11 @@ function Activity(props: any) {
           {recent.map((note: object, index: number) =>
             index < 6 ? (
               <Card className="note-Card" key={`${note.id}Card`}>
-                <Link
+                 {/*<Link
                   key={`${note.id}Link`}
                   to={`/home/activitydetail/${note.id}`}
                 >
-                  {/*
+                 
                   <img
                     src={note.src}
                     key={note.id}
@@ -99,6 +116,7 @@ function Activity(props: any) {
                     }}
                   ></img>*/
                   }
+                  <a onClick={()=>showModal(note.id)}>
                   <div className={`img${note.id}`}></div>
                   <div className="note-title" style={{ textAlign: 'center' }}>
                     {note.title}
@@ -107,24 +125,15 @@ function Activity(props: any) {
                   <div className="note-date" style={{ textAlign: 'center' }}>
                     {note.date}
                   </div>
-                <div className="note-labels">{note.labels.map(label=>{
-                  switch(label){
-                    case'读书会':return(<Tag color="geekblue">读书会</Tag>)
-                    case'线下':return(<Tag color="gold">线下</Tag>)
-                    case'线上':return(<Tag color="pink">线上</Tag>)
-                    case'周五影院':return(<Tag color='purple'>周五影院</Tag>)
-                    case'师兄师姐说':return(<Tag color='green'>师兄师姐说</Tag>)
-                    case'绘本故事':return(<Tag color='magenta'>绘本故事</Tag>)
-                    case'观影沙龙':return(<Tag color='volcano'>观影沙龙</Tag>)
-                    default:return null;
-                  }
-                })}</div>
-                </Link>
+                  <Labels labels={note.labels}></Labels>
+               {/* </Link>*/}
+               </a>
               </Card>
             ) : null,
           )}
         </Space></div>
       </Space>
+          <ActivityDetail isDetailsVisible={isDetailsVisible}handleOk={handleOk} handleCancel={handleCancel} modalDetail={modalDetail}></ActivityDetail>
     </Space>
   );
 }
