@@ -13,16 +13,18 @@ import { getUserID, isLogined } from '@/Utils/auth';
 import { useSelector, useDispatch } from 'react-redux';
 import { volunteerApplicationState } from '@/Utils/config';
 import { models } from '@/.umi/plugin-model/Provider';
+import { addRegisteredAct,addSingleRegisteredAct} from '@/reducers/actRegisteredReducer'
 //活动页
 function ActivityDetail(props: any) {
   //活动详情页，做成对话框形式，把所有活动信息列出来，加上报名志愿者和报名活动的按钮
   const [isSigned, setIsSigned] = useState(false);
-  
- 
+  const dispatch = useDispatch();// 更新已报名活动的状态
+  const acts = useSelector(store=>store.act)// 下面报名成功后只有id，通过id查找活动详情放到已报名活动中
   const handleSignUpAct = (activityID:number,id: number) => { //活动报名申请
     actSignUpApi(activityID, id)
       .then(res => {
         message.success('报名成功！');
+        setTimeout(()=>{ dispatch(addRegisteredAct(acts));},2000)// 报名完直接更新所有已报名活动省事。给服务器缓冲时间
         setIsSigned(true);
       })
       .catch(err => console.log(err));
@@ -61,12 +63,12 @@ function ActivityDetail(props: any) {
     <Labels labels={props.modalDetail?.labels}></Labels>
     <div className='actDetail-button'><Button onClick={props.handleCancel}>关闭</Button><Button onClick={() => {
       isLogined()
-        ? handleSignUpAct(props.modelDetail?.id, getUserID())
+        ? handleSignUpAct(props.modalDetail?.id, getUserID())
         : message.error('请先登录！');
         
     }}>报名活动</Button>{ props.modalDetail?.volState?<Button id='volSignUpButton' onClick={() => {
       isLogined()
-        ? handleVolSignUp(props.modelDetail?.id, getUserID())
+        ? handleVolSignUp(props.modalDetail?.id, getUserID())
         : message.error('请先登录！');
     }}>报名志愿者</Button>:null}</div></div>
 </Modal>)

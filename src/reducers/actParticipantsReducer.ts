@@ -133,7 +133,7 @@ export const initParticipants = (
         throw new PropertyRequiredError('volRes');
       }
       volRes.data.forEach(async (v: object) => {
-        // 用forEach把封装好的志愿者信息加到vol里，这里用map直接返回会返回几个promise，很难搞定
+        // 用forEach把封装好的志愿者信息加到vol里，这里用map直接返回会返回几个promise，很难搞定(其实可以用promise.all搞定)
         const notifyRes = await getNotifyApi(v.id); // 获得通知方式
         const settingRes = await getSettingApi(v.id); // 获得用户名
         const apply = volApplies.find((note: object) => note.userID === v.id); // 找到申请信息

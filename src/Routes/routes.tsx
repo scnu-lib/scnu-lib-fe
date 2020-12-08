@@ -36,27 +36,10 @@ export const activityRoutes = [
     isShow: false,
   },
   {
-    path: '/home/activitydetail/:id',
-    title: '活动详情',
-    component: ActivityDetail,
-    exact: true,
-    isShow: false,
-  },
-  {
     path: '/home/listact',
     title: '活动列表',
     isShow: !(getRole() === role.admin) && !(getRole() === role.librarian),
     exact: false,
-  },
-  {
-    path: '/home/RegisteredAct',
-    title: '已报名活动',
-    component: RegisteredAct,
-    exact: true,
-    isShow:
-      isLogined() &&
-      !(getRole() === role.admin) &&
-      !(getRole() === role.librarian), // 不是管理员才显示，管理员不能报名，只能浏览活动
   },
   {
     path: '/home/adminAct/listact',

@@ -1,17 +1,18 @@
 import React from 'react'
 import {Tag} from 'antd'
+import { actLabel } from '@/Utils/config'
 function Labels(props:object) {//管理标签的组件
     return (
-        <div className="note-labels" >
+        <div className="note-labels" key='note-labels'>
              {props.labels.map(label=>{
                   switch(label){
-                    case'读书会':return(<Tag color="geekblue">读书会</Tag>)
-                    case'线下':return(<Tag color="gold">线下</Tag>)
-                    case'线上':return(<Tag color="pink">线上</Tag>)
-                    case'周五影院':return(<Tag color='purple'>周五影院</Tag>)
-                    case'师兄师姐说':return(<Tag color='green'>师兄师姐说</Tag>)
-                    case'绘本故事':return(<Tag color='magenta'>绘本故事</Tag>)
-                    case'观影沙龙':return(<Tag color='volcano'>观影沙龙</Tag>)
+                    case actLabel.readingClub:return(<Tag color="geekblue" key={`tag${props.itemId}${actLabel.readingClub}`}>读书会</Tag>)
+                    case actLabel.offline:return(<Tag color="gold"  key={`tag${props.itemId}${actLabel.offline}`}>线下</Tag>)
+                    case actLabel.online:return(<Tag color="pink"   key={`tag${props.itemId}${actLabel.online}`}>线上</Tag>)
+                    case actLabel.fridayCinema:return(<Tag color='purple'   key={`tag${props.itemId}${actLabel.fridayCinema}`}>周五影院</Tag>)
+                    case actLabel.seniorSharingMeeting:return(<Tag color='green'   key={`tag${props.itemId}${actLabel.seniorSharingMeeting}`}>师兄师姐说</Tag>)
+                    case actLabel.pictureBookStory:return(<Tag color='magenta'   key={`tag${props.itemId}${actLabel.pictureBookStory}`}>绘本故事</Tag>)
+                    case actLabel.fridayCinema:return(<Tag color='volcano'  key={`tag${props.itemId}${actLabel.fridayCinema}`}>观影沙龙</Tag>)
                     default:return null;
                   }
                 })}

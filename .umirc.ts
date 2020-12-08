@@ -23,22 +23,10 @@ export default defineConfig({
           exact: true,
         },
         {
-          path: '/home/activitydetail/:id',
-          title: '活动详情',
-          component: '@/pages/Reader/Activity/ActivityDetail',
-          exact: true,
-        },
-        {
           path: '/home/listact',
           title: '活动列表',
           component: '@/pages/Reader/Activity/ActivityList',
           exact: false,
-        },
-        {
-          path: '/home/RegisteredAct',
-          title: '已报名活动',
-          component: '@/pages/Reader/Activity/RegisteredAct',
-          exact: true,
         },
         {
           path: '/home/adminAct',

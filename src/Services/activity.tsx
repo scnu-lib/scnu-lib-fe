@@ -31,7 +31,12 @@ export const actSignUpApi = (activityID: number, userID: number) => {
     { activityID, userID },
   );
 };
-
+export const actIsSignUpApi = (activityID: number, userID: number) => {
+  return get(
+    `${serverUrl}/activity/activities/${activityID}/sign-up/${userID}`,
+    { activityID, userID },
+  );
+};
 export const actSignInApi = (activityID: number, userID: number) => {
   return put(
     `${serverUrl}/activity/activities/${activityID}/sign-in/${userID}`,

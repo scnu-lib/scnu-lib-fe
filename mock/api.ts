@@ -1,5 +1,7 @@
 export default {
-  'GET /notify/methods/{userID}': (req:any,res:any)=> {
+  'GET /activity/activities/:activityID/sign-up/:userID': {data:false}
+,
+  'GET /notify/methods/:userID': (req:any,res:any)=> {
     res.setHeader('Access-Control-Allow-Origin', '*');
     console.log(req);
     res.status(200).json({
@@ -175,7 +177,7 @@ export default {
   'POST /account/login': (req: any, res: any) => {
     res.status(200).json({
       jwt:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklEIjoiSm9obiBEb2UiLCJyb2xlIjoiUk9MRV9VU0VSIn0.yuDgBMuKI9ZusSvdl6Vec4uH-TVNu-vdS_i1v7KSkhQ',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklEIjoiMTIzNDU2Iiwicm9sZSI6IlJPTEVfVVNFUiJ9.rdzHdV1iHTat6peW4reVCO5r9kzbjEy9j80HrhcttpM',
     });
   },
   // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklEIjoiSm9obiBEb2UiLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.ZPVKalZY3yZD5oi205XrxUtiAcxyLFh373bwwV9Ig5o
