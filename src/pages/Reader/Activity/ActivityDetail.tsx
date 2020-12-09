@@ -61,7 +61,7 @@ function ActivityDetail(props: any) {
     </div>
     <div className='actDetail-textpart'>
     <Labels labels={props.modalDetail?.labels}></Labels>
-    <div className='actDetail-button'><Button onClick={props.handleCancel}>关闭</Button><Button onClick={() => {
+    <div className='actDetail-button'><Button onClick={() => {
       isLogined()
         ? handleSignUpAct(props.modalDetail?.id, getUserID())
         : message.error('请先登录！');

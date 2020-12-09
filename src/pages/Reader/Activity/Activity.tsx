@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Carousel, message, Card, Space, Timeline, Tag ,Modal} from 'antd';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { Link } from 'umi';
-import './Activity.css';
+import './Activity.less';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
 import Labels from './Labels';

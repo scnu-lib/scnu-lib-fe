@@ -10,8 +10,22 @@ import {
 } from '../../Utils/auth';
 import { DownOutlined } from '@ant-design/icons';
 import './Frame.less';
+import { listenClientWidth } from '@/Utils/config';
+import {changeClient} from '@/reducers/globalConfigReducer'
+import {useDispatch} from 'react-redux'
 const { Header, Content, Footer } = Layout;
 function Frame(props: any) {
+  const dispatch = useDispatch();
+  const docEl = document.documentElement;
+  const resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';// 移动端切换横屏或窗口大小改变
+  const recalc = function(){
+    const clientWidth = docEl.clientWidth;
+    if(!clientWidth)return;
+    dispatch(changeClient(clientWidth))
+  }
+  if(!document.addEventListener)return;
+  window.addEventListener(resizeEvt,recalc,false);
+  document.addEventListener('DOMContentLoaded',recalc,false);
   const menu = (
     <Menu
       onClick={p => {
