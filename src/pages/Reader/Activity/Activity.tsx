@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Carousel, message, Card, Space, Timeline, Tag ,Modal} from 'antd';
+import { Carousel, message, Card, Space, Timeline, Tag, Modal } from 'antd';
 import { ClockCircleOutlined } from '@ant-design/icons';
 import { Link } from 'umi';
 import './Activity.less';
@@ -12,14 +12,13 @@ import ActivityDetail from './ActivityDetail';
 
 function Activity(props: any) {
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
-  const [modalDetail, setModalDetail] = useState({});//把活动详情做成一个小对话框，用state控制其打开和关闭
-  const showModal = (id:number) => {
-    setModalDetail(recent.find(note=>note.id===id));
+  const [modalDetail, setModalDetail] = useState({}); //把活动详情做成一个小对话框，用state控制其打开和关闭
+  const showModal = (id: number) => {
+    setModalDetail(recent.find(note => note.id === id));
     setIsDetailsVisible(true);
-  };//这几个都是相应的控制活动的函数
+  }; //这几个都是相应的控制活动的函数
 
   const handleOk = () => {
-
     setIsDetailsVisible(false);
   };
 
@@ -42,43 +41,6 @@ function Activity(props: any) {
   }, []);
   return (
     <Space direction="vertical" className="Activity .flex" size="large">
-      <div className="Activity-item1">
-      {/*  <Carousel className="act-carousel" autoplay>
-          {recent.map((note: object, index: number) => {
-            return index < 4 ? (
-              <Link
-                className="act-carousel-link"
-                key={`${note.id}Link`}
-                to={`/home/activitydetail/${note.id}`}
-              >
-                <img
-                  className="act-carousel-link-img"
-                  src={note.src}
-                  key={note.id}
-                  alt={String(note.id)}
-                ></img>
-              </Link>
-            ) : null;
-          })}
-        </Carousel>
-        <Card className="TimeLine-card">
-          <Timeline className="TimeLine-card-act" mode="right">
-            <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
-            <Timeline.Item>
-              Solve initial network problems 2015-09-01
-            </Timeline.Item>
-            <Timeline.Item
-              dot={<ClockCircleOutlined style={{ fontSize: '16px' }} />}
-              color="red"
-            >
-              Technical testing 2015-09-01
-            </Timeline.Item>
-            <Timeline.Item>
-              Network problems being solved 2015-09-01
-            </Timeline.Item>
-          </Timeline>
-        </Card>*/}
-      </div>
       <Space direction="vertical" className="recent-Act" size="middle">
         {recent.length ? (
           <span
@@ -95,12 +57,12 @@ function Activity(props: any) {
           </span>
         ) : null}
         <div className="recent-all">
-        <div className="recent-decoration"></div>
-        <Space className="recent-map" size="small">
-          {recent.map((note: object, index: number) =>
-            index < 6 ? (
-              <Card className="note-Card" key={`${note.id}Card`}>
-                 {/*<Link
+          <div className="recent-decoration fadeEffect"></div>
+          <Space className="recent-map" size="small">
+            {recent.map((note: object, index: number) =>
+              index < 6 ? (
+                <Card className="note-Card fadeEffect" key={`${note.id}Card`}>
+                  {/*<Link
                   key={`${note.id}Link`}
                   to={`/home/activitydetail/${note.id}`}
                 >
@@ -114,26 +76,31 @@ function Activity(props: any) {
                       height: '80%',
                       borderRadius: '9px 9px 0 0',
                     }}
-                  ></img>*/
-                  }
-                  <a onClick={()=>showModal(note.id)}>
-                  <div className={`img${note.id}`}></div>
-                  <div className="note-title" style={{ textAlign: 'center' }}>
-                    {note.title}
-                  </div>
-                  
-                  <div className="note-date" style={{ textAlign: 'center' }}>
-                    {note.date}
-                  </div>
-                  <Labels labels={note.labels}></Labels>
-               {/* </Link>*/}
-               </a>
-              </Card>
-            ) : null,
-          )}
-        </Space></div>
+                  ></img>*/}
+                  <a onClick={() => showModal(note.id)}>
+                    <div className={`img${note.id}`}></div>
+                    <div className="note-title" style={{ textAlign: 'center' }}>
+                      {note.title}
+                    </div>
+
+                    <div className="note-date" style={{ textAlign: 'center' }}>
+                      {note.date}
+                    </div>
+                    <Labels labels={note.labels}></Labels>
+                    {/* </Link>*/}
+                  </a>
+                </Card>
+              ) : null,
+            )}
+          </Space>
+        </div>
       </Space>
-          <ActivityDetail isDetailsVisible={isDetailsVisible}handleOk={handleOk} handleCancel={handleCancel} modalDetail={modalDetail}></ActivityDetail>
+      <ActivityDetail
+        isDetailsVisible={isDetailsVisible}
+        handleOk={handleOk}
+        handleCancel={handleCancel}
+        modalDetail={modalDetail}
+      ></ActivityDetail>
     </Space>
   );
 }
