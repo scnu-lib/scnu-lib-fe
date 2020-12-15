@@ -5,13 +5,10 @@ import { Link } from 'umi';
 import './Activity.less';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
-import Labels from './Labels';
-import ActivityDetail from './ActivityDetail';
-import dynamic from 'umi';
 import { RecentAct } from './RecentAct';
+import { lazy, Suspense } from 'react';
+const ActivityDetail = lazy(() => import('./ActivityDetail')); //lazyload详情页面，保证首屏的速率
 //活动列表页
-const delay = (timeout: number) =>
-  new Promise(resolve => setTimeout(resolve, timeout));
 function Activity(props: any) {
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [modalDetail, setModalDetail] = useState({}); //把活动详情做成一个小对话框，用state控制其打开和关闭
@@ -60,12 +57,17 @@ function Activity(props: any) {
         ) : null}
         <RecentAct recent={recent} showModal={showModal} />
       </Space>
-      <ActivityDetail
-        isDetailsVisible={isDetailsVisible}
-        handleOk={handleOk}
-        handleCancel={handleCancel}
-        modalDetail={modalDetail}
-      ></ActivityDetail>
+      {isDetailsVisible && (
+        <Suspense fallback={<div>loading...</div>}>
+          {/* 代码拆分，当打开详情时导入加载详情页面 */}
+          <ActivityDetail
+            isDetailsVisible={isDetailsVisible}
+            handleOk={handleOk}
+            handleCancel={handleCancel}
+            modalDetail={modalDetail}
+          ></ActivityDetail>
+        </Suspense>
+      )}
     </Space>
   );
 }

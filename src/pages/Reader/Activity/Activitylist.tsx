@@ -1,34 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Card,
-  List,
-  Avatar,
-  Space,
-  Button,
-  Tag,
-  Radio,
-  message,
-  Popover,
-  Affix,
-  Drawer,
-  Menu,
-} from 'antd';
+import { Card, List, Affix, Drawer } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
 import Labels from './Labels';
-import ActivityDetail from './ActivityDetail';
 import { actLabel } from '@/Utils/config';
-import { isLogined } from '@/Utils/auth';
-import { addRegisteredAct } from '@/reducers/actRegisteredReducer';
 import {
   changeDrawer,
   changeLabel,
-  changeRegistered,
   initActShow,
   registeredState,
 } from '@/reducers/actListShowReducer';
 import { ActSortRadio } from './ActSortRadio';
+import { lazy, Suspense } from 'react';
+const ActivityDetail = lazy(() => import('./ActivityDetail'));
 function ActivityList() {
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [modalDetail, setModalDetail] = useState({}); // 把活动详情做成一个小对话框，用state控制其打开和关闭
@@ -165,12 +150,16 @@ function ActivityList() {
             );
           }}
         />
-        <ActivityDetail
-          isDetailsVisible={isDetailsVisible}
-          handleOk={handleOk}
-          handleCancel={handleCancel}
-          modalDetail={modalDetail}
-        />
+        {isDetailsVisible && (
+          <Suspense fallback={<div>loading...</div>}>
+            <ActivityDetail
+              isDetailsVisible={isDetailsVisible}
+              handleOk={handleOk}
+              handleCancel={handleCancel}
+              modalDetail={modalDetail}
+            />
+          </Suspense>
+        )}
       </Card>
     </div>
   );
