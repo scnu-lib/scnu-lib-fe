@@ -1,67 +1,69 @@
 export default {
-  'GET /activity/activities/:activityID/sign-up/:userID': {data:false}
-,
-  'GET /notify/methods/:userID': (req:any,res:any)=> {
+  'GET /activity/activities/:activityID/sign-up/:userID': { data: true },
+  'GET /notify/methods/:userID': (req: any, res: any) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     console.log(req);
     res.status(200).json({
-      "userID": 0,
-      "wechat": {
-        "enabled": true,
-        "wxid": "string"
+      userID: 0,
+      wechat: {
+        enabled: true,
+        wxid: 'string',
       },
-      "email": {
-        "enabled": true,
-        "address": "user@example.com"
-      }
-    })
+      email: {
+        enabled: true,
+        address: 'user@example.com',
+      },
+    });
   },
-  'GET /account/accounts/{userID}': (req:any,res:any)=> {
+  'GET /account/accounts/{userID}': (req: any, res: any) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     console.log(req);
     res.status(200).json({
-      "id": 0,
-      "username": "string",
-      "password": "string",
-      "detail": {
-        "name": "string"
+      id: 0,
+      username: 'string',
+      password: 'string',
+      detail: {
+        name: 'string',
       },
-      "role": [
-        "ROLE_USER"
-      ]
-    })
+      role: ['ROLE_USER'],
+    });
   },
-  'GET /activity/activities/{activityID}/volunteer': (req:any,res:any)=> {
+  'GET /activity/activities/{activityID}/volunteer': (req: any, res: any) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     console.log(req);
     res.status(200).json([
       {
-        "activityID": 0,
-        "userID": 0
-      },{
-        "activityID": 0,
-        "userID": 1
-      }
-    ])
+        activityID: 0,
+        userID: 0,
+      },
+      {
+        activityID: 0,
+        userID: 1,
+      },
+    ]);
   },
-  '/activity/activities/{activityID}/volunteer-application': (req:any,res:any)=> {
+  '/activity/activities/{activityID}/volunteer-application': (
+    req: any,
+    res: any,
+  ) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     console.log(req);
     res.status(200).json([
       {
-        "activityID": 0,
-        "userID": 0,
-        "state": "APPLIED",
-        "reason": "string"
-      },[
+        activityID: 0,
+        userID: 0,
+        state: 'APPLIED',
+        reason: 'string',
+      },
+      [
         {
-          "activityID": 0,
-          "userID": 1,
-          "state": "APPLIED",
-          "reason": "string"
-        }
-      ]
-    ])
+          activityID: 0,
+          userID: 1,
+          state: 'APPLIED',
+          reason: 'string',
+        },
+      ],
+    ]);
   },
   'GET /activity/activities/': (req: any, res: any) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -77,7 +79,7 @@ export default {
         maxParticipant: 40,
         currentParticipant: 3,
         location: '图书馆（石牌）',
-        labels: [ '绘本故事','线上'],
+        labels: ['绘本故事', '线上'],
         volState: true,
         maxVolParticipant: 30,
       },
@@ -177,7 +179,7 @@ export default {
   'POST /account/login': (req: any, res: any) => {
     res.status(200).json({
       jwt:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklEIjoiMTIzNDU2Iiwicm9sZSI6IlJPTEVfVVNFUiJ9.rdzHdV1iHTat6peW4reVCO5r9kzbjEy9j80HrhcttpM',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklEIjoiSm9obiBEb2UiLCJyb2xlIjoiUk9MRV9VU0VSIn0.yuDgBMuKI9ZusSvdl6Vec4uH-TVNu-vdS_i1v7KSkhQ',
     });
   },
   // eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklEIjoiSm9obiBEb2UiLCJyb2xlIjoiUk9MRV9BRE1JTiJ9.ZPVKalZY3yZD5oi205XrxUtiAcxyLFh373bwwV9Ig5o

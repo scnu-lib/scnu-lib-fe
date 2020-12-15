@@ -7,9 +7,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
 import Labels from './Labels';
 import ActivityDetail from './ActivityDetail';
-
+import dynamic from 'umi';
+import { RecentAct } from './RecentAct';
 //活动列表页
-
+const delay = (timeout: number) =>
+  new Promise(resolve => setTimeout(resolve, timeout));
 function Activity(props: any) {
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [modalDetail, setModalDetail] = useState({}); //把活动详情做成一个小对话框，用state控制其打开和关闭
@@ -56,44 +58,7 @@ function Activity(props: any) {
             近期活动
           </span>
         ) : null}
-        <div className="recent-all">
-          <div className="recent-decoration fadeEffect"></div>
-          <Space className="recent-map" size="small">
-            {recent.map((note: object, index: number) =>
-              index < 6 ? (
-                <Card className="note-Card fadeEffect" key={`${note.id}Card`}>
-                  {/*<Link
-                  key={`${note.id}Link`}
-                  to={`/home/activitydetail/${note.id}`}
-                >
-                 
-                  <img
-                    src={note.src}
-                    key={note.id}
-                    alt={note.title}
-                    style={{
-                      width: '100%',
-                      height: '80%',
-                      borderRadius: '9px 9px 0 0',
-                    }}
-                  ></img>*/}
-                  <a onClick={() => showModal(note.id)}>
-                    <div className={`img${note.id}`}></div>
-                    <div className="note-title" style={{ textAlign: 'center' }}>
-                      {note.title}
-                    </div>
-
-                    <div className="note-date" style={{ textAlign: 'center' }}>
-                      {note.date}
-                    </div>
-                    <Labels labels={note.labels}></Labels>
-                    {/* </Link>*/}
-                  </a>
-                </Card>
-              ) : null,
-            )}
-          </Space>
-        </div>
+        <RecentAct recent={recent} showModal={showModal} />
       </Space>
       <ActivityDetail
         isDetailsVisible={isDetailsVisible}
