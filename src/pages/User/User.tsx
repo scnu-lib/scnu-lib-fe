@@ -18,32 +18,9 @@ const User = (props: any) => {
   useEffect(() => {
     getAll(getUserID());
   }, []); //第一次调用渲染一次，从后端的到初始化数据用dispatch传到store，更新view，有了这个后面的初始化input才不会出bug
-  const toggleShow = () => {
-    setShowChange(!showChange);
-  }; //翻转展示模式
   return (
     <Card className="notify-card" title="修改/保存你的联系方式">
-      {showChange ? (
-        <ChangeUser toggleshow={toggleShow} />
-      ) : (
-        <div>
-          <Descriptions className="notify-descriptions" column={1}>
-            <Descriptions.Item label="微信号">
-              {userInfo?.wechat?.wxid}
-            </Descriptions.Item>
-            <Descriptions.Item label="邮箱地址">
-              {userInfo?.email?.address}
-            </Descriptions.Item>
-          </Descriptions>
-          <Button
-            onClick={e => {
-              toggleShow();
-            }}
-          >
-            修改
-          </Button>
-        </div>
-      )}
+      <ChangeUser />
     </Card>
   );
 };

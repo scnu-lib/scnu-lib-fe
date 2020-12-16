@@ -6,6 +6,14 @@ import { getNotifyApi, changeNotifyApi } from '@/Services/auth';
 import { getUserID } from '@/Utils/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeUserInfo } from '../../reducers/userReducer';
+const layout = {
+  labelCol: { span: 4 },
+  wrapperCol: { span: 16 },
+};
+const tailLayout = {
+  wrapperCol: { offset: 4, span: 16 },
+};
+
 const ChangeUser = (props: any) => {
   const userInfo = useSelector(state => state.user);
   const dispatch = useDispatch();
@@ -15,7 +23,6 @@ const ChangeUser = (props: any) => {
   const onFinish = (values: object) => {
     changeNotify(values);
     message.success('保存成功！');
-    props.toggleShow();
   }; //把后端通信整合到actioncreator中返回的函数
 
   const onFinishFailed = (errorInfo: object) => {
@@ -28,6 +35,7 @@ const ChangeUser = (props: any) => {
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
+        {...layout}
       >
         <Form.Item
           label="微信号"
@@ -52,7 +60,7 @@ const ChangeUser = (props: any) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item>
+        <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
             保存
           </Button>

@@ -1,13 +1,5 @@
-.notify-card{
-    height: 80.7vh;
-}
-#notify-form > .ant-form-item {
-    margin: 4vw;
-    margin-bottom: 24px;
-}
-.notify-card>.ant-card-body{
-    margin:20px;
-}
-
-.notify-descriptions{
+#notify-form{
+    padding-top: 20px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
