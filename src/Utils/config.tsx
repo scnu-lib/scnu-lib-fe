@@ -1,5 +1,4 @@
-
-export const serverUrl = ''; // 'https://lib.scnu.life' //服务器地址
+export const serverUrl = 'http://49.235.201.138'; // 'https://lib.scnu.life' //服务器地址
 export enum volunteerApplicationState {
   applied = 'APPLIED',
   accepted = 'ACCEPTED',
@@ -18,6 +17,6 @@ export enum actLabel {
   seniorSharingMeeting = '师兄师姐说',
   pictureBookStory = '绘本故事',
   filmSalon = '观影沙龙',
-  all = '全部'
+  all = '全部',
 }
 export const photoUrl = '@/photo/封面示例.png';

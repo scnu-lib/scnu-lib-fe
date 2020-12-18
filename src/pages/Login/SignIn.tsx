@@ -13,6 +13,7 @@ function SignIn(props: any) {
       username: values.username,
       password: values.password,
     };
+
     try {
       const res = await loginApi(user); //post得到token后设置缓存，跳转刷新
       console.log(res);
@@ -23,27 +24,27 @@ function SignIn(props: any) {
         escape(window.atob(res?.data?.jwt?.split('.')[1])),
       );
       const userID = JSON.parse(payload).userID; //从jwt获得userid
-      const role = JSON.parse(payload).role; //从jwt获得roles
+      const role = JSON.parse(payload).auth; //从jwt获得roles
       setToken(res.data.jwt);
       setUserID(userID);
       setRole(role);
       location.replace('/');
-      message.success('登录成功！');
+      message.success('登录成功');
     } catch (err) {
       //登录错误
       if (err instanceof PropertyRequiredError) {
-        message.error('后台数据错误！');
+        message.error('后台数据错误');
       } else {
         if (
           err.response?.data.code === 'error.account.login.invalid_credential'
         )
-          message.error('用户名或密码错误！');
+          message.error('邮箱不存在或密码错误');
         else if (err.response?.data.code === 'error.generic.malformed_request')
-          message.error('格式错误！');
+          message.error('格式错误');
         else if (err instanceof PropertyRequiredError) {
-          message.error('Opps！后台数据错误，请联系程序猿');
+          message.error('Oops！后台数据错误，请联系程序猿');
         } else {
-          throw err;
+          message.error('邮箱不存在或密码错误');
         }
       }
     }
@@ -68,11 +69,11 @@ function SignIn(props: any) {
         >
           <Form.Item
             name="username"
-            rules={[{ required: true, message: '请输入你的用户名！' }]}
+            rules={[{ required: true, message: '请输入你的邮箱！' }]}
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="用户名"
+              placeholder="邮箱"
             />
           </Form.Item>
           <Form.Item
@@ -103,8 +104,8 @@ function SignIn(props: any) {
             >
               登录
             </Button>
-            或{' '}
-            <Button onClick={() => props.history.push('/Signup')}>
+            {'   '}或{' '}
+            <Button type="link" onClick={() => props.history.push('/Signup')}>
               现在注册！
             </Button>
           </Form.Item>

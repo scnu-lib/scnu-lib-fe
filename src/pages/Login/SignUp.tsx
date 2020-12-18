@@ -46,11 +46,12 @@ function SignUp(props: any) {
     const user = {
       username: values.email,
       password: values.password,
-      details: {
+      detail: {
         name: values.nickname,
       },
     };
     try {
+      console.log(user);
       const res = await signUpApi(user);
       if (!res) {
         throw new PropertyRequiredError('res');
@@ -59,22 +60,30 @@ function SignUp(props: any) {
         throw new PropertyRequiredError('data');
       }
       if (
-        !res?.data?.hasOwnProperty('username') ||
-        !res?.data?.hasOwnProperty('password') ||
-        !res?.data?.hasOwnProperty('name')
+        !res?.data?.hasOwnProperty('id') ||
+        !res?.data?.hasOwnProperty('role') ||
+        !res?.data?.hasOwnProperty('username')
       ) {
         throw new PropertyRequiredError('data');
       }
       props.history.push('/login');
       message.success('注册成功！');
     } catch (err) {
-      if (err.response?.data.code === 'error.account.register.username_exists')
-        message.error('用户名已被使用!');
-      else if (err.response?.data.code === 'error.generic.malformed_request')
-        message.error('格式错误！');
-      else if (err instanceof PropertyRequiredError) {
-        message.error('Opps！后台数据出错，请联系程序猿');
-      } else throw err;
+      console.log(err.response);
+      if (err.response?.status === 400) {
+        if (err.response?.data.message === 'error.userexists')
+          message.error('用户名已被使用!');
+        else if (err.response?.data.message === 'error.malformed_request')
+          message.error('格式错误！');
+        else if (err instanceof PropertyRequiredError) {
+          message.error('Oops！后台数据出错，请联系程序猿');
+        } else {
+          message.error('Oops!遇到了未知错误，请联系程序猿');
+        }
+      } else {
+        console.log(err.message);
+        message.error('Oops!遇到了未知错误，请联系程序猿');
+      }
     }
   };
 
@@ -114,7 +123,7 @@ function SignUp(props: any) {
           <Form.Item
             name="nickname"
             rules={[
-              { required: true, message: '请输入你的昵称！', whitespace: true },
+              { required: true, message: '请输入你的昵称', whitespace: true },
             ]}
           >
             <Input placeholder="昵称" />
@@ -122,7 +131,7 @@ function SignUp(props: any) {
           <Form.Item
             name="email"
             rules={[
-              { required: true, message: '请输入你的邮箱！', whitespace: true },
+              { required: true, message: '请输入你的邮箱', whitespace: true },
             ]}
           >
             <Input placeholder="邮箱" />
@@ -131,8 +140,16 @@ function SignUp(props: any) {
             name="password"
             rules={[
               {
+                min: 6,
+                message: '请输入大于6个字符的密码',
+              },
+              {
+                max: 20,
+                message: '请输入小于20个字符的密码',
+              },
+              {
                 required: true,
-                message: '请输入你的密码！',
+                message: '请输入你的密码',
               },
             ]}
             hasFeedback
@@ -147,14 +164,14 @@ function SignUp(props: any) {
             rules={[
               {
                 required: true,
-                message: '请确认你的密码！',
+                message: '请确认你的密码',
               },
               ({ getFieldValue }) => ({
                 validator(rule, value) {
                   if (!value || getFieldValue('password') === value) {
                     return Promise.resolve();
                   }
-                  return Promise.reject('确认密码与密码不一致！');
+                  return Promise.reject('确认密码与密码不一致');
                 },
               }),
             ]}
@@ -167,7 +184,7 @@ function SignUp(props: any) {
             rules={[
               {
                 validator: (_, value) =>
-                  value ? Promise.resolve() : Promise.reject('请同意协议！'),
+                  value ? Promise.resolve() : Promise.reject('请同意用户协议'),
               },
             ]}
             {...tailFormItemLayout}
@@ -179,6 +196,10 @@ function SignUp(props: any) {
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit">
               注册
+            </Button>{' '}
+            或
+            <Button type="link" onClick={() => props.history.push('/login')}>
+              已经有账号了？现在登录
             </Button>
           </Form.Item>
         </Form>

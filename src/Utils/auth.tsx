@@ -35,16 +35,11 @@ export const clearUserID = (): any => {
 };
 
 export const getRole = (): role => {
-  switch (window.localStorage.getItem('role')) {
-    case 'ROLE_USER':
-      return role.user;
-    case 'ROLE_ADMIN':
-      return role.admin;
-    case 'ROLE_LIBRARIAN':
-      return role.librarian;
-    default:
-      return role.user;
-  }
+  const roles = window.localStorage.getItem('role')?.split(',');
+  if (roles?.find(r => r === role.admin)) return role.admin;
+  else if (roles?.find(r => r === role.librarian)) return role.librarian;
+  else return role.user;
+  //这里后端传来的不止一个角色，但是只要知道用户的最高权限就行了，把数组转换为单个角色
 };
 
 export const setRole = (role: role): any => {
