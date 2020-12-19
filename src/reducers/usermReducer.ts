@@ -20,20 +20,35 @@ const usermReducer = (
       return [...state];
   }
 };
-export const initUserList = (page: number = 0, size: number = 20) => {
+export const initUserList = (size: number = 20) => {
   return async dispatch => {
     try {
-      const res = await listUserApi(page, size);
+      const res = await listUserApi(size);
       console.log(res);
-      if (!res?.data?.hasOwnProperty('id')) {
-        throw new PropertyRequiredError('id');
+      if (Array.isArray(res?.data)) {
+        res?.data.map(user => {
+          if (!user?.hasOwnProperty('id')) {
+            throw new PropertyRequiredError('id');
+          }
+          if (!user?.hasOwnProperty('username')) {
+            throw new PropertyRequiredError('username');
+          }
+          if (!user?.hasOwnProperty('role')) {
+            throw new PropertyRequiredError('role');
+          }
+        });
+      } else {
+        if (!res?.data?.hasOwnProperty('id')) {
+          throw new PropertyRequiredError('id');
+        }
+        if (!res?.data?.hasOwnProperty('username')) {
+          throw new PropertyRequiredError('username');
+        }
+        if (!res?.data?.hasOwnProperty('role')) {
+          throw new PropertyRequiredError('role');
+        }
       }
-      if (!res?.data?.hasOwnProperty('username')) {
-        throw new PropertyRequiredError('username');
-      }
-      if (!res?.data?.hasOwnProperty('role')) {
-        throw new PropertyRequiredError('role');
-      }
+
       dispatch({
         type: 'INIT_USER',
         data: res.data,

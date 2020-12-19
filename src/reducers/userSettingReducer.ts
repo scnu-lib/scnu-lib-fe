@@ -61,7 +61,6 @@ export const initSetting = (userID: number) => {
       if (
         !res?.data?.hasOwnProperty('id') ||
         !res?.data?.hasOwnProperty('username') ||
-        !res?.data?.hasOwnProperty('password') ||
         !res?.data?.hasOwnProperty('detail') ||
         !res?.data?.hasOwnProperty('role')
       ) {

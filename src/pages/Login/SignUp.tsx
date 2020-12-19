@@ -67,14 +67,14 @@ function SignUp(props: any) {
         throw new PropertyRequiredError('data');
       }
       props.history.push('/login');
-      message.success('注册成功！');
+      message.success('注册成功');
     } catch (err) {
       console.log(err.response);
       if (err.response?.status === 400) {
         if (err.response?.data.message === 'error.userexists')
-          message.error('用户名已被使用!');
+          message.error('该账号已被注册');
         else if (err.response?.data.message === 'error.malformed_request')
-          message.error('格式错误！');
+          message.error('格式错误');
         else if (err instanceof PropertyRequiredError) {
           message.error('Oops！后台数据出错，请联系程序猿');
         } else {
@@ -131,10 +131,10 @@ function SignUp(props: any) {
           <Form.Item
             name="email"
             rules={[
-              { required: true, message: '请输入你的邮箱', whitespace: true },
+              { required: true, message: '请输入你的账号', whitespace: true },
             ]}
           >
-            <Input placeholder="邮箱" />
+            <Input placeholder="账号" />
           </Form.Item>
           <Form.Item
             name="password"

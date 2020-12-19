@@ -4,28 +4,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '@/reducers/actReducer';
 import { initUserList } from '@/reducers/usermReducer';
 import { Roles } from '@/Utils/config';
-import {
-  EditOutlined,
-  CommentOutlined
-} from '@ant-design/icons';
+import { EditOutlined, CommentOutlined } from '@ant-design/icons';
+import { initSetting } from '@/reducers/userSettingReducer';
 function User(props: any) {
   const dataSource = useSelector(store => store.userList);
   const dispatch = useDispatch();
-  const getList = (page: number) => {
-    dispatch(initUserList(page));
+  const getList = (size: number) => {
+    //本来是page的，后端没有提供page查询，只能前端来实现了
+    dispatch(initUserList(size));
   };
   const handleDelete = (txt: any) => {
     console.log(txt);
   };
   useEffect(() => {
-    getList(0);
+    getList(999);
   }, []);
   const columns = [
     {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
-
     },
     {
       title: '用户名',
@@ -53,16 +51,26 @@ function User(props: any) {
         return (
           <>
             <Space>
-            <Popover content={<div>修改用户信息</div>}>
-            <EditOutlined  onClick={() => {
-                props.history.push(`/home/adminUser/userdetails/1`);
-              }}/>
+              <Popover content={<div>修改用户信息</div>}>
+                <EditOutlined
+                  onClick={() => {
+                    dispatch(initSetting(record.id));
+                    props.history.push(
+                      `/home/adminUser/userdetails/${record.id}`,
+                    );
+                  }}
+                />
               </Popover>
-              <Popover  content={<div>查看用户联系方式</div>}>
-           <CommentOutlined onClick={() => {
-                props.history.push(`/home/adminUser/usernotices/1`);
-              }} /></Popover>
-          </Space>
+              <Popover content={<div>查看用户联系方式</div>}>
+                <CommentOutlined
+                  onClick={() => {
+                    props.history.push(
+                      `/home/adminUser/usernotices/${record.id}`,
+                    );
+                  }}
+                />
+              </Popover>
+            </Space>
           </>
         );
       },
