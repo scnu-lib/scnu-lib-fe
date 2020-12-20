@@ -148,7 +148,6 @@ function AUserSetting(props: any) {
             setFields(newFields);
           }}
         />
-        <pre className="language-bash">{JSON.stringify(fields, null, 2)}</pre>
       </>
     );
   };
