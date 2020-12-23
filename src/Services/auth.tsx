@@ -41,5 +41,6 @@ export const changeSettingApi = (userID: number, newSetting: object) => {
 }; // url是url,params是params，两个都要看，传参都是string不然会报错
 
 export const getSettingApi = (userID: number) => {
-  return get(`${serverUrl}/account/accounts/${userID}`, { userID });
+  console.log('555');
+  return get(`${serverUrl}/account/accounts/${userID}`, { undefined });
 };

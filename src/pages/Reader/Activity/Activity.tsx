@@ -35,7 +35,7 @@ function Activity(props: any) {
     }
   };
   useEffect(() => {
-    getRecentAct();
+    //getRecentAct();
     //setRecent(recentlist)
   }, []);
   return (
