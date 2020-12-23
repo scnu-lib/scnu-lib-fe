@@ -33,7 +33,7 @@ function User(props: any) {
       title: '用户权限',
       dataIndex: 'role',
       render: (txt: any, record: any, index: any) => {
-        switch (txt[0]) {
+        switch (txt) {
           case 'ROLE_USER':
             return <Tag color="geekblue">用户</Tag>;
           case 'ROLE_ADMIN':

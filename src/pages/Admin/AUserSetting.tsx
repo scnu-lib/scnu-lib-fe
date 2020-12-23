@@ -3,8 +3,9 @@ import { Form, Input, Button, Select, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { initSetting, changeSetting } from '@/reducers/userSettingReducer';
 import { listUserApi } from '@/Services/admin';
-import { getSettingApi } from '@/Services/auth';
+import { changeSettingApi, getSettingApi } from '@/Services/auth';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
+import { changeUserInfo } from '@/reducers/userReducer';
 const { Option } = Select;
 interface FieldData {
   name: string[];
@@ -26,7 +27,6 @@ const tailLayout = {
 };
 
 function AUserSetting(props: any) {
-  const [form] = Form.useForm();
   const userSetting = useSelector(store => store.userSetting);
   const dispatch = useDispatch();
   console.log(userSetting.detail.name);
@@ -68,11 +68,51 @@ function AUserSetting(props: any) {
     //dispatch(initSetting(props.match.params.id)); // 初始化用户信息
     initForm();
   }, []);
-  const changeUserSetting = (newSetting: object) => {
-    dispatch(changeSetting(newSetting)); // 修改用户信息
+  const changeUserSetting = async (newSetting: object) => {
+    // 修改用户信息
+    try {
+      const handlyNewSetting = {
+        //处理表单传来的数据
+      };
+
+      console.log(newSetting);
+      Object.keys(newSetting).forEach(set => {
+        //表单修改数据后value会从数组变成字符串，直接在这边根据是数组还是字符串重新组织对象
+        console.log(newSetting[set]);
+        if (set !== 'password') {
+          //password不理，在后面处理
+          if (set === 'name') {
+            //name在后端的属性不一样，独立拿出来处理。
+            handlyNewSetting.detail = { name: '' };
+            Array.isArray(newSetting[set])
+              ? (handlyNewSetting.detail.name = newSetting[set][0])
+              : (handlyNewSetting.detail.name = newSetting[set]);
+          } else {
+            Array.isArray(newSetting[set])
+              ? (handlyNewSetting[set] = newSetting[set][0])
+              : (handlyNewSetting[set] = newSetting[set]);
+          }
+        }
+        console.log(handlyNewSetting);
+      });
+
+      if (newSetting.password === undefined) {
+        //判断是否改了密码，不改传空改了传值
+        handlyNewSetting.newPassword = '';
+        handlyNewSetting.currentPassword = '';
+      } else {
+        handlyNewSetting.newPassword = newSetting.password;
+        handlyNewSetting.currentPassword = '';
+      }
+      console.log(handlyNewSetting);
+      const res = await changeSettingApi(newSetting.id, handlyNewSetting); //发送给后端
+    } catch (err) {
+      message.error('Oops!发生了未知的错误，请联系程序猿');
+    }
   };
   const onFinish = (values: object) => {
     changeUserSetting(values);
+    message.success('修改成功');
   };
   interface FieldData {
     //直接在antd上抄，把form的数据向上传递给usestate，为了实现带初始化数据的表单。
@@ -91,6 +131,7 @@ function AUserSetting(props: any) {
     onChange,
     fields,
   }) => {
+    const [confirmRequire, setConfirmRequire] = useState(false);
     return (
       <Form
         name="global_state"
@@ -102,21 +143,21 @@ function AUserSetting(props: any) {
         onFinish={onFinish}
       >
         <Form.Item name="id" label="id" rules={[{ required: true }]}>
-          <Input />
+          <Input disabled />
         </Form.Item>
         <Form.Item
           name="name"
           label="用户名"
           rules={[{ required: true, message: '请填写用户名' }]}
         >
-          <Input />
+          <Input maxLength={20} />
         </Form.Item>
         <Form.Item
           name="username"
           label="账号"
           rules={[{ required: true, message: '请填写账号' }]}
         >
-          <Input />
+          <Input maxLength={20} />
         </Form.Item>
         <Form.Item
           name="role"
@@ -129,7 +170,23 @@ function AUserSetting(props: any) {
             <Option value="ROLE_ADMIN">管理员</Option>
           </Select>
         </Form.Item>
-
+        <Form.Item
+          name="password"
+          label="新密码"
+          rules={[
+            {
+              min: 6,
+              message: '请输入大于5个字符的密码',
+            },
+            {
+              max: 20,
+              message: '请输入小于20个字符的密码',
+            },
+          ]}
+          hasFeedback
+        >
+          <Input.Password />
+        </Form.Item>
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
             提交

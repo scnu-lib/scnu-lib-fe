@@ -36,7 +36,8 @@ export const changeNotifyApi = (
 };
 
 export const changeSettingApi = (userID: number, newSetting: object) => {
-  return put(`${serverUrl}/account/accounts/${userID}`, { userID }, newSetting);
+  console.log(newSetting);
+  return put(`${serverUrl}/account/accounts/${userID}`, undefined, newSetting);
 }; // url是url,params是params，两个都要看，传参都是string不然会报错
 
 export const getSettingApi = (userID: number) => {

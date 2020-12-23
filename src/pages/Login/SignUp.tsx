@@ -141,7 +141,7 @@ function SignUp(props: any) {
             rules={[
               {
                 min: 6,
-                message: '请输入大于6个字符的密码',
+                message: '请输入大于5个字符的密码',
               },
               {
                 max: 20,

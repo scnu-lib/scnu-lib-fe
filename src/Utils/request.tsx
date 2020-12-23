@@ -52,7 +52,7 @@ export const put = (
   const config = {
     params,
   };
-  return instance.put(url, config, data);
+  return instance.put(url, data);
 };
 
 export const del = (url: string, params: any = undefined) => {

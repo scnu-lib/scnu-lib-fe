@@ -8,7 +8,7 @@ const usermReducer = (
     {
       id: 0,
       username: 'string',
-      role: ['ROLE_LIBRARIAN'],
+      role: 'ROLE_LIBRARIAN',
     },
   ],
   action: object,
