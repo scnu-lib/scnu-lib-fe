@@ -5,11 +5,11 @@ import { role } from './config';
 // token中的userID
 
 export const getToken = (): any => {
-  return window.localStorage.getItem('token');
+  return window.sessionStorage.getItem('token');
 };
 
 export const setToken = (token: string): any => {
-  return window.localStorage.setItem('token', token);
+  return window.sessionStorage.setItem('token', token);
 };
 
 export const isLogined = (): boolean => {
@@ -19,23 +19,23 @@ export const isLogined = (): boolean => {
   return false;
 };
 export const clearToken = (): any => {
-  return window.localStorage.removeItem('token');
+  return window.sessionStorage.removeItem('token');
 };
 
 export const getUserID = (): number => {
-  return Number(window.localStorage.getItem('userID'));
+  return Number(window.sessionStorage.getItem('userID'));
 };
 
 export const setUserID = (userID: number): any => {
-  return window.localStorage.setItem('userID', String(userID));
+  return window.sessionStorage.setItem('userID', String(userID));
 };
 
 export const clearUserID = (): any => {
-  return window.localStorage.removeItem('userID');
+  return window.sessionStorage.removeItem('userID');
 };
 
 export const getRole = (): role => {
-  const roles = window.localStorage.getItem('role')?.split(',');
+  const roles = window.sessionStorage.getItem('role')?.split(',');
   if (roles?.find(r => r === role.admin)) return role.admin;
   else if (roles?.find(r => r === role.librarian)) return role.librarian;
   else return role.user;
@@ -43,11 +43,11 @@ export const getRole = (): role => {
 };
 
 export const setRole = (role: role): any => {
-  return window.localStorage.setItem('role', role);
+  return window.sessionStorage.setItem('role', role);
 };
 
 export const clearRole = (): any => {
-  return window.localStorage.removeItem('role');
+  return window.sessionStorage.removeItem('role');
 };
 
 /*export const isLogined = () => {

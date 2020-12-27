@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Card, Button, message, Modal } from 'antd';
-import { initActDetail } from '@/reducers/actDetailReducer';
-import Labels from './Labels';
-import {
-  detailApi,
-  actSignUpApi,
-  volSignUpApi,
-  userVolSignUpApi,
-} from '@/Services/activity';
+import React, { useState } from 'react';
+import { Button, message, Modal } from 'antd';
+import Labels from '../../../components/Labels';
+import { actSignUpApi, userVolSignUpApi } from '@/Services/activity';
 import './ActivityDetail.css';
 import { getUserID, isLogined } from '@/Utils/auth';
 import { useSelector, useDispatch } from 'react-redux';
 import { volunteerApplicationState } from '@/Utils/config';
-import { models } from '@/.umi/plugin-model/Provider';
-import {
-  addRegisteredAct,
-  addSingleRegisteredAct,
-} from '@/reducers/actRegisteredReducer';
+import { addRegisteredAct } from '@/reducers/actRegisteredReducer';
 //活动页
 function ActivityDetail(props: any) {
   //活动详情页，做成对话框形式，把所有活动信息列出来，加上报名志愿者和报名活动的按钮

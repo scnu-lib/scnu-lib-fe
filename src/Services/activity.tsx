@@ -6,7 +6,7 @@ export const listActApi = (
   page: number = 0,
   size: number = 20,
 ) => {
-  return get(`${serverUrl}/activity/activities`, { label, page, size });
+  return get(`${serverUrl}/activity/activities?labels`, { label, page, size });
 };
 
 export const createActApi = (act: object) => {
@@ -14,7 +14,7 @@ export const createActApi = (act: object) => {
 };
 
 export const detailApi = (activityID: number) => {
-  return get(`${serverUrl}/activity/activities/${activityID}`, { activityID });
+  return get(`${serverUrl}/activity/activities/${activityID}`, { undefined });
 };
 
 export const changeActApi = (activityID: number, newAct: object) => {

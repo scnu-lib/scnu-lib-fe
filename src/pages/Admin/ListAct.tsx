@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
-import { Card, Table, Button, Popconfirm, Space,Popover } from 'antd';
+import { Card, Table, Button, Popconfirm, Space, Popover } from 'antd';
 
 import {
   UserSwitchOutlined,
   EditOutlined,
-  DeleteOutlined
+  DeleteOutlined,
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '@/reducers/actReducer';
+import { initActDetail } from '@/reducers/actDetailReducer';
 // 活动列表
 
 function ListAct(props: any) {
@@ -31,53 +32,72 @@ function ListAct(props: any) {
       title: '活动标题',
       dataIndex: 'title',
       key: 'title',
-
     },
     {
       title: '报名截止时间',
       key: 'signUpDeadline',
       responsive: ['md'],
-      render:(txt:any,record:any,index:any) => {
-        return (txt.signUpDeadline.slice(5).replace('-','.'))
-      }
+      render: (txt: any, record: any, index: any) => {
+        return txt.signUpDeadline
+          .slice(5, 16)
+          .replace('-', '.')
+          .replace('T', ' ');
+      },
     },
     {
       title: '活动时间',
       key: 'startendTime',
 
-      render:(txt:any,record:any,index:any) => {
-        return (txt.startTime.slice(5).replace('-','.')+'~'+txt.endTime.slice(5).replace('-','.'))
-      }
+      render: (txt: any, record: any, index: any) => {
+        return (
+          txt.startTime
+            .slice(5, 16)
+            .replace('-', '.')
+            .replace('T', ' ') +
+          '~' +
+          txt.endTime
+            .slice(5, 16)
+            .replace('-', '.')
+            .replace('T', ' ')
+        );
+      },
     },
     {
       title: '报名人数',
       key: 'Participant',
       responsive: ['md'],
-      
-      render:(txt:any,record:any,index:any) => {
-        return (txt.currentParticipant+'/'+txt.maxParticipant)
-      }
+
+      render: (txt: any, record: any, index: any) => {
+        return txt.currentParticipant + '/' + txt.maxParticipant;
+      },
     },
     {
       title: '操作',
       key: '',
-      fix:'right',
+      fix: 'right',
 
       render: (txt: any, record: any, index: any) => {
         return (
           <>
             <Space>
-            <Popover content={<div>查看用户列表</div>}>
-              <UserSwitchOutlined  onClick={() => {
-                  props.history.push(
-                    `/home/adminAct/actParticipants/${txt.id}`,
-                  );
-                }}/>
-                </Popover>
-                <Popover content={<div>编辑该活动</div>}>
-             <EditOutlined  onClick={() => {
-                  props.history.push(`/home/adminAct/createact/${txt.id}`);
-                }}/>
+              <Popover content={<div>查看用户列表</div>}>
+                <UserSwitchOutlined
+                  onClick={() => {
+                    props.history.push(
+                      `/home/adminAct/actParticipants/${txt.id}`,
+                    );
+                  }}
+                />
+              </Popover>
+              <Popover content={<div>编辑该活动</div>}>
+                <EditOutlined
+                  onClick={() => {
+                    dispatch(initActDetail(txt.id));
+                    setTimeout(() => {
+                      props.history.push(`/home/adminAct/createact/${txt.id}`);
+                    }, 100); //给一定的延迟加入到任务队列里，为了先dispatch更新数据再跳到页面，这样就不用管表单初始化问题了
+                  }}
+                />
               </Popover>
               <Popconfirm
                 title="确定删除此项？"
@@ -86,7 +106,11 @@ function ListAct(props: any) {
                   () => console.log('用户确认删除') // 此处调用api接口进行操作
                 }
               >
-                <DeleteOutlined onClick={()=>{console.log('delete')}}/>
+                <DeleteOutlined
+                  onClick={() => {
+                    console.log('delete');
+                  }}
+                />
               </Popconfirm>
             </Space>
           </>
@@ -106,7 +130,11 @@ function ListAct(props: any) {
         </Button>
       }
     >
-      {document.body.clientWidth<676?<Table columns={columns} dataSource={dataSource} size='small'  />:<Table columns={columns} dataSource={dataSource} size='middle'  />}
+      {document.body.clientWidth < 676 ? (
+        <Table columns={columns} dataSource={dataSource} size="small" />
+      ) : (
+        <Table columns={columns} dataSource={dataSource} size="middle" />
+      )}
     </Card>
   );
 }

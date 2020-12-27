@@ -46,7 +46,9 @@ function CreateAct(props: any) {
   const getAct = () => {
     if (!props.location.pathname.slice(25)) {
     } else {
-      dispatch(initActDetail(props.match.params.id));
+      console.log(props);
+      dispatch(initActDetail(props.location.pathname.slice(25)));
+
       setState({ imageUrl: act?.src, loading: false });
       setVolCheckBox(act?.volState); //初始化各个组件
     }
@@ -55,7 +57,7 @@ function CreateAct(props: any) {
     getAct();
   }, []);
   let act = {}; //只用做初始化，可以用let就行
-  act = useSelector(store => store.act[initId]); //存储有、无活动内容 刷新后store就又没了。。。
+  act = useSelector(store => store.actDetail); //存储有、无活动内容 刷新后store就又没了。。。
   if (!props.location.pathname.slice(25)) {
     act = {}; //不要在条件循环里面调用hook，不然可能会顺序错误
     cardTitle = '创建活动';
@@ -77,28 +79,40 @@ function CreateAct(props: any) {
     }
     return isJpgOrPng && isLt10M;
   }
-
+  const changeTimeFormat = (time: string) => {
+    //我啪的一下把格式转成后端的格式，很快啊
+    const arr = time.split(' ');
+    arr.splice(1, 0, 'T');
+    arr.splice(3, 0, 'Z');
+    return arr.join('');
+  };
   const onFinish = async (values: any) => {
     try {
       //if (!state?.imageUrl) {
       //  throw new PropertyRequiredError('imageUrl');
       //}
       const src = 'text'; //state?.imageUrl
-      const startTime = values.act.startEndTime[0].format(dateFormat);
-      const endTime = values.act.startEndTime[1].format(dateFormat);
-      const signUpDeadLine = values.act.signUpDeadLine.format(dateFormat);
+      const startTime = changeTimeFormat(
+        values.act.startEndTime[0].format(dateFormat),
+      );
+      const endTime = changeTimeFormat(
+        values.act.startEndTime[1].format(dateFormat),
+      );
+      const signUpDeadline = changeTimeFormat(
+        values.act.signUpDeadLine.format(dateFormat),
+      );
       const finalAct = {
-        src,
+        //src,
         startTime,
         endTime,
-        signUpDeadLine,
+        signUpDeadline,
         title: values.act.title,
-        maxParticipant: values.act.maxParticipant,
+        maxParticipant: String(values.act.maxParticipant),
         location: values.act.location,
         labels: values.act.labels.split(/,|，|、/),
         detail: { description: values.act.description },
-        volState: volCheckBox,
-        maxVolParticipant: values.act.maxVolParticipant,
+        //volState: volCheckBox,
+        //maxVolParticipant: String(values.act.maxVolParticipant),
       };
       if (!props.location.pathname.slice(25) === false) {
         const res = await changeActApi(
@@ -117,6 +131,7 @@ function CreateAct(props: any) {
           throw new PropertyRequiredError('res');
         }
       } else {
+        console.log(finalAct);
         const res = await createActApi(finalAct);
         console.log(res);
       }
@@ -265,7 +280,7 @@ function CreateAct(props: any) {
           name={['act', 'description']}
           label="活动简介"
           rules={[{ required: true }]}
-          initialValue={act?.description ? act?.description : ''}
+          initialValue={act?.detail?.description}
         >
           <Input.TextArea />
         </Form.Item>

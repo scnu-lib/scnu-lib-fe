@@ -1,6 +1,6 @@
 import React from 'react';
 import { Space, Card } from 'antd';
-import Labels from '@/pages/Reader/Activity/Labels';
+import Labels from '@/components/Labels';
 export const RecentAct = (props: object) => {
   return props.recent.length ? (
     <div className="recent-all">

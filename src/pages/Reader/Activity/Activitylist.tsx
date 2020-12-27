@@ -3,7 +3,7 @@ import { Card, List, Affix, Drawer } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
-import Labels from './Labels';
+import Labels from '../../../components/Labels';
 import { actLabel } from '@/Utils/config';
 import {
   changeDrawer,

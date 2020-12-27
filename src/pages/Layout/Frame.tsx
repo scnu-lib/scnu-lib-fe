@@ -11,7 +11,6 @@ import {
 } from '../../Utils/auth';
 import { DownOutlined } from '@ant-design/icons';
 import './Frame.less';
-import { listenClientWidth } from '@/Utils/config';
 import { changeClient } from '@/reducers/globalConfigReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { initUserInfo } from '@/reducers/userReducer';
