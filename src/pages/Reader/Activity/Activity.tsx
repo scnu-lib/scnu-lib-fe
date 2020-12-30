@@ -5,8 +5,9 @@ import { Link } from 'umi';
 import './Activity.less';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
-import { RecentAct } from './RecentAct';
+import { RecentAct } from '@/components/RecentAct';
 import { lazy, Suspense } from 'react';
+import EmptyState from '@/components/EmptyState';
 const ActivityDetail = lazy(() => import('./ActivityDetail')); //lazyload详情页面，保证首屏的速率
 //活动列表页
 function Activity(props: any) {
@@ -29,7 +30,7 @@ function Activity(props: any) {
   const getRecentAct = () => {
     //把最近的活动拿到，暂时通过标签确定最近,只需要三个
     try {
-      dispatch(initList('recent', 0, 20));
+      dispatch(initList('recent', 0, 6));
     } catch (err) {
       console.log(err);
     }
@@ -42,20 +43,30 @@ function Activity(props: any) {
     <Space direction="vertical" className="Activity .flex" size="large">
       <Space direction="vertical" className="recent-Act" size="middle">
         {recent.length ? (
-          <span
-            style={{
-              margin: '22px',
-              fontSize: '24px',
-              fontWeight: 2000,
-              textAlign: 'center',
-              color: '#5c6b77',
-              textTransform: 'capitalize',
+          <>
+            <span
+              style={{
+                margin: '22px',
+                fontSize: '24px',
+                fontWeight: 2000,
+                textAlign: 'center',
+                color: '#5c6b77',
+                textTransform: 'capitalize',
+              }}
+            >
+              近期活动
+            </span>
+            <RecentAct recent={recent} showModal={showModal} />
+          </>
+        ) : (
+          <EmptyState
+            createTitle="创建活动"
+            createDescription="暂时还没有活动哦"
+            createFunc={() => {
+              props.history.push('/home/adminAct/createact');
             }}
-          >
-            近期活动
-          </span>
-        ) : null}
-        <RecentAct recent={recent} showModal={showModal} />
+          />
+        )}
       </Space>
       {isDetailsVisible && (
         <Suspense fallback={<div>loading...</div>}>

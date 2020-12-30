@@ -2,7 +2,7 @@ import React from 'react';
 import { Space, Card } from 'antd';
 import Labels from '@/components/Labels';
 export const RecentAct = (props: object) => {
-  return props.recent.length ? (
+  return (
     <div className="recent-all">
       <div className="recent-decoration fadeEffect"></div>
       <Space className="recent-map" size="small">
@@ -41,7 +41,5 @@ export const RecentAct = (props: object) => {
         )}
       </Space>
     </div>
-  ) : (
-    <div className="empty-act-list">暂无活动</div>
   );
 };
