@@ -29,13 +29,13 @@ function Activity(props: any) {
   const getRecentAct = () => {
     //把最近的活动拿到，暂时通过标签确定最近,只需要三个
     try {
-      dispatch(initList('recent', 0, 3));
+      dispatch(initList('recent', 0, 20));
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
-    //getRecentAct();
+    getRecentAct();
     //setRecent(recentlist)
   }, []);
   return (

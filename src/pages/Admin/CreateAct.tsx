@@ -5,10 +5,10 @@ import {
   Input,
   Button,
   InputNumber,
-  DatePicker,
   message,
   Upload,
   Checkbox,
+  Mentions,
 } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import 'antd/es/modal/style';
@@ -18,7 +18,11 @@ import { createActApi, changeActApi } from '@/Services/activity';
 import { useSelector, useDispatch } from 'react-redux';
 import { initActDetail } from '@/reducers/actDetailReducer';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
-import moment from 'moment';
+import DatePicker from '../../components/DatePicker';
+import format from 'dayjs';
+import { initList } from '@/reducers/actReducer';
+import { actLabel } from '@/Utils/config';
+const { Option } = Mentions;
 const { RangePicker } = DatePicker;
 const layout = {
   labelCol: { span: 8 },
@@ -26,9 +30,9 @@ const layout = {
 };
 const dateFormat = 'YYYY-MM-DD HH:mm:ss';
 const validateMessages = {
-  required: '${label}必须填写！',
+  required: '${label}必须填写',
   types: {
-    number: '${label} 不是一个有效数字！',
+    number: '${label} 不是一个有效数字',
   },
   number: {
     range: '${label}不能小于${min}',
@@ -36,7 +40,7 @@ const validateMessages = {
 };
 function disabledDate(current: object) {
   // Can not select days before today and today
-  return current && current < moment().endOf('day');
+  return current && current < format().endOf('day');
 }
 //创建活动页
 function CreateAct(props: any) {
@@ -71,11 +75,11 @@ function CreateAct(props: any) {
   function beforeUpload(file: object) {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
-      message.error('目前只支持JPG/PNG格式的图片！');
+      message.error('目前只支持JPG/PNG格式的图片');
     }
     const isLt10M = file.size / 1024 / 1024 < 10;
     if (!isLt10M) {
-      message.error('请上传小于10M的图片！');
+      message.error('请上传小于10M的图片');
     }
     return isJpgOrPng && isLt10M;
   }
@@ -91,7 +95,9 @@ function CreateAct(props: any) {
       //if (!state?.imageUrl) {
       //  throw new PropertyRequiredError('imageUrl');
       //}
+
       const src = 'text'; //state?.imageUrl
+
       const startTime = changeTimeFormat(
         values.act.startEndTime[0].format(dateFormat),
       );
@@ -101,6 +107,14 @@ function CreateAct(props: any) {
       const signUpDeadline = changeTimeFormat(
         values.act.signUpDeadLine.format(dateFormat),
       );
+      if (signUpDeadline > startTime) {
+        message.error('报名截止日期必须小于活动开始日期');
+        return;
+      }
+      if (startTime > endTime) {
+        message.error('活动开始日期必须小于活动结束日期');
+        return;
+      }
       const finalAct = {
         //src,
         startTime,
@@ -136,23 +150,24 @@ function CreateAct(props: any) {
         console.log(res);
       }
       console.log(finalAct);
-      message.success('发布成功！');
-      //props.history.push('/')
+      message.success('发布成功'); //发布成功后刷新store和页面
+      dispatch(initList('all'));
+      setTimeout(() => props.history.push('/'), 100);
     } catch (err) {
       if (err instanceof PropertyRequiredError) {
         if (err.property === 'imageUrl') {
-          message.error('请上传封面！');
+          message.error('请上传封面');
         } else {
-          message.error('后台数据错误！');
+          message.error('后台数据错误');
         }
       } else if (err?.response?.status === 400) {
-        message.error('最大参与者数量小于现有参与者数量！');
+        message.error('最大参与者数量小于现有参与者数量');
       } else if (err?.response?.status === 401) {
-        message.error('权限不足！');
+        message.error('权限不足');
       } else if (err?.response?.status === 404) {
-        message.error('活动不存在！');
+        message.error('活动不存在');
       } else {
-        throw err;
+        message.error('Oops!出现未知错误，请联系程序猿');
       }
     }
   };
@@ -223,13 +238,26 @@ function CreateAct(props: any) {
           <Input maxLength={20} />
         </Form.Item>
         <Form.Item
+          name={['act', 'signUpDeadLine']}
+          label="报名截止时间"
+          rules={[
+            { type: 'object', required: true, message: '请选择报名截止时间' },
+          ]}
+        >
+          <DatePicker
+            disabledDate={disabledDate}
+            showTime
+            format={dateFormat}
+          />
+        </Form.Item>
+        <Form.Item
           name={['act', 'startEndTime']}
           label="活动开始、结束时间"
           rules={[
             {
               type: 'array',
               required: true,
-              message: '请选择活动开始、结束的时间！',
+              message: '请选择活动开始、结束的时间',
             },
           ]}
         >
@@ -239,19 +267,7 @@ function CreateAct(props: any) {
             format={dateFormat}
           />
         </Form.Item>
-        <Form.Item
-          name={['act', 'signUpDeadLine']}
-          label="报名截止时间"
-          rules={[
-            { type: 'object', required: true, message: '请选择报名截止时间！' },
-          ]}
-        >
-          <DatePicker
-            disabledDate={disabledDate}
-            showTime
-            format={dateFormat}
-          />
-        </Form.Item>
+
         <Form.Item
           name={['act', 'maxParticipant']}
           label="活动最大人数"
@@ -270,11 +286,34 @@ function CreateAct(props: any) {
         </Form.Item>
         <Form.Item
           name={['act', 'labels']}
-          label="活动标签（标签之间用逗号隔开）"
-          rules={[{ required: true }]}
+          label="活动标签（输入@选择标签）"
+          rules={[
+            { required: true, message: '请选择至少一个活动标签' },
+            {
+              pattern: /(@[\u4e00-\u9fa5]{0,}\s*$)+$/,
+              message:
+                '请使用@+标签名(eg:@观影沙龙)选择标签，新标签请找管理员添加',
+            },
+          ]}
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
           initialValue={act?.labels ? act?.labels.join(',') : ''}
         >
-          <Input />
+          <Mentions rows={1}>
+            <Option value={actLabel.filmSalon}>{actLabel.filmSalon}</Option>
+            <Option value={actLabel.fridayCinema}>
+              {actLabel.fridayCinema}
+            </Option>
+            <Option value={actLabel.offline}>{actLabel.offline}</Option>
+            <Option value={actLabel.online}>{actLabel.online}</Option>
+            <Option value={actLabel.pictureBookStory}>
+              {actLabel.pictureBookStory}
+            </Option>
+            <Option value={actLabel.readingClub}>{actLabel.readingClub}</Option>
+            <Option value={actLabel.seniorSharingMeeting}>
+              {actLabel.seniorSharingMeeting}
+            </Option>
+          </Mentions>
         </Form.Item>
         <Form.Item
           name={['act', 'description']}

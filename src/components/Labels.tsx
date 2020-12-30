@@ -65,7 +65,7 @@ function Labels(props: object) {
               </Tag>
             );
           default:
-            return null;
+            return;
         }
       })}
     </div>

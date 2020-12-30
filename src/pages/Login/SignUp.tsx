@@ -131,6 +131,10 @@ function SignUp(props: any) {
           <Form.Item
             name="email"
             rules={[
+              {
+                pattern: /\w+$/,
+                message: '只能使用数字、字母和下划线组合',
+              },
               { required: true, message: '请输入你的账号', whitespace: true },
             ]}
           >
