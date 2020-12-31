@@ -1,6 +1,7 @@
 import React from 'react';
 import { Space, Card } from 'antd';
 import Labels from '@/components/Labels';
+import '@/pages/Reader/Activity/Activity.less'
 export const RecentAct = (props: object) => {
   return (
     <div className="recent-all">
@@ -25,7 +26,7 @@ export const RecentAct = (props: object) => {
                     }}
                   ></img>*/}
               <a onClick={() => props.showModal(note.id)}>
-                <div className={`img${note.id}`}></div>
+                <div className={`img${index+1}`}></div>
                 <div className="note-title" style={{ textAlign: 'center' }}>
                   {note.title}
                 </div>

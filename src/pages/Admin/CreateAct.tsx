@@ -115,6 +115,8 @@ function CreateAct(props: any) {
         message.error('活动开始日期必须小于活动结束日期');
         return;
       }
+      let processLabels = values.act.labels.split(' ')
+     
       const finalAct = {
         //src,
         startTime,
@@ -123,11 +125,12 @@ function CreateAct(props: any) {
         title: values.act.title,
         maxParticipant: String(values.act.maxParticipant),
         location: values.act.location,
-        labels: values.act.labels.split(/,|，|、/),
+        labels: processLabels.map(label=>label.slice(1)),//分割后把@去掉
         detail: { description: values.act.description },
         //volState: volCheckBox,
         //maxVolParticipant: String(values.act.maxVolParticipant),
       };
+
       if (!props.location.pathname.slice(25) === false) {
         const res = await changeActApi(
           +props.location.pathname.slice(25),
