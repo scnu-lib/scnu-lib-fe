@@ -22,6 +22,7 @@ export const addRegisteredAct = (allActivity:object[]) => {
         try{
         
         allActivity.forEach(async(act:object)=>{
+            try{//这里的逻辑是访问所有的活动的报名情况记录下来，这一步第一不用给用户反馈活动报名情况第二异步promise的err每个都要处理
            // 尝试用Promise.all，但是因为这个是会筛选的，也就是数组前后有变化，所以用promise.all会有问题
             const res = await actIsSignUpApi(act.id,getUserID())// 后端的api直接返回了一个true，这里用mock好像做不到，先改成data.data
             const resdata = res.data
@@ -36,19 +37,26 @@ export const addRegisteredAct = (allActivity:object[]) => {
                     data:act
                 })
             }
+            }catch(err){
+              /*  if(err instanceof PropertyRequiredError){
+                    message.error('Oops!后台数据出错');
+                }else if(err.response.status === '404'){
+                    message.error('活动不存在');
+                }else{
+                    message.error('Oops!后台数据出错');
+                }*/
+                console.log('no sig')
+            }
+        
         })
 
 
 
         }catch(err){
-            if(err instanceof PropertyRequiredError){
-                message.error('Oops!后台数据出错');
-            }else if(err.response.status === '404'){
-                message.error('活动不存在');
-            }else{
-                message.error('Oops!后台数据出错');
-            }
+           
+            message.error('Oops!后台数据出错')
         }
+
     }
 }
 

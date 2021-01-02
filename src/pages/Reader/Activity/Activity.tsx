@@ -8,14 +8,16 @@ import { initList } from '../../../reducers/actReducer';
 import { lazy, Suspense } from 'react';
 import EmptyState from '@/components/EmptyState';
 import Loading from '@/components/Loading';
+import { initActDetail } from '@/reducers/actDetailReducer';
 const ActivityDetail = lazy(() => import('./ActivityDetail')); //lazyload详情页面，保证首屏的速率
 const RecentAct = lazy(()=> import('../../../components/RecentAct'))
 //活动列表页
 function Activity(props: any) {
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
-  const [modalDetail, setModalDetail] = useState({}); //把活动详情做成一个小对话框，用state控制其打开和关闭
+  //const [modalDetail, setModalDetail] = useState({}); //把活动详情做成一个小对话框，用state控制其打开和关闭
+  const modalDetail = useSelector(store=>store.actDetail)
   const showModal = (id: number) => {
-    setModalDetail(recent.find(note => note.id === id));
+    dispatch(initActDetail(id))
     setIsDetailsVisible(true);
   }; //这几个都是相应的控制活动的函数
 

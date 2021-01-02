@@ -2,6 +2,7 @@ import React from 'react';
 import { Space, Card } from 'antd';
 import Labels from '@/components/Labels';
 import '@/pages/Reader/Activity/Activity.less'
+import HandleDate from './HandleDate';
 
 const RecentAct = (props: object) => {
   const length = props.recent.length//倒序输出
@@ -39,7 +40,7 @@ const RecentAct = (props: object) => {
                 </div>
                 <Labels labels={note.labels}></Labels>
                 <div className="note-date" >
-                  {note.startTime.replace(/-/g,'.').replace('T',' ').replace('Z','').slice(0,-3)+'~'+note.endTime.replace(/-/g,'.').replace('T',' ').replace('Z','').slice(0,-3)}
+                  {HandleDate(note.startTime)+'~'+HandleDate(note.endTime)}
                 </div>
                 {/* </Link>*/}
               </a>

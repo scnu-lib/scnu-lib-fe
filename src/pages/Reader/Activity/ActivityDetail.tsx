@@ -7,6 +7,7 @@ import { getUserID, isLogined } from '@/Utils/auth';
 import { useSelector, useDispatch } from 'react-redux';
 import { volunteerApplicationState } from '@/Utils/config';
 import { addRegisteredAct } from '@/reducers/actRegisteredReducer';
+import HandleDate from '@/components/HandleDate';
 //活动页
 function ActivityDetail(props: any) {
   //活动详情页，做成对话框形式，把所有活动信息列出来，加上报名志愿者和报名活动的按钮
@@ -57,18 +58,19 @@ function ActivityDetail(props: any) {
       footer={null}
       width={550}
     >
-      <div className={`img${props.modalDetail?.id}`}></div>
+      <div className={`img${/*props.modalDetail?.id*/6}`}></div>
 
       <div className="actDetail-details">
         <p>
-          报名截止于: {props.modalDetail?.signUpDeadline?.slice(5)} 活动日期：
-          {props.modalDetail?.startTime?.slice(5)}~
-          {props.modalDetail?.endTime?.slice(5)}{' '}
+          报名截止于: {HandleDate(props.modalDetail?.signUpDeadline)} 活动日期：
+          {HandleDate(props.modalDetail?.startTime)}~
+          {HandleDate(props.modalDetail?.endTime)}{' '}
           {props.modalDetail?.currentParticipant}/
           {props.modalDetail?.maxParticipant} 人 {props.modalDetail?.location}{' '}
           {props.modalDetail?.volState ? '招募志愿者' : '暂不招募志愿者'}
         </p>
       </div>
+      <div className="actDetail-content">{props.modalDetail?.content}</div>
       <div className="actDetail-textpart">
         <Labels labels={props.modalDetail?.labels}></Labels>
         <div className="actDetail-button">
