@@ -2,14 +2,20 @@ import React from 'react';
 import { Space, Card } from 'antd';
 import Labels from '@/components/Labels';
 import '@/pages/Reader/Activity/Activity.less'
-export const RecentAct = (props: object) => {
+
+const RecentAct = (props: object) => {
+  const length = props.recent.length//倒序输出
+  let i = 0;
   return (
     <div className="recent-all">
       <div className="recent-decoration fadeEffect"></div>
       <Space className="recent-map" size="small">
-        {props.recent.map((note: object, index: number) =>
-          index < 6 ? (
-            <Card className="note-Card fadeEffect" key={`${note.id}Card`}>
+        {
+        props.recent.map((note: object, index: number) =>
+          {
+            
+            return (index < length - 6 ?null: (//输出最后6个活动
+            <Card className="note-Card fadeEffect CardHover" key={`${note.id}Card`} >
               {/*<Link
                   key={`${note.id}Link`}
                   to={`/home/activitydetail/${note.id}`}
@@ -26,21 +32,25 @@ export const RecentAct = (props: object) => {
                     }}
                   ></img>*/}
               <a onClick={() => props.showModal(note.id)}>
-                <div className={`img${index+1}`}></div>
+                <div className={'hiddenImg'}>
+                <div className={`img${i=i+1} img`}></div></div>
                 <div className="note-title" style={{ textAlign: 'center' }}>
                   {note.title}
                 </div>
-
-                <div className="note-date" style={{ textAlign: 'center' }}>
-                  {note.date}
-                </div>
                 <Labels labels={note.labels}></Labels>
+                <div className="note-date" >
+                  {note.startTime.replace(/-/g,'.').replace('T',' ').replace('Z','').slice(0,-3)+'~'+note.endTime.replace(/-/g,'.').replace('T',' ').replace('Z','').slice(0,-3)}
+                </div>
                 {/* </Link>*/}
               </a>
             </Card>
-          ) : null,
+          )) 
+        }
+
         )}
       </Space>
     </div>
   );
 };
+
+export default RecentAct;

@@ -78,7 +78,7 @@ function Frame(props: any) {
           history.push('/login');
         }}
       >
-        注册|登录
+        注册 | 登录
       </Button>
     );
   };
@@ -116,7 +116,7 @@ function Frame(props: any) {
         <h2 className="Hero-title">欢迎来到阅马活动系统</h2>
         <p>华南师大图书馆————活动发布、报名、签到</p>
         <div className="Hero-href">
-          <a>QQ群</a>-<a>关于</a>-<a>联系我们</a>
+          <a>QQ群</a> - <a>关于</a> - <a>联系我们</a>
         </div>
       </div>
       <Content className="layout-content">

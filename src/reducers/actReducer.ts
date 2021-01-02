@@ -9,11 +9,11 @@ const actReducer = (state = initState, action: object) => {
   switch (action.type) {
     case 'INIT':
       return [...action.data];
-
     default:
       return state;
   }
 };
+
 export const initList = (
   label: string,
   page: number = 0,

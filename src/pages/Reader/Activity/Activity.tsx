@@ -5,10 +5,11 @@ import { Link } from 'umi';
 import './Activity.less';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
-import { RecentAct } from '@/components/RecentAct';
 import { lazy, Suspense } from 'react';
 import EmptyState from '@/components/EmptyState';
+import Loading from '@/components/Loading';
 const ActivityDetail = lazy(() => import('./ActivityDetail')); //lazyload详情页面，保证首屏的速率
+const RecentAct = lazy(()=> import('../../../components/RecentAct'))
 //活动列表页
 function Activity(props: any) {
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
@@ -28,9 +29,11 @@ function Activity(props: any) {
   const recent = useSelector(state => state.act);
   const dispatch = useDispatch();
   const getRecentAct = () => {
-    //把最近的活动拿到，暂时通过标签确定最近,只需要三个
+    //把最近的活动拿到，暂时通过标签确定最近
+    
     try {
-      dispatch(initList('recent', 0, 6));
+      dispatch(initList('recent', 0, 20));
+
     } catch (err) {
       console.log(err);
     }
@@ -56,7 +59,9 @@ function Activity(props: any) {
             >
               近期活动
             </span>
+            <Suspense fallback={<Loading />}>
             <RecentAct recent={recent} showModal={showModal} />
+            </Suspense>
           </>
         ) : (
           <EmptyState

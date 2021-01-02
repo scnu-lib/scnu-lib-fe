@@ -3,6 +3,7 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
+  mock: false,
   dynamicImport: {//按需加载
     loading: '@/components/Loading',
   },

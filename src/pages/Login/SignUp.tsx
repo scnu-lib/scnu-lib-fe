@@ -72,7 +72,7 @@ function SignUp(props: any) {
       console.log(err.response);
       if (err.response?.status === 400) {
         if (err.response?.data.message === 'error.userexists')
-          message.error('该账号已被注册');
+          message.error('该帐号已被注册');
         else if (err.response?.data.message === 'error.malformed_request')
           message.error('格式错误');
         else if (err instanceof PropertyRequiredError) {
@@ -111,7 +111,7 @@ function SignUp(props: any) {
       }}
     >
       <Card className="login-Card">
-        <div className="sign-title">注册账户</div>
+        <div className="sign-title">注册帐户</div>
         <Form
           {...formItemLayout}
           form={form}
@@ -135,10 +135,10 @@ function SignUp(props: any) {
                 pattern: /\w+$/,
                 message: '只能使用数字、字母和下划线组合',
               },
-              { required: true, message: '请输入你的账号', whitespace: true },
+              { required: true, message: '请输入你的帐号', whitespace: true },
             ]}
           >
-            <Input placeholder="账号" />
+            <Input placeholder="帐号" />
           </Form.Item>
           <Form.Item
             name="password"
@@ -203,7 +203,11 @@ function SignUp(props: any) {
             </Button>{' '}
             或
             <Button type="link" onClick={() => props.history.push('/login')}>
-              已经有账号了？现在登录
+              已经有帐号了？现在登录
+            </Button>
+            {' '}
+            <Button type="link" onClick={() => props.history.push('/')}>
+              不想登录？先随便看看
             </Button>
           </Form.Item>
         </Form>
