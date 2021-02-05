@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { history, Link } from 'umi';
-import { Layout, Menu, Button, Dropdown, Avatar } from 'antd';
+import { Layout, Menu, Button, Dropdown, Avatar, message } from 'antd';
 import { activityRoutes } from '../../Routes/routes';
 import {
   isLogined,
@@ -13,15 +13,22 @@ import { DownOutlined } from '@ant-design/icons';
 import './Frame.less';
 import { changeClient } from '@/reducers/globalConfigReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { initUserInfo } from '@/reducers/userReducer';
+import { initSetting } from '@/reducers/userSettingReducer';
+import { getNotifyApi, getSettingApi } from '@/Services/auth';
+import { cleanUserInfo, initUserInfo } from '@/reducers/userReducer';
+import { initLoginInUserInfo } from '@/reducers/loginInUserInfoReducer';
+import { initLoginInUserSetting } from '@/reducers/loginInUserSetting';
 const { Header, Content, Footer } = Layout;
 function Frame(props: any) {
   const dispatch = useDispatch();
-  const userInfo = useSelector(store => store.user);
+  const userInfo = useSelector(store => store.loginInUserSetting);
   useEffect(() => {
     if (isLogined()) {
-      console.log(getUserID());
-      dispatch(initUserInfo(getUserID()));
+      getSettingApi(getUserID()).then(res=>{
+        dispatch(initLoginInUserSetting(res.data));
+      }).catch(err=>{
+        message.error('Oops!发生了未知的错误');
+      })
     }
   }, []);
   const docEl = document.documentElement;
@@ -46,7 +53,14 @@ function Frame(props: any) {
           history.push('/');
           location.reload();
         } else if (p.key === 'User') {
-          history.push('/home/user');
+          dispatch(cleanUserInfo());
+          getNotifyApi(getUserID()).then(res=>{
+            dispatch(initUserInfo(res.data));
+            history.push('/home/user');
+            
+          }).catch(err=>{
+            message.error('Oops!发生了未知的错误');
+          })
         } else {
           history.push('/');
         }

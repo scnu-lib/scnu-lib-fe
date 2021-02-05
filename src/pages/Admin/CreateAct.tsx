@@ -14,7 +14,7 @@ import ImgCrop from 'antd-img-crop';
 import 'antd/es/modal/style';
 import 'antd/es/slider/style';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { createActApi, changeActApi } from '@/Services/activity';
+import { createActApi, changeActApi, detailApi } from '@/Services/activity';
 import { useSelector, useDispatch } from 'react-redux';
 import { initActDetail } from '@/reducers/actDetailReducer';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
@@ -51,8 +51,6 @@ function CreateAct(props: any) {
     if (!props.location.pathname.slice(25)) {
     } else {
       console.log(props);
-      dispatch(initActDetail(props.location.pathname.slice(25)));
-
       setState({ imageUrl: act?.src, loading: false });
       setVolCheckBox(act?.volState); //初始化各个组件
     }
@@ -116,21 +114,20 @@ function CreateAct(props: any) {
         return;
       }
       let processLabels = values.act.labels.split(' ')
-     
       const finalAct = {
         //src,
         startTime,
         endTime,
         signUpDeadline,
         title: values.act.title,
-        maxParticipant: String(values.act.maxParticipant),
+        maxParticipant: values.act.maxParticipant,
+        currentParticipant:0,
         location: values.act.location,
         labels: processLabels.map(label=>label.slice(1)),//分割后把@去掉
         detail: { description: values.act.description },
         //volState: volCheckBox,
         //maxVolParticipant: String(values.act.maxVolParticipant),
       };
-
       if (!props.location.pathname.slice(25) === false) {
         const res = await changeActApi(
           +props.location.pathname.slice(25),
@@ -300,7 +297,7 @@ function CreateAct(props: any) {
           ]}
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
-          initialValue={act?.labels ? act?.labels.join(',') : ''}
+          initialValue={act?.labels ? act?.labels.map((label,index)=>index!== 0?' @'+label:'@'+label).join('') : ''}
         >
           <Mentions rows={1}>
             <Option value={actLabel.filmSalon}>{actLabel.filmSalon}</Option>

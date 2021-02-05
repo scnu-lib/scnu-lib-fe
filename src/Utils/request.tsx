@@ -41,18 +41,14 @@ export const get = (url: string, params: object) => {
 };
 
 export const post = (url: string, data: object) => {
-  return instance.post(url, data);
+  return instance.post(url,data);
 };
 
 export const put = (
   url: string,
-  params: any = undefined,
   data: any = undefined,
 ) => {
-  const config = {
-    params,
-  };
-  return instance.put(url, data);
+  return instance.put(url,data);
 };
 
 export const del = (url: string, params: any = undefined) => {

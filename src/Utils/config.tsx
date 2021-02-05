@@ -3,7 +3,9 @@ export enum volunteerApplicationState {
   applied = 'APPLIED',
   accepted = 'ACCEPTED',
   rejected = 'REJECTED',
+  pending = 'PENGDING'
 }
+
 export enum role {
   user = 'ROLE_USER',
   librarian = 'ROLE_LIBRARIAN',

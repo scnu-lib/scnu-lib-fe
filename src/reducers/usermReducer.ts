@@ -1,21 +1,19 @@
 // 用户管理reducer
 import PropertyRequiredError from '@/error/PropertyRequiredError';
 import { listUserApi } from '@/Services/admin';
+import { getNotifyApi, getSettingApi } from '@/Services/auth';
 import { message } from 'antd';
 import userReducer from './userReducer';
 const usermReducer = (
   state = [
-    {
-      id: 0,
-      username: 'string',
-      role: 'ROLE_LIBRARIAN',
-    },
   ],
   action: object,
 ) => {
   switch (action.type) {
-    case 'INIT_USER':
-      return [...action.data];
+    case 'ADD_USER':
+      return [...state,action.data];
+    case 'CLEAN_USER':
+      return [];
     default:
       return [...state];
   }
@@ -48,11 +46,26 @@ export const initUserList = (size: number = 20) => {
           throw new PropertyRequiredError('role');
         }
       }
-
-      dispatch({
-        type: 'INIT_USER',
-        data: res.data,
-      });
+      res.data.map(async user=>{
+        const Data = (await getSettingApi(user.id)).data;
+        const notifyRes = await getNotifyApi(user.id); // 获得通知方式
+        const handledDetail = {
+          id: Data.id,
+          name: Data.detail.name,
+          role: Data.role,
+          college:Data?.detail?.college||'暂无',
+          studentId:Data?.detail?.studentId||'暂无',
+          connection: (notifyRes.data.wechat?.enabled
+            ? notifyRes.data.wechat?.wxid
+            : notifyRes.data.email?.address)||'暂无',
+        }
+        
+        dispatch({
+          type: 'ADD_USER',
+          data: handledDetail,
+        });
+      })
+     
     } catch (err) {
       console.log(err);
       if (err instanceof PropertyRequiredError) {
@@ -71,4 +84,9 @@ export const initUserList = (size: number = 20) => {
     }
   };
 };
+export const cleanUser = ()=>{
+  return {
+    type:'CLEAN_USER',
+  }
+}
 export default usermReducer;

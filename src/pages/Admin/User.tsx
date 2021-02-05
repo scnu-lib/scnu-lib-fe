@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
-import { Card, Table, Button, Popover, Tag, Space } from 'antd';
+import { Card, Table, Button, Popover, Tag, Space, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '@/reducers/actReducer';
-import { initUserList } from '@/reducers/usermReducer';
+import { cleanUser, initUserList } from '@/reducers/usermReducer';
 import { Roles } from '@/Utils/config';
 import { EditOutlined, CommentOutlined } from '@ant-design/icons';
 import { initSetting } from '@/reducers/userSettingReducer';
+import { getNotifyApi, getSettingApi } from '@/Services/auth';
+import { cleanUserInfo, initUserInfo } from '@/reducers/userReducer';
+import { getUserID } from '@/Utils/auth';
 function User(props: any) {
   const dataSource = useSelector(store => store.userList);
   const dispatch = useDispatch();
   const getList = (size: number) => {
+    dispatch(cleanUser());
     //本来是page的，后端没有提供page查询，只能前端来实现了
     dispatch(initUserList(size));
   };
@@ -21,13 +25,21 @@ function User(props: any) {
   }, []);
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
+      title: '名称',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
-      title: '用户名',
-      dataIndex: 'username',
+      title: '学号',
+      dataIndex: 'studentId',
+      key: '_id',
+      responsive: ['md'],
+    },
+    {
+      title: '学院',
+      dataIndex: 'college',
+      key: 'college',
+      responsive: ['md'],
     },
     {
       title: '用户权限',
@@ -45,6 +57,13 @@ function User(props: any) {
         }
       },
     },
+    ,
+    {
+      title: '联系方式',
+      dataIndex: 'connection',
+      key: 'connnection',
+      responsive: ['md'],
+    },
     {
       title: '操作',
       render: (txt: any, record: any, index: any) => {
@@ -54,19 +73,38 @@ function User(props: any) {
               <Popover content={<div>修改用户信息</div>}>
                 <EditOutlined
                   onClick={() => {
-                    dispatch(initSetting(record.id));
-                    props.history.push(
-                      `/home/adminUser/userdetails/${record.id}`,
-                    );
+
+                    //dispatch(initSetting(record.id));
+                    getSettingApi(record.id).then(res=>{
+                      dispatch(initSetting(res.data));
+
+                      
+                      props.history.push(
+                        `/home/adminUser/userdetails/${record.id}`,
+                      );
+                    }).catch(err=>{
+                      message.error('Oops!发生了未知的错误');
+                    })
+                    
                   }}
                 />
               </Popover>
               <Popover content={<div>查看用户联系方式</div>}>
                 <CommentOutlined
                   onClick={() => {
-                    props.history.push(
-                      `/home/adminUser/usernotices/${record.id}`,
-                    );
+                    dispatch(cleanUserInfo());
+                    getNotifyApi(record.id).then(res=>{
+                      console.log(res.data)
+                      dispatch(initUserInfo(res.data));
+                      props.history.push(
+                        `/home/adminUser/usernotices/${record.id}`,
+                      );
+                      
+                    }).catch(err=>{
+                      message.error('Oops!发生了未知的错误');
+                    })
+
+                    
                   }}
                 />
               </Popover>

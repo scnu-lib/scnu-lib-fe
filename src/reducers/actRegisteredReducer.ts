@@ -1,63 +1,47 @@
 import PropertyRequiredError from '@/error/PropertyRequiredError';
-import { actIsSignUpApi } from '@/Services/activity';
+import { actIsSignUpApi, actSignUpApi } from '@/Services/activity';
 import { getUserID } from '@/Utils/auth';
 import { message } from 'antd';
 
-const initState:[] = [];
-const actRegisteredReducer = (state:[] = initState,action:object) => {
+const initState:number[] = [];
+const actRegisteredReducer = (state:number[] = initState,action:{type:string,data:[]}) => {
     switch(action.type){
         case 'ADD_REGISTERED_ACT':return [...state,action.data];
-        case 'CLEAN_REGISTERED_ACT':return state;// 清除所有的已报名活动状态，暂时不需要
+        case 'CLEAN_REGISTERED_ACT':return state;// 清除所有的已报名活动状态，退出登录时
+        case 'INIT_REGISTERED_ACT':return [...action.data];
         default:return state;
     }
 }
-export const addSingleRegisteredAct = (activity:object) => {
-    return {
-        type:'ADD_REGISTERED_ACT',
-        data:activity
+export const addRegisteredAct=(userID:number,actID:number)=>{
+    return async dispatch=>{
+        try{
+            const resData = (await actSignUpApi(actID,userID)).data;
+            dispatch({type:'ADD_REGISTERED_ACT',data:resData.activityID})
+        }catch(err){
+            message.error('报名失败, 请刷新后重试')
+        }
     }
 }
-export const addRegisteredAct = (allActivity:object[]) => {
-    return async (dispatch:Function) => {
-        try{
-        
-        allActivity.forEach(async(act:object)=>{
-            try{//这里的逻辑是访问所有的活动的报名情况记录下来，这一步第一不用给用户反馈活动报名情况第二异步promise的err每个都要处理
-           // 尝试用Promise.all，但是因为这个是会筛选的，也就是数组前后有变化，所以用promise.all会有问题
-            const res = await actIsSignUpApi(act.id,getUserID())// 后端的api直接返回了一个true，这里用mock好像做不到，先改成data.data
-            const resdata = res.data
-            console.log(resdata.data)
-            if(!resdata?.hasOwnProperty('data')){
-                throw new PropertyRequiredError('data');
-            }
-            if(resdata.data)
+export const initActReg= (userID:number,acts:[])=>{
+    return async dispatch=>{
+    try{
+        const regActs:number[] = [];
+        console.log(acts)
+        acts.forEach(async act=>{
+            if((await actIsSignUpApi(act.id,userID)).data)//每个活动查询是否报名
             {
-                dispatch({
-                    type:'ADD_REGISTERED_ACT',
-                    data:act
-                })
+                dispatch(addRegisteredAct(userID,act.id))
             }
-            }catch(err){
-              /*  if(err instanceof PropertyRequiredError){
-                    message.error('Oops!后台数据出错');
-                }else if(err.response.status === '404'){
-                    message.error('活动不存在');
-                }else{
-                    message.error('Oops!后台数据出错');
-                }*/
-                console.log('no sig')
-            }
-        
         })
-
-
-
-        }catch(err){
-           
-            message.error('Oops!后台数据出错')
-        }
-
+        dispatch({
+            type: 'INIT_REGISTERED_ACT',
+            data: regActs,
+          });
     }
+    catch(err){
+        message.error('Oops! 后台数据出错，请联系程序猿');
+    }
+ }
 }
 
 export default actRegisteredReducer

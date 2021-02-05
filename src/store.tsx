@@ -10,6 +10,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import actListShowReducer from './reducers/actListShowReducer';
 import globalConfigReducer from '@/reducers/globalConfigReducer'
+import loginInUserReducer from './reducers/loginInUserInfoReducer';
+import loginInUserSettingReducer from './reducers/loginInUserSetting';
 const reducer = combineReducers({
   act: actReducer,
   regAct:actRegisteredReducer,
@@ -19,7 +21,9 @@ const reducer = combineReducers({
   actParticipants: actParticipantsReducer,
   actDetail: actDetailReducer,
   actListShow: actListShowReducer,
-  globalConfig:globalConfigReducer
+  globalConfig:globalConfigReducer,
+  loginInUser:loginInUserReducer,
+  loginInUserSetting:loginInUserSettingReducer
 }); // 组合reducer，act字段和user字段分别管理不同的store
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 console.log(store.getState());

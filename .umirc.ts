@@ -4,7 +4,7 @@ export default defineConfig({
     type: 'none',
   },
   mock: false,
-  dynamicImport: {//按需加载
+  /*dynamicImport: {//按需加载
     loading: '@/components/Loading',
   },
   chainWebpack(config) {
@@ -19,7 +19,7 @@ export default defineConfig({
         }
       },
     });
-  },
+  },*/
   // hash:true,
   history: { type: 'hash' },
   routes: [

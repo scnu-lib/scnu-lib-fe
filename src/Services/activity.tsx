@@ -6,7 +6,7 @@ export const listActApi = (
   page: number = 0,
   size: number = 20,
 ) => {
-  return get(`${serverUrl}/activity/activities?labels`, { label, page, size });
+  return get(`${serverUrl}/activity/activities?labels&sort=id,DESC`, {   size,page });
 };
 
 export const createActApi = (act: object) => {
@@ -56,10 +56,11 @@ export const userVolSignUpApi = (
   activityID: number,
   userID: number,
   state: volunteerApplicationState,
-  reason: string = 'null',
+  reason: string = 'string',
 ) => {
+  const data = { state, reason }
   return put(
-    `${serverUrl}/activity/activities/${activityID}/volunteer-application/${userID}`,
-    { state, reason },
+    `${serverUrl}/activity/activities/${activityID}/volunteer-application/${userID}`, data
+    
   );
 };

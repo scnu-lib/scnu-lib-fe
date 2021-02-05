@@ -3,17 +3,20 @@ import { Card, Descriptions, Button, message, Space } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import './User.css';
 import { getUserID } from '@/Utils/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import { initUserInfo } from '../../reducers/userReducer';
+import { useDispatch } from 'react-redux';
 import ChangeUser from './ChangeUser';
+import { getNotifyApi } from '@/Services/auth';
+import { initLoginInUserInfo } from '@/reducers/loginInUserInfoReducer';
 //User
 
 const User = (props: any) => {
-  const [showChange, setShowChange] = useState(false); //显示修改或者是展示模式，由于只涉及到这个组件，暂时用usestate来管理
-  const userInfo = useSelector(state => state.user); //store显示
   const dispatch = useDispatch();
   const getAll = (userID: number) => {
-    dispatch(initUserInfo(userID));
+          getNotifyApi(getUserID()).then(res=>{
+            dispatch(initLoginInUserInfo(res.data));
+          }).catch(err=>{
+            message.error('Oops!发生了未知的错误');
+          })
   };
   useEffect(() => {
     getAll(getUserID());

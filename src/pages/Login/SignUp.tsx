@@ -48,6 +48,8 @@ function SignUp(props: any) {
       password: values.password,
       detail: {
         name: values.nickname,
+        college:values.college,
+        studentId:values.studentId
       },
     };
     try {
@@ -76,13 +78,13 @@ function SignUp(props: any) {
         else if (err.response?.data.message === 'error.malformed_request')
           message.error('格式错误');
         else if (err instanceof PropertyRequiredError) {
-          message.error('Oops！后台数据出错，请联系程序猿');
+          message.error('Oops！遇到了未知的错误');
         } else {
-          message.error('Oops!遇到了未知错误，请联系程序猿');
+          message.error('Oops！遇到了未知的错误');
         }
       } else {
         console.log(err.message);
-        message.error('Oops!遇到了未知错误，请联系程序猿');
+        message.error('Oops！遇到了未知的错误');
       }
     }
   };
@@ -126,8 +128,29 @@ function SignUp(props: any) {
               { required: true, message: '请输入你的昵称', whitespace: true },
             ]}
           >
-            <Input placeholder="昵称" />
+          <Input placeholder="昵称" />
           </Form.Item>
+          <Form.Item
+            name="studentId"
+            rules={[
+              {
+                pattern: /^[0-9]*$/,
+                message: '只能使用数字组合',
+              },
+              { required: true, message: '请输入你的学号', whitespace: true },
+            ]}
+          >
+            <Input placeholder="学号" />
+          </Form.Item>
+          <Form.Item
+            name="college"
+            rules={[
+              { required: true, message: '请输入你的学院', whitespace: true },
+            ]}
+          >
+            <Input placeholder="学院" />
+          </Form.Item>
+          
           <Form.Item
             name="email"
             rules={[
