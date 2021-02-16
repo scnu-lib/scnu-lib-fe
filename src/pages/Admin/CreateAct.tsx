@@ -53,7 +53,7 @@ function CreateAct(props: any) {
     } else {
       console.log(props);
       setState({ imageUrl: act?.src, loading: false });
-      setVolCheckBox(act?.volState); //初始化各个组件
+      setVolCheckBox(act?.volunteered); //初始化各个组件
     }
   };
   useEffect(() => {
@@ -77,9 +77,6 @@ function CreateAct(props: any) {
       //if (!state?.imageUrl) {
       //  throw new PropertyRequiredError('imageUrl');
       //}
-
-      const src = 'text'; //state?.imageUrl
-
       const startTime = changeTimeFormat(
         values.act.startEndTime[0].format(dateFormat),
       );
@@ -99,7 +96,6 @@ function CreateAct(props: any) {
       }
       let processLabels = values.act.labels.split(' ');
       const finalAct = {
-        //src,
         startTime,
         endTime,
         signUpDeadline,
@@ -109,14 +105,16 @@ function CreateAct(props: any) {
         location: values.act.location,
         labels: processLabels.map(label => label.slice(1)), //分割后把@去掉
         detail: { description: values.act.description },
-        //volState: volCheckBox,
+        volunteered: volCheckBox,
         //maxVolParticipant: String(values.act.maxVolParticipant),
       };
+      console.log(finalAct);
       if (!props.location.pathname.slice(25) === false) {
         const res = await changeActApi(
           +props.location.pathname.slice(25),
           finalAct,
         );
+        console.log(res);
         if (
           res?.hasOwnProperty('title') ||
           res?.hasOwnProperty('maxParticipant') ||
@@ -271,9 +269,9 @@ function CreateAct(props: any) {
         >
           <Input.TextArea />
         </Form.Item>
-        <Form.Item name={['act', 'volState']} className="volunteerCheckBox">
+        <Form.Item name={['act', 'volunteered']} className="volunteerCheckBox">
           <Checkbox
-            defaultChecked={act?.volState}
+            defaultChecked={act?.volunteered}
             onChange={handleVolCheckBoxChange}
           >
             {'开启志愿者报名'}
@@ -290,7 +288,19 @@ function CreateAct(props: any) {
           </Form.Item>
         ) : null}
         <Form.Item label="封面" rules={[{ required: true }]}>
-          {initId ? <UpLoadPhoto photoKey={initId} /> : <UpLoadPhoto />}
+          {initId ? (
+            <UpLoadPhoto
+              photoKey={`actPhoto${initId}`}
+              photoPercentage={2.35}
+              photoShowSize={{ width: '100px', height: '60px' }}
+            />
+          ) : (
+            <UpLoadPhoto
+              photoKey={`actPhoto`}
+              photoPercentage={2.35}
+              photoShowSize={{ width: '100px', height: '60px' }}
+            />
+          )}
         </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button type="primary" htmlType="submit">

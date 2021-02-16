@@ -18,17 +18,20 @@ import { getNotifyApi, getSettingApi } from '@/Services/auth';
 import { cleanUserInfo, initUserInfo } from '@/reducers/userReducer';
 import { initLoginInUserInfo } from '@/reducers/loginInUserInfoReducer';
 import { initLoginInUserSetting } from '@/reducers/loginInUserSetting';
+import { getPhoto } from '@/photoStorage/photoStorage';
 const { Header, Content, Footer } = Layout;
 function Frame(props: any) {
   const dispatch = useDispatch();
   const userInfo = useSelector(store => store.loginInUserSetting);
   useEffect(() => {
     if (isLogined()) {
-      getSettingApi(getUserID()).then(res=>{
-        dispatch(initLoginInUserSetting(res.data));
-      }).catch(err=>{
-        message.error('Oops!发生了未知的错误');
-      })
+      getSettingApi(getUserID())
+        .then(res => {
+          dispatch(initLoginInUserSetting(res.data));
+        })
+        .catch(err => {
+          message.error('Oops!发生了未知的错误');
+        });
     }
   }, []);
   const docEl = document.documentElement;
@@ -54,13 +57,14 @@ function Frame(props: any) {
           location.reload();
         } else if (p.key === 'User') {
           dispatch(cleanUserInfo());
-          getNotifyApi(getUserID()).then(res=>{
-            dispatch(initUserInfo(res.data));
-            history.push('/home/user');
-            
-          }).catch(err=>{
-            message.error('Oops!发生了未知的错误');
-          })
+          getNotifyApi(getUserID())
+            .then(res => {
+              dispatch(initUserInfo(res.data));
+              history.push('/home/user');
+            })
+            .catch(err => {
+              message.error('Oops!发生了未知的错误');
+            });
         } else {
           history.push('/');
         }
@@ -78,7 +82,11 @@ function Frame(props: any) {
       return (
         <Dropdown overlay={menu}>
           <label>
-            <Avatar>C</Avatar>
+            <Avatar
+              src={`${getPhoto(
+                `avatarPhoto${userInfo?.id}`,
+              )}?dummy=${new Date().getTime()}`}
+            ></Avatar>
             <div className="userName">{userInfo?.detail?.name}</div>{' '}
             <DownOutlined />
           </label>

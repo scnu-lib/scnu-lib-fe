@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {  Form, Input, Button, message } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import './User.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeLoginInUserInfo } from '@/reducers/loginInUserInfoReducer';
 import { changeSettingApi } from '@/Services/auth';
+import UpLoadPhoto from '@/components/UpLoadPhoto';
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 16 },
@@ -14,7 +15,7 @@ const tailLayout = {
 
 const ChangeUser = (props: any) => {
   const userInfo = useSelector(state => state.loginInUser);
-  const userSetting = useSelector(state=>state.loginInUserSetting);
+  const userSetting = useSelector(state => state.loginInUserSetting);
   const dispatch = useDispatch();
   const changeNotify = (values: object) => {
     dispatch(changeLoginInUserInfo(values.wechat, values.email));
@@ -22,7 +23,7 @@ const ChangeUser = (props: any) => {
   const changeUserSetting = (newSetting: object) => {
     // 修改用户信息
     const handlyNewSetting = {
-      detail:{}
+      detail: {},
       //处理表单传来的数据
     };
 
@@ -34,7 +35,7 @@ const ChangeUser = (props: any) => {
         //password不理，在后面处理
         if (set === 'name' || set === 'college' || set === 'studentId') {
           //name在后端的属性不一样，独立拿出来处理。
-          handlyNewSetting.detail[set] = newSetting[set] ;
+          handlyNewSetting.detail[set] = newSetting[set];
         } else {
           handlyNewSetting[set] = newSetting[set];
         }
@@ -51,13 +52,13 @@ const ChangeUser = (props: any) => {
       handlyNewSetting.currentPassword = newSetting.currentPassword;
     }
     console.log(handlyNewSetting);
-    changeSettingApi(newSetting.id, handlyNewSetting).then(res=>{
-      //message.success('修改成功');
-    }).catch (err => {
-      //message.error('Oops!发生了未知的错误');
-    })
-   
-     
+    changeSettingApi(newSetting.id, handlyNewSetting)
+      .then(res => {
+        //message.success('修改成功');
+      })
+      .catch(err => {
+        //message.error('Oops!发生了未知的错误');
+      });
   };
   const onFinish = (values: object) => {
     console.log(values);
@@ -68,12 +69,21 @@ const ChangeUser = (props: any) => {
 
   return (
     <div>
-      <Form
-        name="notify-form"
-        onFinish={onFinish}
-        {...layout}
-      >
-         <Form.Item name="id" label="id" rules={[{ required: true }]} initialValue={userSetting?.id}>
+      <Form name="notify-form" onFinish={onFinish} {...layout}>
+        <Form.Item label="头像" name="avatar">
+          <UpLoadPhoto
+            photoKey={`avatarPhoto${userSetting?.id}`}
+            photoPercentage={1}
+            photoShowSize={{ width: '100px', height: '100px' }}
+          />
+        </Form.Item>
+
+        <Form.Item
+          name="id"
+          label="id"
+          rules={[{ required: true }]}
+          initialValue={userSetting?.id}
+        >
           <Input disabled />
         </Form.Item>
         <Form.Item
@@ -111,29 +121,31 @@ const ChangeUser = (props: any) => {
         <Form.Item
           name="currentPassword"
           label="旧密码"
-
           dependencies={['password']}
-            hasFeedback
-            rules={[
-              {
-                min: 6,
-                message: '请输入大于5个字符的密码',
+          hasFeedback
+          rules={[
+            {
+              min: 6,
+              message: '请输入大于5个字符的密码',
+            },
+            {
+              max: 20,
+              message: '请输入小于20个字符的密码',
+            },
+            ({ getFieldValue }) => ({
+              validator(rule, value) {
+                if (
+                  (!value && !getFieldValue('password')) ||
+                  (value && getFieldValue('password'))
+                ) {
+                  return Promise.resolve();
+                } else if (value && !getFieldValue('password')) {
+                  return Promise.resolve();
+                }
+                return Promise.reject('请输入旧密码');
               },
-              {
-                max: 20,
-                message: '请输入小于20个字符的密码',
-              },
-              ({ getFieldValue }) => ({
-                validator(rule, value) {
-                  if ((!value&&!getFieldValue('password'))||(value&&getFieldValue('password'))) {
-                    return Promise.resolve();
-                  }else if(value&&!getFieldValue('password')){
-                    return Promise.resolve();
-                  }
-                  return Promise.reject('请输入旧密码');
-                },
-              }),
-            ]}
+            }),
+          ]}
         >
           <Input.Password />
         </Form.Item>
@@ -149,9 +161,13 @@ const ChangeUser = (props: any) => {
             {
               max: 20,
               message: '请输入小于20个字符的密码',
-            },({ getFieldValue }) => ({
+            },
+            ({ getFieldValue }) => ({
               validator(rule, value) {
-                if ((value&&getFieldValue('currentPassword'))||(!value&&!getFieldValue('currentPassword'))) {
+                if (
+                  (value && getFieldValue('currentPassword')) ||
+                  (!value && !getFieldValue('currentPassword'))
+                ) {
                   return Promise.resolve();
                 }
                 return Promise.reject('请输入新密码');
@@ -185,7 +201,7 @@ const ChangeUser = (props: any) => {
         >
           <Input />
         </Form.Item>
-        
+
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
             保存

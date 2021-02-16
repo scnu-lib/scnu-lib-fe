@@ -18,27 +18,14 @@ const RecentAct = (props: object) => {
               className="note-Card fadeEffect CardHover"
               key={`${note.id}Card`}
             >
-              {/*<Link
-                  key={`${note.id}Link`}
-                  to={`/home/activitydetail/${note.id}`}
-                >
-                 
-                  <img
-                    src={note.src}
-                    key={note.id}
-                    alt={note.title}
-                    style={{
-                      width: '100%',
-                      height: '80%',
-                      borderRadius: '9px 9px 0 0',
-                    }}
-                  ></img>*/}
               <a onClick={() => props.showModal(note.id)}>
                 <div className={'hiddenImg'}>
                   <img
-                    className={`img${(i = i + 1)} img`}
-                    alt={`img${(i = i + 1)} img`}
-                    src={`${getPhoto(note.id)}?dummy=${new Date().getTime()}`}
+                    className={'recentImg'}
+                    alt={`recentImg${(i = i + 1)} img`}
+                    src={`${getPhoto(
+                      `actPhoto${note.id}`,
+                    )}?dummy=${new Date().getTime()}`}
                   ></img>
                 </div>
                 <div className="note-title" style={{ textAlign: 'center' }}>

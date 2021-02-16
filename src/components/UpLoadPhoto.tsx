@@ -59,7 +59,7 @@ const UpLoadPhoto = (props: object) => {
       });
   };
   return (
-    <ImgCrop grid aspect={2.35}>
+    <ImgCrop grid aspect={props.photoPercentage}>
       <Upload
         name="key"
         listType="picture-card"
@@ -73,7 +73,7 @@ const UpLoadPhoto = (props: object) => {
           <div id="outSideUpLoadImg">
             <img
               id="upLoadImg"
-              style={{ width: '100px', height: '60px' }}
+              style={props.photoShowSize}
               src={`${photoStorage.getPhoto(
                 state.key,
               )}?dummy=${new Date().getTime()}`}
