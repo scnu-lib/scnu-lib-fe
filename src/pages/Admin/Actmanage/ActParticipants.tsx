@@ -7,6 +7,7 @@ import {
   CheckCircleOutlined
 } from '@ant-design/icons';
 import {
+  cleanParticipants,
   delVol,
   initParticipants,
   rejectVol,
@@ -44,6 +45,7 @@ function ActParticipants(props: any) {
     pages: number = 0,
     size: number = 20,
   ) => {
+    dispatch(cleanParticipants());//先清理防止重复请求
     dispatch(initParticipants(activityID, pages, size));
   };
   useEffect(() => {
@@ -53,23 +55,67 @@ function ActParticipants(props: any) {
 
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'id',
-      key: '_id',
-    },
-    {
       title: '名称',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: '等级',
-      dataIndex: 'role',
-      key: 'role',
+      title: '学号',
+      dataIndex: 'studentId',
+      key: '_id',
       responsive: ['md'],
     },
     {
-      title: '是否为志愿者',
+      title: '学院',
+      dataIndex: 'college',
+      key: 'college',
+      responsive: ['md'],
+    },
+    {
+      title: '用户权限',
+      responsive: ['md'],
+      dataIndex: 'role',
+      render: (txt: any, record: any, index: any) => {
+        switch (txt) {
+          case 'ROLE_USER':
+            return <Tag color="geekblue">用户</Tag>;
+          case 'ROLE_ADMIN':
+            return <Tag color="orange">管理员</Tag>;
+          case 'ROLE_LIBRARIAN':
+            return <Tag color="lime">图书馆管理员</Tag>;
+          default:
+            return <Tag color="geekblue">用户</Tag>;
+        }
+      },
+    },
+    {
+      title: '签到状态',
+      dataIndex: 'activated',
+      key: 'activated',
+      render: (txt: Boolean, record: any, index: any) => {
+        let color;
+        switch (txt) {
+          case true:
+            color = 'green';
+            return (
+              <Tag color={color} key={`${txt}已签到`}>
+                已签到
+              </Tag>
+            );
+          case false:
+            color = 'red';
+            return (
+              <Tag color={color} key={`${txt}未签到`}>
+                未签到
+              </Tag>
+            );
+          default:
+            return;
+        }
+      },
+    },
+    {
+      title: '志愿者状态',
       dataIndex: 'state',
       key: 'state',
       render: (txt: volunteerApplicationState, record: any, index: any) => {
@@ -96,6 +142,13 @@ function ActParticipants(props: any) {
                 审核中
               </Tag>
             );
+            case volunteerApplicationState.pending:
+              color = 'volcano';
+              return (
+                <Tag color={color} key={`${txt}未报名`}>
+                  未报名
+                </Tag>
+              );
           default:
             return;
         }
@@ -126,6 +179,13 @@ function ActParticipants(props: any) {
       key: 'volaction',
       render: (txt: any, record: any, index: any) => {
         switch (record.state) {
+          case volunteerApplicationState.pending:
+            return ( <Popover content={<div>登记为志愿者</div>}>
+              <SmileOutlined   onClick={() => {
+                  handleVolSignUp(record);
+                }}/>
+              </Popover>
+)
           case volunteerApplicationState.accepted:
             return (
               <Popover content={<div>取消申请</div>}>

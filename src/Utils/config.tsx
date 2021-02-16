@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 export const serverUrl = 'https://lib.scnu.life/api'; // 'https://lib.scnu.life' //服务器地址
+=======
+export const serverUrl = 'https://lib.scnu.life/api'; // 'https://lib.scnu.life/api' //服务器地址
+>>>>>>> refs/remotes/origin/master
 export enum volunteerApplicationState {
   applied = 'APPLIED',
   accepted = 'ACCEPTED',
   rejected = 'REJECTED',
+  pending = 'PENGDING'
 }
+
 export enum role {
   user = 'ROLE_USER',
   librarian = 'ROLE_LIBRARIAN',

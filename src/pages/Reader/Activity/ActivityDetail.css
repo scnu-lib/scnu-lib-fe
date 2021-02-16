@@ -2,9 +2,7 @@
     font-size: 14px;
     color: rgba(0, 0, 0, 0.45);
 }
-.note-labels{
-    width: 50%;
-}
+
 
 .actDetail-button{
     width: 50%;
@@ -26,11 +24,18 @@
 .ant-modal-body{
     padding: 12px 12px;
 }
-.ant-modal-body>.img1,.ant-modal-body>.img2,.ant-modal-body>.img3,.ant-modal-body>.img4,.ant-modal-body>.img5,.ant-modal-body>.img6,.ant-modal-body>.img0{
+.detailImg{
+    width:100%;
     height: 234px;
 }
 @media(max-width:450px){
-    .ant-modal-body>.img1,.ant-modal-body>.img2,.ant-modal-body>.img3,.ant-modal-body>.img4,.ant-modal-body>.img5,.ant-modal-body>.img6,.ant-modal-body>.img0{
+    .detailImg{
+
         height: 170px;
     }
+}
+
+.actDetail-textpart{
+    flex-direction: row;
+    justify-content: space-between;
 }

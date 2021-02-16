@@ -14,7 +14,7 @@ function AdminUser(props: any) {
           style={{ padding: '14px 0' }}
         >
           <div className="site-layout-sider">
-            <Sider width="100%">
+            <Sider className="site-layout-background" width="100%">
               <Menu
                 mode="inline"
                 defaultSelectedKeys={['/home/adminUser/user']}

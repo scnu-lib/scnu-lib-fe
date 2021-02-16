@@ -14,7 +14,7 @@ import ImgCrop from 'antd-img-crop';
 import 'antd/es/modal/style';
 import 'antd/es/slider/style';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { createActApi, changeActApi } from '@/Services/activity';
+import { createActApi, changeActApi, detailApi } from '@/Services/activity';
 import { useSelector, useDispatch } from 'react-redux';
 import { initActDetail } from '@/reducers/actDetailReducer';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
@@ -22,6 +22,7 @@ import DatePicker from '../../components/DatePicker';
 import format from 'dayjs';
 import { initList } from '@/reducers/actReducer';
 import { actLabel } from '@/Utils/config';
+import UpLoadPhoto from '@/components/UpLoadPhoto';
 const { Option } = Mentions;
 const { RangePicker } = DatePicker;
 const layout = {
@@ -45,16 +46,14 @@ function disabledDate(current: object) {
 //创建活动页
 function CreateAct(props: any) {
   let cardTitle = '修改活动';
-  const initId = Number(props.location.pathname.slice(25)); //url传参，判断是修改还是创建
+  const initId = props.location.pathname.slice(25); //url传参，判断是修改还是创建
   const dispatch = useDispatch();
   const getAct = () => {
     if (!props.location.pathname.slice(25)) {
     } else {
       console.log(props);
-      dispatch(initActDetail(props.location.pathname.slice(25)));
-
       setState({ imageUrl: act?.src, loading: false });
-      setVolCheckBox(act?.volState); //初始化各个组件
+      setVolCheckBox(act?.volunteered); //初始化各个组件
     }
   };
   useEffect(() => {
@@ -65,23 +64,6 @@ function CreateAct(props: any) {
   if (!props.location.pathname.slice(25)) {
     act = {}; //不要在条件循环里面调用hook，不然可能会顺序错误
     cardTitle = '创建活动';
-  }
-  function getBase64(img: Blob, callback: Function) {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-  }
-
-  function beforeUpload(file: object) {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
-    if (!isJpgOrPng) {
-      message.error('目前只支持JPG/PNG格式的图片');
-    }
-    const isLt10M = file.size / 1024 / 1024 < 10;
-    if (!isLt10M) {
-      message.error('请上传小于10M的图片');
-    }
-    return isJpgOrPng && isLt10M;
   }
   const changeTimeFormat = (time: string) => {
     //我啪的一下把格式转成后端的格式，很快啊
@@ -95,9 +77,6 @@ function CreateAct(props: any) {
       //if (!state?.imageUrl) {
       //  throw new PropertyRequiredError('imageUrl');
       //}
-
-      const src = 'text'; //state?.imageUrl
-
       const startTime = changeTimeFormat(
         values.act.startEndTime[0].format(dateFormat),
       );
@@ -115,24 +94,27 @@ function CreateAct(props: any) {
         message.error('活动开始日期必须小于活动结束日期');
         return;
       }
+      let processLabels = values.act.labels.split(' ');
       const finalAct = {
-        //src,
         startTime,
         endTime,
         signUpDeadline,
         title: values.act.title,
-        maxParticipant: String(values.act.maxParticipant),
+        maxParticipant: values.act.maxParticipant,
+        currentParticipant: 0,
         location: values.act.location,
-        labels: values.act.labels.split(/,|，|、/),
+        labels: processLabels.map(label => label.slice(1)), //分割后把@去掉
         detail: { description: values.act.description },
-        //volState: volCheckBox,
+        volunteered: volCheckBox,
         //maxVolParticipant: String(values.act.maxVolParticipant),
       };
+      console.log(finalAct);
       if (!props.location.pathname.slice(25) === false) {
         const res = await changeActApi(
           +props.location.pathname.slice(25),
           finalAct,
         );
+        console.log(res);
         if (
           res?.hasOwnProperty('title') ||
           res?.hasOwnProperty('maxParticipant') ||
@@ -176,27 +158,6 @@ function CreateAct(props: any) {
     setVolCheckBox(e.target.checked); //设置志愿者开启的状态
   };
   const [state, setState] = useState({ imageUrl: '', loading: false });
-  const handleChange = (info: object) => {
-    if (info.file.status === 'uploading') {
-      setState({ loading: true });
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, imageUrl =>
-        setState({
-          imageUrl,
-          loading: false,
-        }),
-      );
-    }
-  };
-  const uploadButton = (
-    <div>
-      {state.loading ? <LoadingOutlined /> : <PlusOutlined />}
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
-  );
 
   return (
     <Card title={cardTitle} className="create-act-card">
@@ -206,29 +167,6 @@ function CreateAct(props: any) {
         onFinish={onFinish}
         validateMessages={validateMessages}
       >
-        <Form.Item label="封面" rules={[{ required: true }]}>
-          <ImgCrop grid aspect={2.35}>
-            <Upload
-              name="src"
-              listType="picture-card"
-              className="actsrc-uploader"
-              showUploadList={false}
-              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              beforeUpload={beforeUpload}
-              onChange={handleChange}
-            >
-              {state.imageUrl ? (
-                <img
-                  src={state.imageUrl}
-                  alt="avatar"
-                  style={{ width: '100%' }}
-                />
-              ) : (
-                uploadButton
-              )}
-            </Upload>
-          </ImgCrop>
-        </Form.Item>
         <Form.Item
           name={['act', 'title']}
           label="标题"
@@ -297,7 +235,15 @@ function CreateAct(props: any) {
           ]}
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
-          initialValue={act?.labels ? act?.labels.join(',') : ''}
+          initialValue={
+            act?.labels
+              ? act?.labels
+                  .map((label, index) =>
+                    index !== 0 ? ' @' + label : '@' + label,
+                  )
+                  .join('')
+              : ''
+          }
         >
           <Mentions rows={1}>
             <Option value={actLabel.filmSalon}>{actLabel.filmSalon}</Option>
@@ -323,9 +269,9 @@ function CreateAct(props: any) {
         >
           <Input.TextArea />
         </Form.Item>
-        <Form.Item name={['act', 'volState']} className="volunteerCheckBox">
+        <Form.Item name={['act', 'volunteered']} className="volunteerCheckBox">
           <Checkbox
-            defaultChecked={act?.volState}
+            defaultChecked={act?.volunteered}
             onChange={handleVolCheckBoxChange}
           >
             {'开启志愿者报名'}
@@ -341,6 +287,21 @@ function CreateAct(props: any) {
             <InputNumber min={1} defaultValue={10} />
           </Form.Item>
         ) : null}
+        <Form.Item label="封面" rules={[{ required: true }]}>
+          {initId ? (
+            <UpLoadPhoto
+              photoKey={`actPhoto${initId}`}
+              photoPercentage={2.35}
+              photoShowSize={{ width: '100px', height: '60px' }}
+            />
+          ) : (
+            <UpLoadPhoto
+              photoKey={`actPhoto`}
+              photoPercentage={2.35}
+              photoShowSize={{ width: '100px', height: '60px' }}
+            />
+          )}
+        </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
           <Button type="primary" htmlType="submit">
             提交

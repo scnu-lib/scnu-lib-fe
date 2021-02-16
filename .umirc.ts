@@ -3,6 +3,23 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
+  mock: false,
+  /*dynamicImport: {//按需加载
+    loading: '@/components/Loading',
+  },
+  chainWebpack(config) {
+    config.optimization.splitChunks({
+      cacheGroups: {
+        styles: {
+          name: 'styles',//把css打包成一个加载，不然按需加载会把某些css漏掉
+          test: /\.(css|less)$/,
+          chunks: 'async',
+          minChunks: 1,
+          minSize: 0,
+        }
+      },
+    });
+  },*/
   // hash:true,
   history: { type: 'hash' },
   routes: [

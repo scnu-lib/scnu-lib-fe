@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '@/reducers/actReducer';
 import { initActDetail } from '@/reducers/actDetailReducer';
+import { detailApi } from '@/Services/activity';
 // 活动列表
 
 function ListAct(props: any) {
@@ -93,9 +94,11 @@ function ListAct(props: any) {
                 <EditOutlined
                   onClick={() => {
                     dispatch(initActDetail(txt.id));
-                    setTimeout(() => {
+                    detailApi(txt.id).then(res=>{
+                      dispatch(initActDetail(res.data));
+                    }).then(res=>{
                       props.history.push(`/home/adminAct/createact/${txt.id}`);
-                    }, 100); //给一定的延迟加入到任务队列里，为了先dispatch更新数据再跳到页面，这样就不用管表单初始化问题了
+                    })
                   }}
                 />
               </Popover>

@@ -5,7 +5,6 @@ import './SignIn.css';
 import { loginApi } from '../../Services/auth';
 import { setToken, setUserID, setRole, getUserID } from '../../Utils/auth';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
-
 //登录页面
 function SignIn(props: any) {
   const onFinish = async (values: object) => {
@@ -38,13 +37,13 @@ function SignIn(props: any) {
         if (
           err.response?.data.code === 'error.account.login.invalid_credential'
         )
-          message.error('账号不存在或密码错误');
+          message.error('帐号不存在或密码错误');
         else if (err.response?.data.code === 'error.generic.malformed_request')
           message.error('格式错误');
         else if (err instanceof PropertyRequiredError) {
           message.error('Oops！后台数据错误，请联系程序猿');
         } else {
-          message.error('账号不存在或密码错误');
+          message.error('帐号不存在或密码错误');
         }
       }
     }
@@ -69,11 +68,11 @@ function SignIn(props: any) {
         >
           <Form.Item
             name="username"
-            rules={[{ required: true, message: '请输入你的账号' }]}
+            rules={[{ required: true, message: '请输入你的帐号' }]}
           >
             <Input
               prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="账号"
+              placeholder="帐号"
             />
           </Form.Item>
           <Form.Item
@@ -107,6 +106,10 @@ function SignIn(props: any) {
             {'   '}或{' '}
             <Button type="link" onClick={() => props.history.push('/Signup')}>
               现在注册！
+            </Button>
+            {' '}
+            <Button type="link" onClick={() => props.history.push('/')}>
+              不想登录？先随便看看
             </Button>
           </Form.Item>
         </Form>

@@ -5,13 +5,6 @@ import { getNotifyApi, getSettingApi } from '@/Services/auth';
 import { role, volunteerApplicationState } from '@/Utils/config';
 import { message } from 'antd';
 const initState = [
-  {
-    id:0,
-    name:'许峰',
-    role:role.admin,
-    state:volunteerApplicationState.accepted,
-    connection:'xff9924@gmail.com'
-  }
 ];
 const actParticipantsReducer = (state: any = initState, action: any) => {
   switch (action.type) {
@@ -35,6 +28,8 @@ const actParticipantsReducer = (state: any = initState, action: any) => {
           ? { ...p, state: volunteerApplicationState.rejected }
           : p,
       );
+    case 'CLEAN_PARTICIPANTS':
+      return action.data;
     default:
       return state;
   }
@@ -135,29 +130,21 @@ export const initParticipants = (
       volRes.data.forEach(async (v: object) => {
         // 用forEach把封装好的志愿者信息加到vol里，这里用map直接返回会返回几个promise，很难搞定(其实可以用promise.all搞定)
         const notifyRes = await getNotifyApi(v.id); // 获得通知方式
-        const settingRes = await getSettingApi(v.id); // 获得用户名
+        //const settingRes = await getSettingApi(v.id); // 获得用户名
+
         const apply = volApplies.find((note: object) => note.userID === v.id); // 找到申请信息
-        if (
-          !notifyRes?.data?.wechat?.enabled &&
-          !notifyRes?.data?.email?.enabled
-        )
-          throw new PropertyRequiredError('notify');
-        if (
-          typeof settingRes.data === 'object' &&
-          (!settingRes.data.hasOwnProperty('id') ||
-            !settingRes.data.hasOwnProperty('detail') ||
-            !settingRes.data.hasOwnProperty('role'))
-        ) {
-          throw new PropertyRequiredError('setting');
-        }
+        const info = volRes.data.find((note: object) => note.id === v.id);
         const note = {
-          id: settingRes.data.id,
-          name: settingRes.data.detail.name,
-          role: settingRes.data.role,
-          connection: notifyRes.data.wechat.enabled
-            ? notifyRes.data.wechat.wxid
-            : notifyRes.data.email.address,
-          state: apply ? apply.state : volunteerApplicationState.accepted,
+          id: info.id,
+          name: info.detail.name,
+          role: info.role,
+          college:info?.detail?.college||'暂无',
+          studentId:info?.detail?.studentId||'暂无',
+          activated:info?.activated,
+          connection: (notifyRes.data.wechat?.enabled
+            ? notifyRes.data.wechat?.wxid
+            : notifyRes.data.email?.address)||'暂无',
+          state: apply ? apply.state : volunteerApplicationState.pending,
           reason: apply ? apply.reason : 'null',
         }; // 封装起来
         console.log(apply);
@@ -168,21 +155,27 @@ export const initParticipants = (
       });
     } catch (err) {
       if (err instanceof PropertyRequiredError) {
-        message.error('后台数据出错！');
+        message.error('后台数据出错');
       } else if (err?.response?.status) {
         if (err.response.status === 401) {
-          message.error('权限不足！');
+          message.error('权限不足');
         } else if (err.response.status === 404) {
           if (err.response.data.code === 'error.generic.not_exists') {
-            message.error('用户不存在！');
-          } else message.error('活动不存在！');
+            message.error('用户不存在');
+          } else message.error('活动不存在');
         } else {
           throw err;
         }
       } else {
-        throw err;
+        message.error('Oops!发生了未知的错误');
       }
     }
   };
 };
+export const cleanParticipants = ()=>{
+   return{
+     type:'CLEAN_PARTICIPANTS',
+     data:initState
+   }
+}
 export default actParticipantsReducer;

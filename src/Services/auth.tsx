@@ -10,7 +10,7 @@ export const signUpApi = (user: object) => {
 };
 
 export const getNotifyApi = (userID: number) => {
-  return get(`${serverUrl}/notify/methods/`, { userID });
+  return get(`${serverUrl}/notify/methods/${userID}`, { userID });
 };
 export const changeNotifyApi = (
   userID: number,
@@ -30,17 +30,15 @@ export const changeNotifyApi = (
   };
   return put(
     `${serverUrl}/notify/methods/${userID}`,
-    { userID },
     changedNotify,
   ); // parameter设置了就会用问号传值，不用重复设置
 };
 
 export const changeSettingApi = (userID: number, newSetting: object) => {
-  console.log(newSetting);
-  return put(`${serverUrl}/account/accounts/${userID}`, undefined, newSetting);
+  console.log(userID,newSetting)
+  return put(`${serverUrl}/account/accounts/${userID}`, newSetting);
 }; // url是url,params是params，两个都要看，传参都是string不然会报错
 
 export const getSettingApi = (userID: number) => {
-  console.log('555');
   return get(`${serverUrl}/account/accounts/${userID}`, { undefined });
 };

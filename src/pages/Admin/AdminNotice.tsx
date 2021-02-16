@@ -1,13 +1,18 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import '../User/User.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeUserInfo, initUserInfo } from '../../reducers/userReducer';
+import { getNotifyApi } from '@/Services/auth';
 function AdminNotice(props: any) {
   const userInfo = useSelector(state => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(initUserInfo(props.match.params.id));
+    getNotifyApi(props.match.params.id).then(res=>{
+      dispatch(initUserInfo(res.data));
+    }).catch(err=>{
+      message.error('Oops!发生了未知的错误');
+    })
   }, []);
   const changeNotify = (values: object) => {
     dispatch(
@@ -25,7 +30,7 @@ function AdminNotice(props: any) {
           label="微信号"
           name="wechat"
           rules={[{ required: true, message: '请输入你的微信号！' }]}
-          initialValue={userInfo.wechat.wxid}
+          initialValue={userInfo.wechat?.wxid}
         >
           <Input />
         </Form.Item>
@@ -40,7 +45,7 @@ function AdminNotice(props: any) {
               message: '请输入正确格式的邮箱地址！',
             },
           ]}
-          initialValue={userInfo.email.address}
+          initialValue={userInfo.email?.address}
         >
           <Input />
         </Form.Item>
