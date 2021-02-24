@@ -43,14 +43,24 @@ export const actSignInApi = (activityID: number, userID: number) => {
     { userID },
   );
 };
-
+export const getVolApi = (activityID: number) => {
+  return get(
+    `${serverUrl}/activity/activities/${activityID}/volunteer`,
+     {undefined},
+  );
+};
 export const delVolApi = (activityID: number, userID: number) => {
   return del(
     `${serverUrl}/activity/activities/${activityID}/volunteer/${userID}`,
     { activityID, userID },
   );
 };
-
+export const signVolApi = (activityID:number,userID: number)=>{
+  return put(
+    `${serverUrl}/activity/activities/${activityID}/volunteer/${userID}`,
+    { activityID, userID },
+  )
+}
 export const userVolSignUpApi = (
   activityID: number,
   userID: number,
@@ -59,7 +69,11 @@ export const userVolSignUpApi = (
 ) => {
   const data = { state, reason };
   return put(
-    `${serverUrl}/activity/activities/${activityID}/volunteer-application/${userID}`,
+    `${serverUrl}/activ ity/activities/${activityID}/volunteer-application/${userID}`,
     data,
   );
 };
+
+export const getNextAvailableActIDApi = ()=>{
+  return get(`${serverUrl}/activity/activities/activityID`,{undefined});
+}

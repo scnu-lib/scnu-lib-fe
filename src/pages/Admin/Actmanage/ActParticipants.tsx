@@ -35,7 +35,7 @@ function ActParticipants(props: any) {
     dispatch(signInVol(props.match.params.id, record.id));
   };
   const handleDelVol = async (record: object) => {
-    // 志愿者取消
+    // 志愿者删除
     dispatch(delVol(props.match.params.id, record.id));
   };
   const dataSource = useSelector(store => store.actParticipants);
@@ -188,7 +188,7 @@ function ActParticipants(props: any) {
 )
           case volunteerApplicationState.accepted:
             return (
-              <Popover content={<div>取消申请</div>}>
+              <Popover content={<div>取消志愿者</div>}>
               <SmileOutlined  rotate={180} onClick={() => {
                 handleDelVol(record);
               }}/>

@@ -6,17 +6,13 @@ import {
   Select,
   Checkbox,
   Button,
-  AutoComplete,
   message,
 } from 'antd';
-import { QuestionCircleOutlined } from '@ant-design/icons';
-import { signUpApi } from '@/Services/auth';
-import history from 'umi';
+import {  getNextAvailableIDApi, loginApi, signUpApi } from '@/Services/auth';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
+import { setRole, setToken, setUserID } from '@/Utils/auth';
 //注册页面
 const { Option } = Select;
-const AutoCompleteOption = AutoComplete.Option;
-
 function SignUp(props: any) {
   const formItemLayout = {
     labelCol: {
@@ -82,26 +78,15 @@ function SignUp(props: any) {
         } else {
           message.error('Oops！遇到了未知的错误');
         }
-      } else {
+      } else if(err.response?.title === "Login name already used!"){
+        message.error('该帐号已被注册');
+      } 
+      else {
         console.log(err.message);
         message.error('Oops！遇到了未知的错误');
       }
     }
   };
-
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select style={{ width: 70 }}>
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
-  const inputformitemstyle = {
-    width: '95%',
-    height: '95%',
-  };
-
   return (
     <div
       style={{

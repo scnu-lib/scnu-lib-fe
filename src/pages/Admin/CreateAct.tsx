@@ -6,17 +6,13 @@ import {
   Button,
   InputNumber,
   message,
-  Upload,
   Checkbox,
   Mentions,
 } from 'antd';
-import ImgCrop from 'antd-img-crop';
 import 'antd/es/modal/style';
 import 'antd/es/slider/style';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { createActApi, changeActApi, detailApi } from '@/Services/activity';
+import { createActApi, changeActApi, getNextAvailableActIDApi } from '@/Services/activity';
 import { useSelector, useDispatch } from 'react-redux';
-import { initActDetail } from '@/reducers/actDetailReducer';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
 import DatePicker from '../../components/DatePicker';
 import format from 'dayjs';
@@ -46,10 +42,16 @@ function disabledDate(current: object) {
 //创建活动页
 function CreateAct(props: any) {
   let cardTitle = '修改活动';
-  const initId = props.location.pathname.slice(25); //url传参，判断是修改还是创建
+  let initId = props.location.pathname.slice(25); //url传参，判断是修改还是创建
   const dispatch = useDispatch();
-  const getAct = () => {
+  const getAct = async () => {
     if (!props.location.pathname.slice(25)) {
+      try{
+      initId = await getNextAvailableActIDApi();
+      }catch(e){
+        initId = -1;
+      }
+      console.log(initId)
     } else {
       console.log(props);
       setState({ imageUrl: act?.src, loading: false });
@@ -64,6 +66,7 @@ function CreateAct(props: any) {
   if (!props.location.pathname.slice(25)) {
     act = {}; //不要在条件循环里面调用hook，不然可能会顺序错误
     cardTitle = '创建活动';
+    
   }
   const changeTimeFormat = (time: string) => {
     //我啪的一下把格式转成后端的格式，很快啊

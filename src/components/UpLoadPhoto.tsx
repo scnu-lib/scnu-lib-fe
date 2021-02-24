@@ -77,7 +77,7 @@ const UpLoadPhoto = (props: object) => {
               src={`${photoStorage.getPhoto(
                 state.key,
               )}?dummy=${new Date().getTime()}`}
-              alt={`${state.key}photo`}
+              alt={`请上传图片`}
             />
           </div>
         ) : (

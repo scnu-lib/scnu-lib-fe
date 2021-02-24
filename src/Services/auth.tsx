@@ -42,3 +42,7 @@ export const changeSettingApi = (userID: number, newSetting: object) => {
 export const getSettingApi = (userID: number) => {
   return get(`${serverUrl}/account/accounts/${userID}`, { undefined });
 };
+
+export const getNextAvailableIDApi = () =>{
+  return get(`${serverUrl}/account/accounts/userID`,{ undefined});
+}
