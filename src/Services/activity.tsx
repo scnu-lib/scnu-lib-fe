@@ -36,13 +36,13 @@ export const actIsSignUpApi = (activityID: number, userID: number) => {
     { activityID, userID },
   );
 };
-export const actSignInApi = (activityID: number, userID: number) => {
+/*export const actSignInApi = (activityID: number, userID: number) => {
   return put(
     `${serverUrl}/activity/activities/${activityID}/sign-in/${userID}`,
     { activityID, userID },
     { userID },
   );
-};
+};*/
 export const getVolApi = (activityID: number) => {
   return get(
     `${serverUrl}/activity/activities/${activityID}/volunteer`,
@@ -76,4 +76,8 @@ export const userVolSignUpApi = (
 
 export const getNextAvailableActIDApi = ()=>{
   return get(`${serverUrl}/activity/activities/activityID`,{undefined});
+}
+
+export const actSignInApi = (actID:number,userID:number,place:string,date:string) =>{
+    return;
 }

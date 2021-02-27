@@ -21,6 +21,7 @@
     ]
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^0.0.7",
     "@ant-design/icons": "^4.3.0",
     "@ant-design/pro-layout": "^5.0.12",
     "@umijs/preset-react": "1.x",
@@ -33,8 +34,10 @@
     "prettier": "^1.19.1",
     "react": "^16.13.1",
     "react-axios": "^2.0.3",
+    "react-bmap": "^1.0.126",
     "react-dom": "^16.13.1",
     "react-lazyload-fadein": "^1.1.0",
+    "react-load-script": "^0.0.6",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
     "umi": "^3.2.16",
