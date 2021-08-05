@@ -49,15 +49,7 @@ function SignIn(props: any) {
     }
   };
   return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+    <div className="login-bg">
       <Card className="login-Card">
         <div className="sign-title">登录</div>
         <Form
@@ -106,8 +98,7 @@ function SignIn(props: any) {
             {'   '}或{' '}
             <Button type="link" onClick={() => props.history.push('/Signup')}>
               现在注册！
-            </Button>
-            {' '}
+            </Button>{' '}
             <Button type="link" onClick={() => props.history.push('/')}>
               不想登录？先随便看看
             </Button>
