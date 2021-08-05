@@ -19,6 +19,7 @@ import { cleanUserInfo, initUserInfo } from '@/reducers/userReducer';
 import { initLoginInUserInfo } from '@/reducers/loginInUserInfoReducer';
 import { initLoginInUserSetting } from '@/reducers/loginInUserSetting';
 import { getPhoto } from '@/photoStorage/photoStorage';
+
 const { Header, Content, Footer } = Layout;
 function Frame(props: any) {
   const dispatch = useDispatch();
