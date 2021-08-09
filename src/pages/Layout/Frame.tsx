@@ -132,20 +132,15 @@ function Frame(props: any) {
 
         <div className="sign-in-up">{SwitchLoginUser()}</div>
       </Header>
-      <div
-        className="Hero ant-layout-content"
-        style={{ color: '@primary-color' }}
-      >
-        <h2 className="Hero-title">欢迎来到阅马活动系统</h2>
-        <p>华南师大图书馆————活动发布、报名、签到</p>
-        <div className="Hero-href">
-          <a>QQ群</a> - <a>关于</a> - <a>联系我们</a>
-        </div>
-      </div>
       <Content className="layout-content">
         <div className="site-layout-content">{props.children}</div>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>华师阅马开发小分队</Footer>
+      <Footer className="footer-bg" style={{ textAlign: 'center' }}>
+        华师阅马开发小分队
+        <div className="Hero-href">
+          <a>QQ群</a> - <a>关于</a> - <a>联系我们</a>
+        </div>
+      </Footer>
     </Layout>
   );
 }

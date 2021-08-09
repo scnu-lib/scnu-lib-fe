@@ -59,6 +59,13 @@ function Activity(props: any) {
 
   return (
     <Space direction="vertical" className="Activity .flex" size="large">
+      <div
+        className="Hero ant-layout-content"
+        style={{ color: '@primary-color' }}
+      >
+        <h2 className="Hero-title">欢迎来到阅马活动系统</h2>
+        <p>华南师大图书馆————活动发布、报名、签到</p>
+      </div>
       <Space direction="vertical" className="recent-Act" size="middle">
         {recent.length ? (
           <>
