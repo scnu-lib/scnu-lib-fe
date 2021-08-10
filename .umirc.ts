@@ -102,6 +102,11 @@ export default defineConfig({
           title: '用户中心',
           component: '@/pages/User/User',
         },
+        {
+          path: '/home/userRecord',
+          title: '用户积分',
+          component: '@/pages/User/UserRecord',
+        },
       ],
     },
     {
@@ -116,14 +121,13 @@ export default defineConfig({
       component: '@/pages/PageNotFound',
     },
   ],
-  "theme": {
-    "primary-color": "#1DA57A",
+  theme: {
+    'primary-color': '#1DA57A',
     'body-background': '#fff',
-    'popover-background':'#',
+    'popover-background': '#',
     'font-size-base': '14px',
     'font-size-lg': 'font-size-base + 2px',
     'font-size-sm': '12px',
-    'heading-1-size': 'ceil(@font-size-base * 2.71)'
-
+    'heading-1-size': 'ceil(@font-size-base * 2.71)',
   },
 });
