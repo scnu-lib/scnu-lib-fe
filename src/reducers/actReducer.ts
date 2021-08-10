@@ -1,8 +1,8 @@
 import PropertyRequiredError, {
   checkActProperty,
 } from '@/error/PropertyRequiredError';
-import { listActApi } from '@/Services/activity';
-import { getUserID, isLogined } from '@/Utils/auth';
+import { listActApi } from '../Services/activity';
+import { getUserID, isLogined } from '../Utils/auth';
 import { message } from 'antd';
 import { initActReg } from './actRegisteredReducer';
 // 活动的reducer，功能有初始化（与后端通信）
@@ -28,7 +28,7 @@ export const initList = (
       res.data.map((note: object) => {
         checkActProperty(note);
       });
-      isLogined()&&dispatch(initActReg(getUserID(),res.data))
+      isLogined() && dispatch(initActReg(getUserID(), res.data));
       dispatch({
         type: 'INIT',
         data: res.data,

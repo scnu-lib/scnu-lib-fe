@@ -11,14 +11,12 @@ import {
 } from '../../Utils/auth';
 import { DownOutlined } from '@ant-design/icons';
 import './Frame.less';
-import { changeClient } from '@/reducers/globalConfigReducer';
+import { changeClient } from '../../reducers/globalConfigReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { initSetting } from '@/reducers/userSettingReducer';
-import { getNotifyApi, getSettingApi } from '@/Services/auth';
-import { cleanUserInfo, initUserInfo } from '@/reducers/userReducer';
-import { initLoginInUserInfo } from '@/reducers/loginInUserInfoReducer';
-import { initLoginInUserSetting } from '@/reducers/loginInUserSetting';
-import { getPhoto } from '@/photoStorage/photoStorage';
+import { getNotifyApi, getSettingApi } from '../../Services/auth';
+import { cleanUserInfo, initUserInfo } from '../../reducers/userReducer';
+import { initLoginInUserSetting } from '../../reducers/loginInUserSetting';
+import { getPhoto } from '../../photoStorage/photoStorage';
 
 const { Header, Content, Footer } = Layout;
 function Frame(props: any) {
