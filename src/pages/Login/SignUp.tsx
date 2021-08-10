@@ -3,6 +3,7 @@ import { Card, Form, Input, Select, Checkbox, Button, message } from 'antd';
 import { getNextAvailableIDApi, loginApi, signUpApi } from '@/Services/auth';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
 import { setRole, setToken, setUserID } from '@/Utils/auth';
+
 //注册页面
 const { Option } = Select;
 function SignUp(props: any) {
