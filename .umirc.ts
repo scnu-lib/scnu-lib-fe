@@ -102,11 +102,6 @@ export default defineConfig({
           title: '用户中心',
           component: '@/pages/User/User',
         },
-        {
-          path: '/home/userRecord',
-          title: '用户积分',
-          component: '@/pages/User/UserRecord',
-        },
       ],
     },
     {
