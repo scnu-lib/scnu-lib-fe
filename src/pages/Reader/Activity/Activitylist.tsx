@@ -13,6 +13,7 @@ import {
 } from '@/reducers/actListShowReducer';
 import { ActSortRadio } from './ActSortRadio';
 import { lazy, Suspense } from 'react';
+
 const ActivityDetail = lazy(() => import('./ActivityDetail'));
 function ActivityList() {
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
