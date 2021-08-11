@@ -125,7 +125,4 @@ export default defineConfig({
     'font-size-sm': '12px',
     'heading-1-size': 'ceil(@font-size-base * 2.71)',
   },
-  webpack5:{
-    
-  }
 });

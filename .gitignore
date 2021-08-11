@@ -5,10 +5,12 @@
 /npm-debug.log*
 /yarn-error.log
 /package-lock.json
+/yarn-lock.json
 # production
-/dist
 
 # misc
 .DS_Store
 
 # umi
+/.umi
+/.umi-production
