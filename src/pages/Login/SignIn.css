@@ -1,4 +1,4 @@
-.login-Card{
+/* .login-Card{
     width:35vw;
 }
 .ant-col{
@@ -26,4 +26,8 @@
     padding-top: 1vw;
     width: 95%;
     height: 95%;
+} */
+
+.login-form{
+    width:'100%'
 }
