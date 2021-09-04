@@ -3,8 +3,9 @@ import { Form, Input, Button, Checkbox, Card, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './SignIn.css';
 import { loginApi } from '../../Services/auth';
-import { setToken, setUserID, setRole, getUserID } from '../../Utils/auth';
-import PropertyRequiredError from '@/error/PropertyRequiredError';
+import { setToken, setUserID, setRole } from '../../Utils/auth';
+import PropertyRequiredError from '../../error/PropertyRequiredError';
+
 //登录页面
 function SignIn(props: any) {
   const onFinish = async (values: object) => {
@@ -49,15 +50,7 @@ function SignIn(props: any) {
     }
   };
   return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+    <div className="login-bg">
       <Card className="login-Card">
         <div className="sign-title">登录</div>
         <Form
@@ -106,8 +99,7 @@ function SignIn(props: any) {
             {'   '}或{' '}
             <Button type="link" onClick={() => props.history.push('/Signup')}>
               现在注册！
-            </Button>
-            {' '}
+            </Button>{' '}
             <Button type="link" onClick={() => props.history.push('/')}>
               不想登录？先随便看看
             </Button>

@@ -4,13 +4,13 @@ import { MenuOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
 import Labels from '../../../components/Labels';
-import { actLabel } from '@/Utils/config';
+import { actLabel } from '../../../Utils/config';
 import {
   changeDrawer,
   changeLabel,
   initActShow,
   registeredState,
-} from '@/reducers/actListShowReducer';
+} from '../../../reducers/actListShowReducer';
 import { ActSortRadio } from './ActSortRadio';
 import { lazy, Suspense } from 'react';
 const ActivityDetail = lazy(() => import('./ActivityDetail'));

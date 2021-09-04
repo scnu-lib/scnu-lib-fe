@@ -1,5 +1,5 @@
-import { del, get, post, put } from '@/Utils/request';
-import { serverUrl, volunteerApplicationState } from '@/Utils/config';
+import { del, get, post, put } from '../Utils/request';
+import { serverUrl, volunteerApplicationState } from '../Utils/config';
 
 export const listActApi = (
   label: string,
@@ -44,10 +44,9 @@ export const actIsSignUpApi = (activityID: number, userID: number) => {
   );
 };*/
 export const getVolApi = (activityID: number) => {
-  return get(
-    `${serverUrl}/activity/activities/${activityID}/volunteer`,
-     {undefined},
-  );
+  return get(`${serverUrl}/activity/activities/${activityID}/volunteer`, {
+    undefined,
+  });
 };
 export const delVolApi = (activityID: number, userID: number) => {
   return del(
@@ -55,12 +54,12 @@ export const delVolApi = (activityID: number, userID: number) => {
     { activityID, userID },
   );
 };
-export const signVolApi = (activityID:number,userID: number)=>{
+export const signVolApi = (activityID: number, userID: number) => {
   return put(
     `${serverUrl}/activity/activities/${activityID}/volunteer/${userID}`,
     { activityID, userID },
-  )
-}
+  );
+};
 export const userVolSignUpApi = (
   activityID: number,
   userID: number,
@@ -74,10 +73,15 @@ export const userVolSignUpApi = (
   );
 };
 
-export const getNextAvailableActIDApi = ()=>{
-  return get(`${serverUrl}/activity/activities/activityID`,{undefined});
-}
+export const getNextAvailableActIDApi = () => {
+  return get(`${serverUrl}/activity/activities/activityID`, { undefined });
+};
 
-export const actSignInApi = (actID:number,userID:number,place:string,date:string) =>{
-    return;
-}
+export const actSignInApi = (
+  actID: number,
+  userID: number,
+  place: string,
+  date: string,
+) => {
+  return;
+};

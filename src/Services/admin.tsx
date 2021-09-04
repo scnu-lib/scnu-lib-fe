@@ -1,5 +1,5 @@
-import { get } from '@/Utils/request';
-import { serverUrl } from '@/Utils/config';
+import { get } from '../Utils/request';
+import { serverUrl } from '../Utils/config';
 
 export const listUserApi = (size: number = 999) => {
   return get(`${serverUrl}/account/accounts`, { size, sort: 'id' });

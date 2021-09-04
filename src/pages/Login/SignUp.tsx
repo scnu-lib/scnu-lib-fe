@@ -1,16 +1,7 @@
 import React from 'react';
-import {
-  Card,
-  Form,
-  Input,
-  Select,
-  Checkbox,
-  Button,
-  message,
-} from 'antd';
-import {  getNextAvailableIDApi, loginApi, signUpApi } from '@/Services/auth';
-import PropertyRequiredError from '@/error/PropertyRequiredError';
-import { setRole, setToken, setUserID } from '@/Utils/auth';
+import { Card, Form, Input, Select, Checkbox, Button, message } from 'antd';
+import { signUpApi } from '../../Services/auth';
+import PropertyRequiredError from '../../error/PropertyRequiredError';
 //注册页面
 const { Option } = Select;
 function SignUp(props: any) {
@@ -44,8 +35,8 @@ function SignUp(props: any) {
       password: values.password,
       detail: {
         name: values.nickname,
-        college:values.college,
-        studentId:values.studentId
+        college: values.college,
+        studentId: values.studentId,
       },
     };
     try {
@@ -78,25 +69,16 @@ function SignUp(props: any) {
         } else {
           message.error('Oops！遇到了未知的错误');
         }
-      } else if(err.response?.title === "Login name already used!"){
+      } else if (err.response?.title === 'Login name already used!') {
         message.error('该帐号已被注册');
-      } 
-      else {
+      } else {
         console.log(err.message);
         message.error('Oops！遇到了未知的错误');
       }
     }
   };
   return (
-    <div
-      style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
+    <div className="login-bg">
       <Card className="login-Card">
         <div className="sign-title">注册帐户</div>
         <Form
@@ -113,7 +95,7 @@ function SignUp(props: any) {
               { required: true, message: '请输入你的昵称', whitespace: true },
             ]}
           >
-          <Input placeholder="昵称" />
+            <Input placeholder="昵称" />
           </Form.Item>
           <Form.Item
             name="studentId"
@@ -135,7 +117,7 @@ function SignUp(props: any) {
           >
             <Input placeholder="学院" />
           </Form.Item>
-          
+
           <Form.Item
             name="email"
             rules={[
@@ -199,21 +181,19 @@ function SignUp(props: any) {
                   value ? Promise.resolve() : Promise.reject('请同意用户协议'),
               },
             ]}
-            {...tailFormItemLayout}
           >
             <Checkbox>
               我已经阅读并同意 <a href="">用户协议</a>
             </Checkbox>
           </Form.Item>
-          <Form.Item {...tailFormItemLayout}>
+          <Form.Item>
             <Button type="primary" htmlType="submit">
               注册
             </Button>{' '}
             或
             <Button type="link" onClick={() => props.history.push('/login')}>
               已经有帐号了？现在登录
-            </Button>
-            {' '}
+            </Button>{' '}
             <Button type="link" onClick={() => props.history.push('/')}>
               不想登录？先随便看看
             </Button>

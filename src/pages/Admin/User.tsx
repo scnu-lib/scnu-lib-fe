@@ -1,14 +1,11 @@
 import React, { useEffect } from 'react';
-import { Card, Table, Button, Popover, Tag, Space, message } from 'antd';
+import { Card, Table, Popover, Tag, Space, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { initList } from '@/reducers/actReducer';
-import { cleanUser, initUserList } from '@/reducers/usermReducer';
-import { Roles } from '@/Utils/config';
+import { cleanUser, initUserList } from '../../reducers/usermReducer';
 import { EditOutlined, CommentOutlined } from '@ant-design/icons';
-import { initSetting } from '@/reducers/userSettingReducer';
-import { getNotifyApi, getSettingApi } from '@/Services/auth';
-import { cleanUserInfo, initUserInfo } from '@/reducers/userReducer';
-import { getUserID } from '@/Utils/auth';
+import { initSetting } from '../../reducers/userSettingReducer';
+import { getNotifyApi, getSettingApi } from '../../Services/auth';
+import { cleanUserInfo, initUserInfo } from '../../reducers/userReducer';
 function User(props: any) {
   const dataSource = useSelector(store => store.userList);
   const dispatch = useDispatch();
@@ -73,19 +70,18 @@ function User(props: any) {
               <Popover content={<div>修改用户信息</div>}>
                 <EditOutlined
                   onClick={() => {
-
                     //dispatch(initSetting(record.id));
-                    getSettingApi(record.id).then(res=>{
-                      dispatch(initSetting(res.data));
+                    getSettingApi(record.id)
+                      .then(res => {
+                        dispatch(initSetting(res.data));
 
-                      
-                      props.history.push(
-                        `/home/adminUser/userdetails/${record.id}`,
-                      );
-                    }).catch(err=>{
-                      message.error('Oops!发生了未知的错误');
-                    })
-                    
+                        props.history.push(
+                          `/home/adminUser/userdetails/${record.id}`,
+                        );
+                      })
+                      .catch(err => {
+                        message.error('Oops!发生了未知的错误');
+                      });
                   }}
                 />
               </Popover>
@@ -93,18 +89,17 @@ function User(props: any) {
                 <CommentOutlined
                   onClick={() => {
                     dispatch(cleanUserInfo());
-                    getNotifyApi(record.id).then(res=>{
-                      console.log(res.data)
-                      dispatch(initUserInfo(res.data));
-                      props.history.push(
-                        `/home/adminUser/usernotices/${record.id}`,
-                      );
-                      
-                    }).catch(err=>{
-                      message.error('Oops!发生了未知的错误');
-                    })
-
-                    
+                    getNotifyApi(record.id)
+                      .then(res => {
+                        console.log(res.data);
+                        dispatch(initUserInfo(res.data));
+                        props.history.push(
+                          `/home/adminUser/usernotices/${record.id}`,
+                        );
+                      })
+                      .catch(err => {
+                        message.error('Oops!发生了未知的错误');
+                      });
                   }}
                 />
               </Popover>

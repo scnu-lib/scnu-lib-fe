@@ -1,9 +1,3 @@
-import PropertyRequiredError, {
-  checkActProperty,
-} from '@/error/PropertyRequiredError';
-import { detailApi } from '@/Services/activity';
-import { message } from 'antd';
-
 const initState = {
   id: 0,
   title: '',
@@ -29,11 +23,11 @@ const actDetailReducer = (state: any = initState, action: object) => {
   }
 };
 
-export const initActDetail = (data) => {
-        return {
-        type: 'INIT_ACTIVITY',
-        data,
-      }
+export const initActDetail = data => {
+  return {
+    type: 'INIT_ACTIVITY',
+    data,
+  };
 };
 
 export default actDetailReducer;

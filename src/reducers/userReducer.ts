@@ -1,6 +1,6 @@
-import PropertyRequiredError from '@/error/PropertyRequiredError';
+import PropertyRequiredError from '../error/PropertyRequiredError';
 import { message } from 'antd';
-import { changeNotifyApi, getNotifyApi, getSettingApi } from '../Services/auth';
+import { changeNotifyApi } from '../Services/auth';
 import { getUserID } from '../Utils/auth';
 const userReducer = (
   state: object = {
@@ -16,7 +16,7 @@ const userReducer = (
     case 'INIT_USERINFO':
       return action.data;
     case 'CLEAN_USERINFO':
-      return  {
+      return {
         userID: 0,
         wechat: { enabled: true, wxid: '' },
         email: { enabled: true, address: '' },
@@ -26,11 +26,11 @@ const userReducer = (
   }
 }; // 把notify用redux记录，先写一个可以修改notify的reducer
 
-export const cleanUserInfo = ()=>{
+export const cleanUserInfo = () => {
   return {
-    type:'CLEAN_USERINFO'
-  }
-}
+    type: 'CLEAN_USERINFO',
+  };
+};
 export const changeUserInfo = (
   wxid: string,
   address: string,
@@ -38,7 +38,7 @@ export const changeUserInfo = (
 ) => {
   return async dispatch => {
     try {
-      const setRes = await changeNotifyApi(userid,wxid,address);
+      const setRes = await changeNotifyApi(userid, wxid, address);
       dispatch({
         type: 'CHANGE_USERINFO',
         data: { /*...res.data,*/ ...setRes.data },
@@ -58,10 +58,10 @@ export const changeUserInfo = (
   };
 }; // actioncreator 输入新的notify返回一个action 改为异步写法，把与后端通信功能加到actioncreator里面
 
-export const initUserInfo = (data:object) => {
+export const initUserInfo = (data: object) => {
   return {
-        type: 'INIT_USERINFO',
-        data
-      }
+    type: 'INIT_USERINFO',
+    data,
+  };
 };
 export default userReducer;
