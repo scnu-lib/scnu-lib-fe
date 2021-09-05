@@ -11,7 +11,11 @@ const UpLoadPhoto = (props: object) => {
   });
   useEffect(() => {
     console.log(props);
-    setState({ key: props.photoKey, loading: false });
+    setState({
+      key: props.photoKey,
+      loading: false,
+      isNull: props.photoKey === undefined ? true : false,
+    });
   }, []);
   const uploadButton = (
     <div>
