@@ -20,39 +20,18 @@ function SignUp(props: any) {
     };
     try {
       console.log(user);
-      const res = await signUpApi(user);
-      if (!res) {
-        throw new PropertyRequiredError('res');
-      }
-      if (!res?.hasOwnProperty('data')) {
-        throw new PropertyRequiredError('data');
-      }
-      if (
-        !res?.data?.hasOwnProperty('id') ||
-        !res?.data?.hasOwnProperty('role') ||
-        !res?.data?.hasOwnProperty('username')
-      ) {
-        throw new PropertyRequiredError('data');
-      }
-      props.history.push('/login');
+      await signUpApi(user);
+      props.setModalState('登录');
       message.success('注册成功');
     } catch (err) {
       console.log(err.response);
       if (err.response?.status === 400) {
-        if (err.response?.data.message === 'error.userexists')
-          message.error('该帐号已被注册');
-        else if (err.response?.data.message === 'error.malformed_request')
-          message.error('格式错误');
-        else if (err instanceof PropertyRequiredError) {
-          message.error('Oops！遇到了未知的错误');
-        } else {
-          message.error('Oops！遇到了未知的错误');
-        }
-      } else if (err.response?.title === 'Login name already used!') {
-        message.error('该帐号已被注册');
+        message.error('该帐号已被注册，换一个试试?');
+      } else if (err.response?.status === 500) {
+        message.error('该学号已被注册，换一个试试?');
       } else {
         console.log(err.message);
-        message.error('Oops！遇到了未知的错误');
+        message.error('Oops！遇到了未知的错误，请重试或联系客服');
       }
     }
   };
