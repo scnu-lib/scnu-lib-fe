@@ -9,7 +9,7 @@ import {
   clearRole,
   getUserID,
 } from '../../Utils/auth';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import './Frame.less';
 import { changeClient } from '@/reducers/globalConfigReducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -94,6 +94,7 @@ function Frame(props: any) {
         <Dropdown overlay={menu}>
           <label>
             <Avatar
+              icon={<UserOutlined />}
               src={`${getPhoto(
                 `avatarPhoto${userInfo?.id}`,
               )}?dummy=${new Date().getTime()}`}

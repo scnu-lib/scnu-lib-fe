@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeLoginInUserInfo } from '@/reducers/loginInUserInfoReducer';
 import { changeSettingApi } from '@/Services/auth';
 import UpLoadPhoto from '@/components/UpLoadPhoto';
+import { history } from '@/.umi/core/history';
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 16 },
@@ -64,9 +65,10 @@ const ChangeUser = (props: any) => {
     console.log(values);
     changeNotify(values);
     changeUserSetting(values);
+    history.push('/');
     //message.success('保存成功！');
   }; //把后端通信整合到actioncreator中返回的函数
-
+  console.log(userSetting);
   return (
     <div>
       <Form name="notify-form" onFinish={onFinish} {...layout}>
