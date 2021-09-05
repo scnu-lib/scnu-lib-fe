@@ -1,5 +1,10 @@
-import React from 'react';
-import { Form, Input, Button } from 'antd';
+import React, { useEffect } from 'react';
+import { Form, Input, Button, message } from 'antd';
+import { getUserID, isLogined } from '@/Utils/auth';
+import { initLoginInUserSetting } from '@/reducers/loginInUserSetting';
+import { initUserInfo } from '@/reducers/userReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { getNotifyApi, getSettingApi } from '@/Services/auth';
 export default function ChangeUserconfig({
   userSetting,
   userInfo,
@@ -7,7 +12,26 @@ export default function ChangeUserconfig({
   onFinish,
   tailLayout,
 }: any) {
-  console.log(userSetting, userInfo, layout, onFinish, tailLayout);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (isLogined()) {
+      const id = getUserID();
+      getSettingApi(id)
+        .then(res => {
+          dispatch(initLoginInUserSetting(res.data));
+        })
+        .catch(err => {
+          message.error('Oops!发生了未知的错误');
+        });
+      getNotifyApi(id)
+        .then(res => {
+          dispatch(initUserInfo(res.data));
+        })
+        .catch(err => {
+          message.error('Oops!发生了未知的错误');
+        });
+    }
+  }, []);
   return (
     <Form name="notify-form" onFinish={onFinish} {...layout}>
       <Form.Item
