@@ -1,6 +1,6 @@
 // 活动列表页有很多标签之类的状态，直接做成一个state比较方便。
-
 import { actLabel } from '@/Utils/config';
+
 export enum registeredState {
   all = 'all',
   registeredOnly = 'registeredOnly',

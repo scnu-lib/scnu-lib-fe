@@ -25,7 +25,7 @@ function Frame(props: any) {
   const dispatch = useDispatch();
   const userInfo = useSelector((store: any) => store.loginInUserSetting);
   //条件渲染样式
-  let location: string = props.children.props.location.pathname;
+  let locPath: string = props.children.props.location.pathname;
 
   useEffect(() => {
     console.log('children', props.children.props.location);
@@ -111,7 +111,7 @@ function Frame(props: any) {
   };
   return (
     <Layout className="layout">
-      <Header className={location === '/home/activity' ? 'header-none' : ''}>
+      <Header className={locPath === '/home/activity' ? 'header-none' : ''}>
         <div className="LOGO-Menu">
           <a
             className="LOGO"
