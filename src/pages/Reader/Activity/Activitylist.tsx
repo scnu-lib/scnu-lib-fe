@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { Card, List, Affix, Drawer } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,8 +12,10 @@ import {
   registeredState,
 } from '@/reducers/actListShowReducer';
 import { ActSortRadio } from './ActSortRadio';
-import { lazy, Suspense } from 'react';
+
+//react懒加载机制
 const ActivityDetail = lazy(() => import('./ActivityDetail'));
+
 function ActivityList() {
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [modalDetail, setModalDetail] = useState({}); // 把活动详情做成一个小对话框，用state控制其打开和关闭
