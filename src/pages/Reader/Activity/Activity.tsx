@@ -4,12 +4,14 @@ import './Activity.less';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
 import { lazy, Suspense } from 'react';
-import EmptyState from '@/components/EmptyState';
-import Loading from '@/components/Loading';
-import { initActDetail } from '@/reducers/actDetailReducer';
-import { detailApi } from '@/Services/activity';
+import EmptyState from '../../../components/EmptyState';
+import Loading from '../../../components/Loading';
+import { initActDetail } from '../../../reducers/actDetailReducer';
+import { detailApi } from '../../../Services/activity';
+
 const ActivityDetail = lazy(() => import('./ActivityDetail')); //lazyload详情页面，保证首屏的速率
 const RecentAct = lazy(() => import('../../../components/RecentAct'));
+
 //活动列表页
 function Activity(props: any) {
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
@@ -39,7 +41,6 @@ function Activity(props: any) {
   const dispatch = useDispatch();
   const getRecentAct = () => {
     //把最近的活动拿到，暂时通过标签确定最近
-
     try {
       dispatch(initList('recent', 0, 20));
     } catch (err) {
@@ -51,8 +52,16 @@ function Activity(props: any) {
     getRecentAct();
     //setRecent(recentlist)
   }, []);
+
   return (
     <Space direction="vertical" className="Activity .flex" size="large">
+      <div
+        className="Hero ant-layout-content"
+        style={{ color: '@primary-color' }}
+      >
+        <h2 className="Hero-title">欢迎来到阅马活动系统</h2>
+        <p>华南师大图书馆————活动发布、报名、签到</p>
+      </div>
       <Space direction="vertical" className="recent-Act" size="middle">
         {recent.length ? (
           <>

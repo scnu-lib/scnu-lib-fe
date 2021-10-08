@@ -1,7 +1,7 @@
 import COS, { UploadBody } from 'cos-js-sdk-v5';
 const cos = new COS({
   SecretId: 'AKIDaz92f16vVpsfBRQ8ZkeIfmcASTEWYJn0',
-  SecretKey: 'xd4E7j49xb1EDyVpvmPyKRKyPcaO1QbV',
+  SecretKey: '',
 });
 
 export const postPhoto = (

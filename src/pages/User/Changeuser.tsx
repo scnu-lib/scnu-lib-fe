@@ -2,12 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, message, Card, Typography } from 'antd';
 import './User.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeLoginInUserInfo } from '@/reducers/loginInUserInfoReducer';
-import { changeSettingApi } from '@/Services/auth';
+import {
+  changeLoginInUserInfo,
+  initLoginInUserInfo,
+} from '@/reducers/loginInUserInfoReducer';
+import { changeSettingApi, getNotifyApi, getSettingApi } from '@/Services/auth';
 import { history } from '@/.umi/core/history';
 import ChangeAvatar from './components/ChangeAvatar';
 import ChangeUserconfig from './components/ChangeUserconfig';
 import ChangeUserLoginConfig from './components/ChangeUserLoginConfig';
+
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 16 },

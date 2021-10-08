@@ -1,6 +1,6 @@
-import PropertyRequiredError from '@/error/PropertyRequiredError';
-import { changeNotifyApi } from '@/Services/auth';
-import { getUserID } from '@/Utils/auth';
+import PropertyRequiredError from '../error/PropertyRequiredError';
+import { changeNotifyApi } from '../Services/auth';
+import { getUserID } from '../Utils/auth';
 import { message } from 'antd';
 
 const loginInUserReducer = (
