@@ -5,7 +5,6 @@ import './SignIn.css';
 import { loginApi } from '../../Services/auth';
 import { setToken, setUserID, setRole, getUserID } from '../../Utils/auth';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
-
 //登录页面
 function SignIn(props: any) {
   const onFinish = async (values: object) => {
@@ -50,62 +49,64 @@ function SignIn(props: any) {
     }
   };
   return (
-    <div className="login-bg">
-      <Card className="login-Card">
-        <div className="sign-title">登录</div>
-        <Form
-          name="normal_login"
-          className="login-form"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      <Form
+        name="normal_login"
+        className="login-form"
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        style={{ width: '100%', margin: '10px 14px' }}
+      >
+        <Form.Item
+          name="username"
+          rules={[{ required: true, message: '请输入你的帐号' }]}
         >
-          <Form.Item
-            name="username"
-            rules={[{ required: true, message: '请输入你的帐号' }]}
-          >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="帐号"
-            />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[{ required: true, message: '请输入你的密码' }]}
-          >
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="密码"
-            />
-          </Form.Item>
-          <Form.Item>
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>记住我</Checkbox>
-            </Form.Item>
-
-            <a className="login-form-forgot" href="">
-              忘记密码
-            </a>
+          <Input
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="帐号"
+          />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: '请输入你的密码' }]}
+        >
+          <Input
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="密码"
+          />
+        </Form.Item>
+        <Form.Item>
+          <Form.Item name="remember" valuePropName="checked" noStyle>
+            <Checkbox>记住我</Checkbox>
           </Form.Item>
 
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-            >
-              登录
-            </Button>
-            {'   '}或{' '}
-            <Button type="link" onClick={() => props.history.push('/Signup')}>
-              现在注册！
-            </Button>{' '}
-            <Button type="link" onClick={() => props.history.push('/')}>
-              不想登录？先随便看看
-            </Button>
-          </Form.Item>
-        </Form>
-      </Card>
+          <a className="login-form-forgot" href="">
+            忘记密码
+          </a>
+        </Form.Item>
+
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="login-form-button"
+          >
+            登录
+          </Button>
+          {'   '}或{' '}
+          <Button type="link" onClick={() => props.setModalState('注册')}>
+            现在注册！
+          </Button>{' '}
+        </Form.Item>
+      </Form>
     </div>
   );
 }

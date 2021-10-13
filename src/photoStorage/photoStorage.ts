@@ -1,7 +1,7 @@
 import COS, { UploadBody } from 'cos-js-sdk-v5';
-let cos = new COS({
-  SecretId: 'AKIDnOnkT5D7MRadQAT0CsRsGMLECkNtiW5X',
-  SecretKey: 'g96saAg2BHLKEzkkdNvGYq14oTbbTDnH',
+const cos = new COS({
+  SecretId: 'AKIDaz92f16vVpsfBRQ8ZkeIfmcASTEWYJn0',
+  SecretKey: '',
 });
 
 export const postPhoto = (
@@ -17,7 +17,7 @@ export const postPhoto = (
       Key: 'photo/' + Key /* 必须 */,
       StorageClass: 'STANDARD',
       Body: photo, // 上传文件对象
-      onProgress: function(progressData) {
+      onProgress(progressData) {
         console.log(JSON.stringify(progressData));
       },
     },
@@ -32,9 +32,11 @@ export const postPhoto = (
 };
 
 export const getPhoto = (Key: string) => {
+  if (Key === '-1')
+    return 'https://pages-1304363322.cos.ap-guangzhou.myqcloud.com/photo/%E4%B8%8B%E8%BD%BD.png';
+  // 返回默认上传图片
   const src =
     'https://pages-1304363322.cos.ap-guangzhou.myqcloud.com/photo/' + Key;
-
   return src;
 };
 

@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, message } from 'antd';
+import { Form, Input, Button, message, Card, Typography } from 'antd';
 import './User.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeLoginInUserInfo } from '@/reducers/loginInUserInfoReducer';
-import { changeSettingApi } from '@/Services/auth';
-import UpLoadPhoto from '@/components/UpLoadPhoto';
+import {
+  changeLoginInUserInfo,
+  initLoginInUserInfo,
+} from '@/reducers/loginInUserInfoReducer';
+import { changeSettingApi, getNotifyApi, getSettingApi } from '@/Services/auth';
+import { history } from '@/.umi/core/history';
+import ChangeAvatar from './components/ChangeAvatar';
+import ChangeUserconfig from './components/ChangeUserconfig';
+import ChangeUserLoginConfig from './components/ChangeUserLoginConfig';
+
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 16 },
@@ -12,7 +19,7 @@ const layout = {
 const tailLayout = {
   wrapperCol: { offset: 4, span: 16 },
 };
-
+const { Title } = Typography;
 const ChangeUser = (props: any) => {
   const userInfo = useSelector(state => state.loginInUser);
   const userSetting = useSelector(state => state.loginInUserSetting);
@@ -54,160 +61,75 @@ const ChangeUser = (props: any) => {
     console.log(handlyNewSetting);
     changeSettingApi(newSetting.id, handlyNewSetting)
       .then(res => {
-        //message.success('修改成功');
+        message.success('保存成功');
+        setTimeout(() => history.push('/'), 1000);
       })
       .catch(err => {
-        //message.error('Oops!发生了未知的错误');
+        if (err.response.title === 'Incorrect password')
+          message.error('旧密码输入错误，请重新输入');
+        else message.error('Oops!发生了未知的错误');
       });
   };
   const onFinish = (values: object) => {
-    console.log(values);
+    const processDefaultValues = { ...userSetting, ...userSetting.detail };
+    delete processDefaultValues.detail;
+    values = Object.assign(processDefaultValues, values);
     changeNotify(values);
-    changeUserSetting(values);
+    changeUserSetting(values); //把新的value覆盖到原有的设置上，可以不用一定要填某个值
     //message.success('保存成功！');
   }; //把后端通信整合到actioncreator中返回的函数
-
+  console.log(userSetting);
   return (
-    <div>
-      <Form name="notify-form" onFinish={onFinish} {...layout}>
-        <Form.Item label="头像" name="avatar">
-          <UpLoadPhoto
-            photoKey={`avatarPhoto${userSetting?.id}`}
-            photoPercentage={1}
-            photoShowSize={{ width: '100px', height: '100px' }}
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <Card
+        style={{ margin: '20px 0', minWidth: '300px' }}
+        title={<Title level={5}>修改个人信息</Title>}
+      >
+        <ChangeUserconfig
+          userSetting={userSetting}
+          userInfo={userInfo}
+          layout={layout}
+          onFinish={onFinish}
+          tailLayout={tailLayout}
+        />
+      </Card>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          width: '100%',
+        }}
+      >
+        <Card
+          bodyStyle={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignContent: 'center',
+          }}
+          style={{ margin: '20px 0', width: '300px' }}
+          title={<Title level={5}>上传/修改头像</Title>}
+        >
+          <div style={{ padding: '40px 0' }}>
+            <ChangeAvatar id={userSetting?.id} />
+          </div>
+        </Card>
+        <Card
+          style={{ margin: '20px 0', width: '800px', minWidth: '300px' }}
+          title={<Title level={5}>修改密码</Title>}
+        >
+          <ChangeUserLoginConfig
+            userSetting={userSetting}
+            userInfo={userInfo}
+            layout={layout}
+            onFinish={onFinish}
+            tailLayout={tailLayout}
           />
-        </Form.Item>
-
-        <Form.Item
-          name="id"
-          label="id"
-          rules={[{ required: true }]}
-          initialValue={userSetting?.id}
-        >
-          <Input disabled />
-        </Form.Item>
-        <Form.Item
-          name="name"
-          label="用户名"
-          initialValue={userSetting?.detail?.name}
-          rules={[{ required: true, message: '请填写用户名' }]}
-        >
-          <Input maxLength={20} />
-        </Form.Item>
-        <Form.Item
-          name="username"
-          label="账号"
-          initialValue={userSetting?.username}
-          rules={[{ required: true, message: '请填写账号' }]}
-        >
-          <Input maxLength={20} />
-        </Form.Item>
-        <Form.Item
-          name="college"
-          label="学院"
-          initialValue={userSetting?.detail?.college}
-          rules={[{ required: true, message: '请填写学院' }]}
-        >
-          <Input maxLength={20} />
-        </Form.Item>
-        <Form.Item
-          name="studentId"
-          label="学号"
-          initialValue={userSetting?.detail?.studentId}
-          rules={[{ required: true, message: '请填写学号' }]}
-        >
-          <Input maxLength={20} />
-        </Form.Item>
-        <Form.Item
-          name="currentPassword"
-          label="旧密码"
-          dependencies={['password']}
-          hasFeedback
-          rules={[
-            {
-              min: 6,
-              message: '请输入大于5个字符的密码',
-            },
-            {
-              max: 20,
-              message: '请输入小于20个字符的密码',
-            },
-            ({ getFieldValue }) => ({
-              validator(rule, value) {
-                if (
-                  (!value && !getFieldValue('password')) ||
-                  (value && getFieldValue('password'))
-                ) {
-                  return Promise.resolve();
-                } else if (value && !getFieldValue('password')) {
-                  return Promise.resolve();
-                }
-                return Promise.reject('请输入旧密码');
-              },
-            }),
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          label="新密码"
-          dependencies={['currentPassword']}
-          rules={[
-            {
-              min: 6,
-              message: '请输入大于5个字符的密码',
-            },
-            {
-              max: 20,
-              message: '请输入小于20个字符的密码',
-            },
-            ({ getFieldValue }) => ({
-              validator(rule, value) {
-                if (
-                  (value && getFieldValue('currentPassword')) ||
-                  (!value && !getFieldValue('currentPassword'))
-                ) {
-                  return Promise.resolve();
-                }
-                return Promise.reject('请输入新密码');
-              },
-            }),
-          ]}
-          hasFeedback
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item
-          label="微信号"
-          name="wechat"
-          rules={[{ required: true, message: '请输入你的微信号！' }]}
-          initialValue={userInfo?.wechat?.wxid}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="email"
-          name="email"
-          rules={[
-            { required: true, message: '请输入你的邮箱！' },
-            {
-              type: 'email',
-              message: '请输入正确格式的邮箱地址！',
-            },
-          ]}
-          initialValue={userInfo?.email?.address}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
-            保存
-          </Button>
-        </Form.Item>
-      </Form>
+        </Card>
+      </div>
     </div>
   );
 };
