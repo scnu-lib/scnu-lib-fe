@@ -22,6 +22,7 @@ import SignUp from '../Login/SignUp';
 const { Header, Content, Footer } = Layout;
 function Frame(props: any) {
   const dispatch = useDispatch();
+
   const userInfo = useSelector(store => store.loginInUserSetting);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalState, setModalState] = useState('登录'); // 根据状态显示注册、登录页面
@@ -34,7 +35,13 @@ function Frame(props: any) {
     setModalState('登录'); // 回到登录状态
   };
 
+  const userInfo = useSelector((store: any) => store.loginInUserSetting);
+  //条件渲染样式
+  let locPath: string = props.children.props.location.pathname;
+
+
   useEffect(() => {
+    console.log('children', props.children.props.location);
     if (isLogined()) {
       getSettingApi(getUserID())
         .then(res => {
@@ -113,7 +120,7 @@ function Frame(props: any) {
   };
   return (
     <Layout className="layout">
-      <Header className="navbg_selector">
+      <Header className={locPath === '/home/activity' ? 'header-none' : ''}>
         <div className="LOGO-Menu">
           <a
             className="LOGO"

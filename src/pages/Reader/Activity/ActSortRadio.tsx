@@ -6,6 +6,7 @@ import { actLabel } from '@/Utils/config';
 import { changeLabel, changeRegistered } from '@/reducers/actListShowReducer';
 import { addRegisteredAct } from '@/reducers/actRegisteredReducer';
 import { useDispatch, useSelector } from 'react-redux';
+
 export const ActSortRadio = (props: object) => {
   //列表分类控制组件
   const dispatch = useDispatch();

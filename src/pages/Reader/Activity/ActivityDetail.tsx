@@ -9,7 +9,7 @@ import { volunteerApplicationState } from '@/Utils/config';
 import { addRegisteredAct } from '@/reducers/actRegisteredReducer';
 import HandleDate from '@/components/HandleDate';
 import { getPhoto } from '@/photoStorage/photoStorage';
-import StepShow,{StepItem,StepShowProps} from '@/components/StepShow';
+import StepShow, { StepItem, StepShowProps } from '@/components/StepShow';
 import ShowMap from '@/components/ShowMap';
 //活动页
 function ActivityDetail(props: any) {
@@ -58,22 +58,31 @@ function ActivityDetail(props: any) {
     } catch (err) {
       setLoading([loading[0], false]);
       console.log(err);
+      message.error('申请失败');
     }
   };
-  const [stepShowProps,setStepShowProps] = useState({current:isSigned?1:0,allStep:[{title:'报名',description:'报名参加该活动'},{title:'签到',description:'请在活动现场按时签到'},{title:'完成',description:'你已经完成该活动'}]})
-  const changeCurrent = (newCurrent:number) =>{
-    setStepShowProps({...stepShowProps,current:newCurrent})
-  }
-  const [signUpvisible,setSignUpVisible] = useState(false);
-  const handleSignUpVisible = ()=>{
-    setSignUpVisible(true);//switch the state
-  }
-  const handleSignUpUnVisible = ()=>{
+  const [stepShowProps, setStepShowProps] = useState({
+    current: isSigned ? 1 : 0,
+    allStep: [
+      { title: '报名', description: '报名参加该活动' },
+      { title: '签到', description: '请在活动现场按时签到' },
+      { title: '完成', description: '你已经完成该活动' },
+    ],
+  });
+  const changeCurrent = (newCurrent: number) => {
+    setStepShowProps({ ...stepShowProps, current: newCurrent });
+  };
+  const [signUpvisible, setSignUpVisible] = useState(false);
+  const handleSignUpVisible = () => {
+    setSignUpVisible(true); //switch the state
+  };
+  const handleSignUpUnVisible = () => {
     setSignUpVisible(false);
-  }
-  const handleVisibleChange = (visible:boolean) => {
+  };
+  const handleVisibleChange = (visible: boolean) => {
     setSignUpVisible(visible);
   };
+
   return (
     <Modal
       className="actDetail-modal"
@@ -84,7 +93,7 @@ function ActivityDetail(props: any) {
       footer={null}
       width={550}
     >
-      <StepShow {...stepShowProps}/>
+      <StepShow {...stepShowProps} />
       <img
         alt="detailImg"
         className="detailImg"
@@ -109,31 +118,44 @@ function ActivityDetail(props: any) {
       <div className="actDetail-textpart">
         <Labels labels={props.modalDetail?.labels}></Labels>
         <div className="actDetail-button">
-          
-            {isSigned ? 
+          {isSigned ? (
             <Popover
-              content={<ShowMap disvisual={handleSignUpUnVisible} changeCurrent={changeCurrent} actID={props.modalDetail?.id}/>}
-              trigger='click'
+              content={
+                <ShowMap
+                  disvisual={handleSignUpUnVisible}
+                  changeCurrent={changeCurrent}
+                  actID={props.modalDetail?.id}
+                />
+              }
+              trigger="click"
               visible={signUpvisible}
               onVisibleChange={handleVisibleChange}
             >
-            <Button 
-             disabled={!isSigned}
+              <Button
+                disabled={!isSigned}
+                onClick={() => {
+                  isLogined()
+                    ? handleSignUpVisible()
+                    : message.error('请先登录');
+                }}
+              >
+                签到
+              </Button>{' '}
+            </Popover>
+          ) : (
+            <Button
+              disabled={isSigned}
+              loading={loading[0]}
               onClick={() => {
-              isLogined()
-                ? handleSignUpVisible()
-                : message.error('请先登录');
-            }}
-            >签到</Button> </Popover>: <Button
-            disabled={isSigned}
-            loading={loading[0]}
-            onClick={() => {
-              isLogined()
-                ? handleSignUpAct(props.modalDetail?.id, getUserID())
-                : message.error('请先登录');
-            }}
-          >报名</Button>}
-         
+                isLogined()
+                  ? handleSignUpAct(props.modalDetail?.id, getUserID())
+                  : message.error('请先登录');
+              }}
+            >
+              报名
+            </Button>
+          )}
+
           {props.modalDetail?.volunteered ? (
             <Button
               id="volSignUpButton"
