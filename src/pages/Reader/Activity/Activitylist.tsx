@@ -36,20 +36,8 @@ function ActivityList() {
   //将regAc数据格式从数字数组转换为可接受的数据
   function filterReg() {
     let regTmp: object[] = [];
-    //当前暂时认为regAct中存储的数据为活动id
-    let listPre = 0;
-    let regPre = 0;
-    //想利用双指针转换格式
     if (regData.length === 0) return [];
-    while (regPre < regData.length) {
-      if (listData[listPre].id === regData[regPre]) {
-        regTmp.push(listData[listPre]);
-        listPre++;
-        regPre++;
-      } else {
-        listPre++;
-      }
-    }
+    regTmp = listData.filter(item => regData.some(num => num === item.id));
     return regTmp;
   }
   let showData =
