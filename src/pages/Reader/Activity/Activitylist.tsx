@@ -33,10 +33,30 @@ function ActivityList() {
   };
   const listData = useSelector(state => state.act);
   const regData = useSelector(state => state.regAct);
+  //将regAc数据格式从数字数组转换为可接受的数据
+  function filterReg() {
+    let regTmp: object[] = [];
+    //当前暂时认为regAct中存储的数据为活动id
+    let listPre = 0;
+    let regPre = 0;
+    //想利用双指针转换格式
+    if (regData.length === 0) return [];
+    while (regPre < regData.length) {
+      if (listData[listPre].id === regData[regPre]) {
+        regTmp.push(listData[listPre]);
+        listPre++;
+        regPre++;
+      } else {
+        listPre++;
+      }
+    }
+    return regTmp;
+  }
   let showData =
     actListShow.registered === registeredState.registeredOnly
-      ? regData
-      : listData; // 显示到屏幕上的数据，默认是所有,有两层逻辑，这里是第一层
+      ? filterReg()
+      : listData;
+  // 显示到屏幕上的数据，默认是所有,有两层逻辑，这里是第一层
   (() => {
     switch (
       actListShow.label // 根据标签选取特定数据，第二层

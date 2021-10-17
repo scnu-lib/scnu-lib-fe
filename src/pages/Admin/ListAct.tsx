@@ -9,11 +9,12 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '@/reducers/actReducer';
 import { initActDetail } from '@/reducers/actDetailReducer';
-import { detailApi } from '@/Services/activity';
+import { detailApi, userVolSignUpApi } from '@/Services/activity';
 // 活动列表
 
 function ListAct(props: any) {
   const dataSource = useSelector(store => store.act);
+  const currentParticipant = useSelector((store: any) => store.actParticipants);
   const dispatch = useDispatch();
   const getAct = (page: number = 0) => {
     dispatch(initList('all', page, 20));
@@ -69,7 +70,7 @@ function ListAct(props: any) {
       responsive: ['md'],
 
       render: (txt: any, record: any, index: any) => {
-        return txt.currentParticipant + '/' + txt.maxParticipant;
+        return currentParticipant.length + '/' + txt.maxParticipant;
       },
     },
     {
@@ -94,11 +95,15 @@ function ListAct(props: any) {
                 <EditOutlined
                   onClick={() => {
                     dispatch(initActDetail(txt.id));
-                    detailApi(txt.id).then(res=>{
-                      dispatch(initActDetail(res.data));
-                    }).then(res=>{
-                      props.history.push(`/home/adminAct/createact/${txt.id}`);
-                    })
+                    detailApi(txt.id)
+                      .then(res => {
+                        dispatch(initActDetail(res.data));
+                      })
+                      .then(res => {
+                        props.history.push(
+                          `/home/adminAct/createact/${txt.id}`,
+                        );
+                      });
                   }}
                 />
               </Popover>

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { createHashHistory, History } from 'F:/vscode/scnu-lib-fe/node_modules/@umijs/runtime';
+import { createHashHistory, History } from 'A:/react/scnu-lib-fe/node_modules/_@umijs_runtime@3.5.15@@umijs/runtime';
 
 let options = {
   "basename": "/"
