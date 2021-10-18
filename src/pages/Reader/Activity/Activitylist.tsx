@@ -94,6 +94,7 @@ function ActivityList() {
   return (
     <div className="act-list-content">
       {clientWidth > 1100 ? (
+        //这里面的props数据单纯是为了组件渲染，和控制数据无关
         <ActSortRadio listData={listData} regData={regData} />
       ) : (
         <div>

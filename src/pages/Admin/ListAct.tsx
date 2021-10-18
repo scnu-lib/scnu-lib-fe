@@ -23,7 +23,7 @@ function ListAct(props: any) {
     getAct();
   }, []);
 
-  const columns = [
+  const columns: object[] = [
     {
       title: '序号',
       dataIndex: 'id',
@@ -70,7 +70,7 @@ function ListAct(props: any) {
       responsive: ['md'],
 
       render: (txt: any, record: any, index: any) => {
-        return currentParticipant.length + '/' + txt.maxParticipant;
+        return txt.currentParticipant + '/' + txt.maxParticipant;
       },
     },
     {
