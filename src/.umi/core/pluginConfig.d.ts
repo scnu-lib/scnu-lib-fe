@@ -186,7 +186,6 @@ exportAllMembers?: {
 
 }
 chunks?: string[]
-ignoreNodeBuiltInModules?: boolean
 }
 mountElementId?: ""
 mpa?: {

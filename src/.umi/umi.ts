@@ -1,11 +1,11 @@
 // @ts-nocheck
 import './core/polyfill';
-
+import '@@/core/devScripts';
 import { plugin } from './core/plugin';
 import './core/pluginRegister';
 import { createHistory } from './core/history';
-import { ApplyPluginsType } from 'F:/vscode/scnu-lib-fe/node_modules/@umijs/runtime';
-import { renderClient } from 'F:/vscode/scnu-lib-fe/node_modules/@umijs/renderer-react';
+import { ApplyPluginsType } from 'A:/react/scnu-lib-fe/node_modules/_@umijs_runtime@3.5.15@@umijs/runtime';
+import { renderClient } from 'A:/react/scnu-lib-fe/node_modules/_@umijs_renderer-react@3.5.15@@umijs/renderer-react';
 import { getRoutes } from './core/routes';
 
 
@@ -37,7 +37,7 @@ export default clientRender();
 
 
     window.g_umi = {
-      version: '3.5.17',
+      version: '3.5.15',
     };
   
 

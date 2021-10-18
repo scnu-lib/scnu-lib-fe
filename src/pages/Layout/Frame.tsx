@@ -23,7 +23,6 @@ const { Header, Content, Footer } = Layout;
 function Frame(props: any) {
   const dispatch = useDispatch();
 
-  const userInfo = useSelector(store => store.loginInUserSetting);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalState, setModalState] = useState('登录'); // 根据状态显示注册、登录页面
   const showModal = () => {
@@ -38,7 +37,6 @@ function Frame(props: any) {
   const userInfo = useSelector((store: any) => store.loginInUserSetting);
   //条件渲染样式
   let locPath: string = props.children.props.location.pathname;
-
 
   useEffect(() => {
     console.log('children', props.children.props.location);
@@ -145,16 +143,6 @@ function Frame(props: any) {
 
         <div className="sign-in-up">{SwitchLoginUser()}</div>
       </Header>
-      <div
-        className="Hero ant-layout-content"
-        style={{ color: '@primary-color' }}
-      >
-        <h2 className="Hero-title">欢迎来到阅马活动系统</h2>
-        <p>华南师大图书馆————活动发布、报名、签到</p>
-        <div className="Hero-href">
-          <a>QQ群</a> - <a>关于</a> - <a>联系我们</a>
-        </div>
-      </div>
       <Content className="layout-content">
         <div className="site-layout-content">{props.children}</div>
       </Content>
@@ -171,7 +159,10 @@ function Frame(props: any) {
           <SignUp setModalState={setModalState} />
         )}
       </Modal>
-      <Footer style={{ textAlign: 'center' }}>华师阅马开发小分队</Footer>
+      <Footer style={{ textAlign: 'center' }}>
+        华师阅马开发小分队
+        <a>QQ群</a> - <a>关于</a> - <a>联系我们</a>
+      </Footer>
     </Layout>
   );
 }

@@ -33,10 +33,18 @@ function ActivityList() {
   };
   const listData = useSelector(state => state.act);
   const regData = useSelector(state => state.regAct);
+  //将regAc数据格式从数字数组转换为可接受的数据
+  function filterReg() {
+    let regTmp: object[] = [];
+    if (regData.length === 0) return [];
+    regTmp = listData.filter(item => regData.some(num => num === item.id));
+    return regTmp;
+  }
   let showData =
     actListShow.registered === registeredState.registeredOnly
-      ? regData
-      : listData; // 显示到屏幕上的数据，默认是所有,有两层逻辑，这里是第一层
+      ? filterReg()
+      : listData;
+  // 显示到屏幕上的数据，默认是所有,有两层逻辑，这里是第一层
   (() => {
     switch (
       actListShow.label // 根据标签选取特定数据，第二层
@@ -86,6 +94,7 @@ function ActivityList() {
   return (
     <div className="act-list-content">
       {clientWidth > 1100 ? (
+        //这里面的props数据单纯是为了组件渲染，和控制数据无关
         <ActSortRadio listData={listData} regData={regData} />
       ) : (
         <div>
