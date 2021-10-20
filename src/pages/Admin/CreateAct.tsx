@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { RootState } from '@/store';
 import {
   Form,
   Card,
@@ -11,7 +12,11 @@ import {
 } from 'antd';
 import 'antd/es/modal/style';
 import 'antd/es/slider/style';
-import { createActApi, changeActApi, getNextAvailableActIDApi } from '@/Services/activity';
+import {
+  createActApi,
+  changeActApi,
+  getNextAvailableActIDApi,
+} from '@/Services/activity';
 import { useSelector, useDispatch } from 'react-redux';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
 import DatePicker from '../../components/DatePicker';
@@ -46,12 +51,12 @@ function CreateAct(props: any) {
   const dispatch = useDispatch();
   const getAct = async () => {
     if (!props.location.pathname.slice(25)) {
-      try{
-      initId = await getNextAvailableActIDApi();
-      }catch(e){
+      try {
+        initId = await getNextAvailableActIDApi();
+      } catch (e) {
         initId = -1;
       }
-      console.log(initId)
+      console.log(initId);
     } else {
       console.log(props);
       setState({ imageUrl: act?.src, loading: false });
@@ -62,11 +67,10 @@ function CreateAct(props: any) {
     getAct();
   }, []);
   let act = {}; //只用做初始化，可以用let就行
-  act = useSelector(store => store.actDetail); //存储有、无活动内容 刷新后store就又没了。。。
+  act = useSelector((store: RootState) => store.actDetail); //存储有、无活动内容 刷新后store就又没了。。。
   if (!props.location.pathname.slice(25)) {
     act = {}; //不要在条件循环里面调用hook，不然可能会顺序错误
     cardTitle = '创建活动';
-    
   }
   const changeTimeFormat = (time: string) => {
     //我啪的一下把格式转成后端的格式，很快啊

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Card, Table, Button, Popconfirm, Space, Popover } from 'antd';
-
+import { RootState } from '@/store';
 import {
   UserSwitchOutlined,
   EditOutlined,
@@ -13,8 +13,8 @@ import { detailApi, userVolSignUpApi } from '@/Services/activity';
 // 活动列表
 
 function ListAct(props: any) {
-  const dataSource = useSelector(store => store.act);
-  const currentParticipant = useSelector((store: any) => store.actParticipants);
+  const dataSource = useSelector((store: RootState) => store.act);
+  //const currentParticipant = useSelector((store: RootState) => store.actParticipants);
   const dispatch = useDispatch();
   const getAct = (page: number = 0) => {
     dispatch(initList('all', page, 20));
