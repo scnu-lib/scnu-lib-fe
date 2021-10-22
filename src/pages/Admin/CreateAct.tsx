@@ -66,8 +66,8 @@ function CreateAct(props: any) {
   useEffect(() => {
     getAct();
   }, []);
-  let act = {}; //只用做初始化，可以用let就行
-  act = useSelector((store: RootState) => store.actDetail); //存储有、无活动内容 刷新后store就又没了。。。
+  //只用做初始化，可以用let就行
+  let act = useSelector((store: RootState) => store.actDetail); //存储有、无活动内容 刷新后store就又没了。。。
   if (!props.location.pathname.slice(25)) {
     act = {}; //不要在条件循环里面调用hook，不然可能会顺序错误
     cardTitle = '创建活动';
@@ -161,7 +161,7 @@ function CreateAct(props: any) {
     }
   };
   const [volCheckBox, setVolCheckBox] = useState(false);
-  const handleVolCheckBoxChange = (e: object) => {
+  const handleVolCheckBoxChange = (e: { target: any }) => {
     setVolCheckBox(e.target.checked); //设置志愿者开启的状态
   };
   const [state, setState] = useState({ imageUrl: '', loading: false });

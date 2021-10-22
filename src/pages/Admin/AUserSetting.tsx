@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { RootState } from '@/store';
 import { Form, Input, Button, Select, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { initSetting, changeSetting } from '@/reducers/userSettingReducer';
@@ -15,21 +16,23 @@ const tailLayout = {
 };
 
 function AUserSetting(props: any) {
-  const userSetting = useSelector(store => store.userSetting);
+  const userSetting = useSelector((store: RootState) => store.userSetting);
   const dispatch = useDispatch();
-  useEffect(() => {//防止刷新丢失数据
-    getSettingApi(props.match.params.id).then(res=>{
-      dispatch(initSetting(res.data));
-      console.log(res.data)
-    }).catch(err=>{
-      message.error('Oops!发生了未知的错误');
-    })
-    
-  }, [])
+  useEffect(() => {
+    //防止刷新丢失数据
+    getSettingApi(props.match.params.id)
+      .then(res => {
+        dispatch(initSetting(res.data));
+        console.log(res.data);
+      })
+      .catch(err => {
+        message.error('Oops!发生了未知的错误');
+      });
+  }, []);
   const changeUserSetting = (newSetting: object) => {
     // 修改用户信息
     const handlyNewSetting = {
-      detail:{}
+      detail: {},
       //处理表单传来的数据
     };
 
@@ -41,7 +44,7 @@ function AUserSetting(props: any) {
         //password不理，在后面处理
         if (set === 'name' || set === 'college' || set === 'studentId') {
           //name在后端的属性不一样，独立拿出来处理。
-          handlyNewSetting.detail[set] = newSetting[set] ;
+          handlyNewSetting.detail[set] = newSetting[set];
         } else {
           handlyNewSetting[set] = newSetting[set];
         }
@@ -58,17 +61,16 @@ function AUserSetting(props: any) {
       handlyNewSetting.currentPassword = '';
     }
     console.log(handlyNewSetting);
-    changeSettingApi(newSetting.id, handlyNewSetting).then(res=>{
-      message.success('修改成功');
-    }).catch (err => {
-      message.error('Oops!发生了未知的错误，请联系程序猿');
-    })
-   
-     
+    changeSettingApi(newSetting.id, handlyNewSetting)
+      .then(res => {
+        message.success('修改成功');
+      })
+      .catch(err => {
+        message.error('Oops!发生了未知的错误，请联系程序猿');
+      });
   };
   const onFinish = (values: object) => {
     changeUserSetting(values);
-    
   };
   interface FieldData {
     //直接在antd上抄，把form的数据向上传递给usestate，为了实现带初始化数据的表单。
@@ -79,15 +81,15 @@ function AUserSetting(props: any) {
     errors: string[];
   }
 
-  
   const CustomizedForm = () => {
     return (
-      <Form
-        name="global_state"
-        {...layout}
-        onFinish={onFinish}
-      >
-        <Form.Item name="id" label="id" rules={[{ required: true }]} initialValue={userSetting?.id}>
+      <Form name="global_state" {...layout} onFinish={onFinish}>
+        <Form.Item
+          name="id"
+          label="id"
+          rules={[{ required: true }]}
+          initialValue={userSetting?.id}
+        >
           <Input disabled />
         </Form.Item>
         <Form.Item
@@ -137,7 +139,6 @@ function AUserSetting(props: any) {
         <Form.Item
           name="password"
           label="新密码"
-
           rules={[
             {
               min: 6,
@@ -161,11 +162,7 @@ function AUserSetting(props: any) {
     );
   };
   const UserSettingForm = () => {
-    return (
-        <CustomizedForm
-        />
-
-    );
+    return <CustomizedForm />;
   };
 
   return (
