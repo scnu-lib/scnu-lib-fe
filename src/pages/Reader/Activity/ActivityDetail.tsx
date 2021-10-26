@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, message, Modal, Popover } from 'antd';
 import Labels from '../../../components/Labels';
+import { RootState } from '@/store';
 import { actSignUpApi, userVolSignUpApi } from '@/Services/activity';
 import './ActivityDetail.css';
 import { getUserID, isLogined } from '@/Utils/auth';
@@ -18,8 +19,8 @@ function ActivityDetail(props: any) {
 
   const [loading, setLoading] = useState([false, false]); //两个按钮，因为是异步操作，所以设置其loading状态，用usestate管理状态
   const dispatch = useDispatch(); // 更新已报名活动的状态
-  const acts = useSelector(store => store.act); // 下面报名成功后只有id，通过id查找活动详情放到已报名活动中
-  const regActs = useSelector(store => store.regAct);
+  const acts = useSelector((store: RootState) => store.act); // 下面报名成功后只有id，通过id查找活动详情放到已报名活动中
+  const regActs = useSelector((store: RootState) => store.regAct);
   useEffect(() => {
     //console.log(regActs,props.modalDetail?.id)
     if (regActs.find(a => a === props.modalDetail?.id)) {
