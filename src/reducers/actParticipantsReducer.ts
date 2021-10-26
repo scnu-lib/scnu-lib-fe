@@ -4,7 +4,7 @@ import {
   getVolApi,
   signVolApi,
   userVolSignUpApi,
-  volSignUpApi,
+  //volSignUpApi,
 } from '@/Services/activity';
 import { listActParticipantsApi, listActVolAppliesApi } from '@/Services/admin';
 import { getNotifyApi, getSettingApi } from '@/Services/auth';

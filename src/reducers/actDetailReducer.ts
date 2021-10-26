@@ -18,7 +18,10 @@ const initState = {
   src: '',
   labels: [''],
 };
-const actDetailReducer = (state: any = initState, action: object) => {
+const actDetailReducer = (
+  state: any = initState,
+  action: { type: string; data: any },
+) => {
   switch (action.type) {
     case 'INIT_ACTIVITY':
       return action.data;
@@ -29,11 +32,11 @@ const actDetailReducer = (state: any = initState, action: object) => {
   }
 };
 
-export const initActDetail = (data) => {
-        return {
-        type: 'INIT_ACTIVITY',
-        data,
-      }
+export const initActDetail = data => {
+  return {
+    type: 'INIT_ACTIVITY',
+    data,
+  };
 };
 
 export default actDetailReducer;
