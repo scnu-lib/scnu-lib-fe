@@ -7,7 +7,7 @@ import { setToken, setUserID, setRole, getUserID } from '../../Utils/auth';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
 //登录页面
 function SignIn(props: any) {
-  const onFinish = async (values: object) => {
+  const onFinish = async (values: { username: string; password: string }) => {
     const user = {
       username: values.username,
       password: values.password,

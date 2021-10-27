@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react';
-import { Card, Table, Button, Popconfirm, Tag, Space, message, Popover } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-
 import {
-  SmileOutlined,
-  CheckCircleOutlined
-} from '@ant-design/icons';
+  Card,
+  Table,
+  Button,
+  Popconfirm,
+  Tag,
+  Space,
+  message,
+  Popover,
+} from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store';
+import { SmileOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import {
   cleanParticipants,
   delVol,
@@ -38,14 +44,14 @@ function ActParticipants(props: any) {
     // 志愿者删除
     dispatch(delVol(props.match.params.id, record.id));
   };
-  const dataSource = useSelector(store => store.actParticipants);
+  const dataSource = useSelector((store: RootState) => store.actParticipants);
   const dispatch = useDispatch();
   const getParticipants = (
     activityID: number,
     pages: number = 0,
     size: number = 20,
   ) => {
-    dispatch(cleanParticipants());//先清理防止重复请求
+    dispatch(cleanParticipants()); //先清理防止重复请求
     dispatch(initParticipants(activityID, pages, size));
   };
   useEffect(() => {
@@ -53,7 +59,7 @@ function ActParticipants(props: any) {
     console.log(dataSource);
   }, []);
 
-  const columns = [
+  const columns: object[] = [
     {
       title: '名称',
       dataIndex: 'name',
@@ -142,13 +148,13 @@ function ActParticipants(props: any) {
                 审核中
               </Tag>
             );
-            case volunteerApplicationState.pending:
-              color = 'volcano';
-              return (
-                <Tag color={color} key={`${txt}未报名`}>
-                  未报名
-                </Tag>
-              );
+          case volunteerApplicationState.pending:
+            color = 'volcano';
+            return (
+              <Tag color={color} key={`${txt}未报名`}>
+                未报名
+              </Tag>
+            );
           default:
             return;
         }
@@ -159,17 +165,14 @@ function ActParticipants(props: any) {
       dataIndex: 'connection',
       key: 'connnection',
       responsive: ['md'],
-    }
-    ,
+    },
     {
       title: '签到',
       key: 'signaction',
       render: (txt: any, record: any, index: any) => {
         return (
           <Popover content={<div>确认签到</div>}>
-
-          <CheckCircleOutlined onClick={() => handleSignUp(record)}  />
-
+            <CheckCircleOutlined onClick={() => handleSignUp(record)} />
           </Popover>
         );
       },
@@ -180,55 +183,66 @@ function ActParticipants(props: any) {
       render: (txt: any, record: any, index: any) => {
         switch (record.state) {
           case volunteerApplicationState.pending:
-            return ( <Popover content={<div>登记为志愿者</div>}>
-              <SmileOutlined   onClick={() => {
-                  handleVolSignUp(record);
-                }}/>
+            return (
+              <Popover content={<div>登记为志愿者</div>}>
+                <SmileOutlined
+                  onClick={() => {
+                    handleVolSignUp(record);
+                  }}
+                />
               </Popover>
-)
+            );
           case volunteerApplicationState.accepted:
             return (
               <Popover content={<div>取消志愿者</div>}>
-              <SmileOutlined  rotate={180} onClick={() => {
-                handleDelVol(record);
-              }}/>
+                <SmileOutlined
+                  rotate={180}
+                  onClick={() => {
+                    handleDelVol(record);
+                  }}
+                />
               </Popover>
             );
           case volunteerApplicationState.rejected:
             return (
               <Popover content={<div>通过申请</div>}>
-              <SmileOutlined   onClick={() => {
-                  handleVolSignUp(record);
-                }}/>
+                <SmileOutlined
+                  onClick={() => {
+                    handleVolSignUp(record);
+                  }}
+                />
               </Popover>
-
             );
           case volunteerApplicationState.applied:
             return (
               <>
-
-              <Popover content={<div>取消申请</div>}>
-              <SmileOutlined  rotate={180} onClick={() => {
-                handleDelVol(record);
-              }}/>
-              </Popover>{' '}
-              <Popover content={<div>拒绝申请</div>}>
-              <SmileOutlined  rotate={180} onClick={() => {
-                handleVolReject(record);
-              }}/>
-              </Popover>
-
+                <Popover content={<div>取消申请</div>}>
+                  <SmileOutlined
+                    rotate={180}
+                    onClick={() => {
+                      handleDelVol(record);
+                    }}
+                  />
+                </Popover>{' '}
+                <Popover content={<div>拒绝申请</div>}>
+                  <SmileOutlined
+                    rotate={180}
+                    onClick={() => {
+                      handleVolReject(record);
+                    }}
+                  />
+                </Popover>
               </>
             );
           default:
             return;
         }
       },
-    }
+    },
   ];
   return (
     <Card title="用户列表">
-      <Table columns={columns} dataSource={dataSource} size="small"/>
+      <Table columns={columns} dataSource={dataSource} size="small" />
     </Card>
   );
 }

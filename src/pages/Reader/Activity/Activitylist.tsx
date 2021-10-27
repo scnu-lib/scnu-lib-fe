@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, List, Affix, Drawer } from 'antd';
+import { RootState } from '@/store';
 import { MenuOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
@@ -18,12 +19,14 @@ const ActivityDetail = lazy(() => import('./ActivityDetail'));
 function ActivityList() {
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [modalDetail, setModalDetail] = useState({}); // 把活动详情做成一个小对话框，用state控制其打开和关闭
-  const actListShow = useSelector(store => store.actListShow);
+  const actListShow = useSelector((store: RootState) => store.actListShow);
   const showModal = (id: number) => {
     setModalDetail(listData.find(note => note.id === id));
     setIsDetailsVisible(true);
   }; // 这几个都是相应的控制活动的函数
-  const clientWidth = useSelector(store => store.globalConfig.clientWidth);
+  const clientWidth = useSelector(
+    (store: RootState) => store.globalConfig.clientWidth,
+  );
   const handleOk = () => {
     setIsDetailsVisible(false);
   };
@@ -31,8 +34,8 @@ function ActivityList() {
   const handleCancel = () => {
     setIsDetailsVisible(false);
   };
-  const listData = useSelector(state => state.act);
-  const regData = useSelector(state => state.regAct);
+  const listData = useSelector((state: RootState) => state.act);
+  const regData = useSelector((state: RootState) => state.regAct);
   //将regAc数据格式从数字数组转换为可接受的数据
   function filterReg() {
     let regTmp: object[] = [];

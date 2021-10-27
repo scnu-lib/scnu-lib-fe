@@ -1,6 +1,7 @@
 import React from 'react';
 import { Popover, Affix, Menu } from 'antd';
 import { isLogined } from '@/Utils/auth';
+import { RootState } from '@/store';
 import { registeredState } from '@/reducers/actListShowReducer';
 import { actLabel } from '@/Utils/config';
 import { changeLabel, changeRegistered } from '@/reducers/actListShowReducer';
@@ -9,13 +10,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 export const ActSortRadio = (props: {
   listData: object[];
-  regData: number[];
+  regData: (number | [])[];
 }) => {
   //列表分类控制组件
   console.log(props.regData);
   const dispatch = useDispatch();
-  const actListShow = useSelector(store => store.actListShow);
-  const labelGroupOnClick = (e: object) => {
+  const actListShow = useSelector((store: RootState) => store.actListShow);
+  const labelGroupOnClick = (e: { key: string }) => {
     // 改变label
     console.log(`radio checked:${e.key}`);
     dispatch(changeLabel(e.key));
