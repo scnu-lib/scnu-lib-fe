@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { message, Space } from 'antd';
 import './Activity.less';
+import { RootState } from '@/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
 import { lazy, Suspense } from 'react';
@@ -8,6 +9,7 @@ import EmptyState from '../../../components/EmptyState';
 import Loading from '../../../components/Loading';
 import { initActDetail } from '../../../reducers/actDetailReducer';
 import { detailApi } from '../../../Services/activity';
+import { RouterOptions } from '_@umijs_deps@3.5.15@@umijs/deps/compiled/express';
 
 const ActivityDetail = lazy(() => import('./ActivityDetail')); //lazyload详情页面，保证首屏的速率
 const RecentAct = lazy(() => import('../../../components/RecentAct'));
@@ -16,7 +18,7 @@ const RecentAct = lazy(() => import('../../../components/RecentAct'));
 function Activity(props: any) {
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   //const [modalDetail, setModalDetail] = useState({}); //把活动详情做成一个小对话框，用state控制其打开和关闭
-  const modalDetail = useSelector(store => store.actDetail);
+  const modalDetail = useSelector((store: RootState) => store.actDetail);
   const showModal = (id: number) => {
     // dispatch(initActDetail(id)) 这里需要确保dispatch之后再setISdetail,用await不行，需要解耦合把action改成同步的。
     detailApi(id)
@@ -37,7 +39,7 @@ function Activity(props: any) {
   const handleCancel = () => {
     setIsDetailsVisible(false);
   };
-  const recent = useSelector(state => state.act);
+  const recent = useSelector((state: RootState) => state.act);
   const dispatch = useDispatch();
   const getRecentAct = () => {
     //把最近的活动拿到，暂时通过标签确定最近
