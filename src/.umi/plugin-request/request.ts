@@ -1,6 +1,6 @@
 // @ts-nocheck
 /**
- * Base on https://github.com/umijs/A:/react/scnu-lib-fe/node_modules/_umi-request@1.3.9@umi-request
+ * Base on https://github.com/umijs/F:/scnu-lib/scnu-lib-fe/node_modules/umi-request
  */
 import {
   extend,
@@ -13,7 +13,7 @@ import {
   RequestResponse,
   RequestInterceptor,
   ResponseInterceptor,
-} from 'A:/react/scnu-lib-fe/node_modules/_umi-request@1.3.9@umi-request';
+} from 'F:/scnu-lib/scnu-lib-fe/node_modules/umi-request';
 // @ts-ignore
 
 import { ApplyPluginsType } from 'umi';
@@ -22,7 +22,7 @@ import { history, plugin } from '../core/umiExports';
 // decoupling with antd UI library, you can using `alias` modify the ui methods
 // @ts-ignore
 import { message, notification } from '@umijs/plugin-request/lib/ui';
-import useUmiRequest, { UseRequestProvider } from 'A:/react/scnu-lib-fe/node_modules/_@ahooksjs_use-request@2.8.10@@ahooksjs/use-request';
+import useUmiRequest, { UseRequestProvider } from 'F:/scnu-lib/scnu-lib-fe/node_modules/@ahooksjs/use-request';
 import {
   BaseOptions,
   BasePaginatedOptions,
@@ -38,7 +38,7 @@ import {
   PaginatedOptionsWithFormat,
   PaginatedParams,
   PaginatedResult,
-} from 'A:/react/scnu-lib-fe/node_modules/_@ahooksjs_use-request@2.8.10@@ahooksjs/use-request/lib/types';
+} from 'F:/scnu-lib/scnu-lib-fe/node_modules/@ahooksjs/use-request/lib/types';
 
 type ResultWithData<T = any> = { data?: T; [key: string]: any };
 

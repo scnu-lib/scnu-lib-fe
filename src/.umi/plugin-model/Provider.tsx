@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import initialState from 'A:/react/scnu-lib-fe/src/.umi/plugin-initial-state/models/initialState';
+import initialState from 'F:/scnu-lib/scnu-lib-fe/src/.umi/plugin-initial-state/models/initialState';
 
 // @ts-ignore
 import Dispatcher from './helpers/dispatcher';

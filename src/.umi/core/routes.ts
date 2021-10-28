@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import { ApplyPluginsType } from 'A:/react/scnu-lib-fe/node_modules/_@umijs_runtime@3.5.15@@umijs/runtime';
+import { ApplyPluginsType } from 'F:/scnu-lib/scnu-lib-fe/node_modules/@umijs/runtime';
 import * as umiExports from './umiExports';
 import { plugin } from './plugin';
 

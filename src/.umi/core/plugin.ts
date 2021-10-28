@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { Plugin } from 'A:/react/scnu-lib-fe/node_modules/_@umijs_runtime@3.5.15@@umijs/runtime';
+import { Plugin } from 'F:/scnu-lib/scnu-lib-fe/node_modules/@umijs/runtime';
 
 const plugin = new Plugin({
   validKeys: ['modifyClientRenderOpts','patchRoutes','rootContainer','render','onRouteChange','__mfsu','getInitialState','initialStateConfig','request',],
