@@ -7,5 +7,12 @@ type BannerProps = {
   subTitle?: string;
 };
 const Banner = (props: BannerProps) => {
-  return <div className={cn()}></div>;
+  return (
+    <div className={cn('bg')}>
+      <div className="contect-container"></div>
+      <div className="imgBg"></div>
+    </div>
+  );
 };
+
+export default Banner;
