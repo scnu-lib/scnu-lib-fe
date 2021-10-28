@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Carousel, message, Card, Space, Timeline, Tag, Modal } from 'antd';
-import { ClockCircleOutlined } from '@ant-design/icons';
-import { Link } from 'umi';
+import { message, Space } from 'antd';
 import './Activity.less';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
 import { lazy, Suspense } from 'react';
-import EmptyState from '@/components/EmptyState';
-import Loading from '@/components/Loading';
-import { initActDetail } from '@/reducers/actDetailReducer';
-import { initActReg } from '@/reducers/actRegisteredReducer';
-import { getUserID, isLogined } from '@/Utils/auth';
-import { detailApi } from '@/Services/activity';
+import EmptyState from '../../../components/EmptyState';
+import Loading from '../../../components/Loading';
+import { initActDetail } from '../../../reducers/actDetailReducer';
+import { detailApi } from '../../../Services/activity';
 
 const ActivityDetail = lazy(() => import('./ActivityDetail')); //lazyload详情页面，保证首屏的速率
 const RecentAct = lazy(() => import('../../../components/RecentAct'));

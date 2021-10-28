@@ -11,14 +11,18 @@ import {
 } from 'antd';
 import 'antd/es/modal/style';
 import 'antd/es/slider/style';
-import { createActApi, changeActApi, getNextAvailableActIDApi } from '@/Services/activity';
+import {
+  createActApi,
+  changeActApi,
+  getNextAvailableActIDApi,
+} from '../../Services/activity';
 import { useSelector, useDispatch } from 'react-redux';
-import PropertyRequiredError from '@/error/PropertyRequiredError';
+import PropertyRequiredError from '../../error/PropertyRequiredError';
 import DatePicker from '../../components/DatePicker';
 import format from 'dayjs';
-import { initList } from '@/reducers/actReducer';
-import { actLabel } from '@/Utils/config';
-import UpLoadPhoto from '@/components/UpLoadPhoto';
+import { initList } from '../../reducers/actReducer';
+import { actLabel } from '../../Utils/config';
+import UpLoadPhoto from '../../components/UpLoadPhoto';
 const { Option } = Mentions;
 const { RangePicker } = DatePicker;
 const layout = {
@@ -46,12 +50,12 @@ function CreateAct(props: any) {
   const dispatch = useDispatch();
   const getAct = async () => {
     if (!props.location.pathname.slice(25)) {
-      try{
-      initId = await getNextAvailableActIDApi();
-      }catch(e){
+      try {
+        initId = await getNextAvailableActIDApi();
+      } catch (e) {
         initId = -1;
       }
-      console.log(initId)
+      console.log(initId);
     } else {
       console.log(props);
       setState({ imageUrl: act?.src, loading: false });
@@ -66,7 +70,6 @@ function CreateAct(props: any) {
   if (!props.location.pathname.slice(25)) {
     act = {}; //不要在条件循环里面调用hook，不然可能会顺序错误
     cardTitle = '创建活动';
-    
   }
   const changeTimeFormat = (time: string) => {
     //我啪的一下把格式转成后端的格式，很快啊

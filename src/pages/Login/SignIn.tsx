@@ -3,8 +3,8 @@ import { Form, Input, Button, Checkbox, Card, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import './SignIn.css';
 import { loginApi } from '../../Services/auth';
-import { setToken, setUserID, setRole, getUserID } from '../../Utils/auth';
-import PropertyRequiredError from '@/error/PropertyRequiredError';
+import { setToken, setUserID, setRole } from '../../Utils/auth';
+import PropertyRequiredError from '../../error/PropertyRequiredError';
 
 //登录页面
 function SignIn(props: any) {

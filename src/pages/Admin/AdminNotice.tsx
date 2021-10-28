@@ -3,16 +3,18 @@ import { Form, Input, Button, message } from 'antd';
 import '../User/User.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeUserInfo, initUserInfo } from '../../reducers/userReducer';
-import { getNotifyApi } from '@/Services/auth';
+import { getNotifyApi } from '../../Services/auth';
 function AdminNotice(props: any) {
   const userInfo = useSelector(state => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
-    getNotifyApi(props.match.params.id).then(res=>{
-      dispatch(initUserInfo(res.data));
-    }).catch(err=>{
-      message.error('Oops!发生了未知的错误');
-    })
+    getNotifyApi(props.match.params.id)
+      .then(res => {
+        dispatch(initUserInfo(res.data));
+      })
+      .catch(err => {
+        message.error('Oops!发生了未知的错误');
+      });
   }, []);
   const changeNotify = (values: object) => {
     dispatch(

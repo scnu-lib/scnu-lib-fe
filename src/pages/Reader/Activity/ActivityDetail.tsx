@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button, message, Modal, Popover } from 'antd';
 import Labels from '../../../components/Labels';
-import { actSignUpApi, userVolSignUpApi } from '@/Services/activity';
+import { actSignUpApi, userVolSignUpApi } from '../../../Services/activity';
 import './ActivityDetail.css';
-import { getUserID, isLogined } from '@/Utils/auth';
+import { getUserID, isLogined } from '../../../Utils/auth';
 import { useSelector, useDispatch } from 'react-redux';
 import { volunteerApplicationState } from '@/Utils/config';
 import { addRegisteredAct } from '@/reducers/actRegisteredReducer';
@@ -11,6 +11,7 @@ import HandleDate from '@/components/HandleDate';
 import { getPhoto } from '@/photoStorage/photoStorage';
 import StepShow, { StepItem, StepShowProps } from '@/components/StepShow';
 import ShowMap from '@/components/ShowMap';
+
 //活动页
 function ActivityDetail(props: any) {
   //活动详情页，做成对话框形式，把所有活动信息列出来，加上报名志愿者和报名活动的按钮

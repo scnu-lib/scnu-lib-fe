@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, message } from 'antd';
+import React from 'react';
+import { Form, Input, Button } from 'antd';
 import './User.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeLoginInUserInfo } from '@/reducers/loginInUserInfoReducer';
-import { changeSettingApi } from '@/Services/auth';
-import UpLoadPhoto from '@/components/UpLoadPhoto';
+import { changeLoginInUserInfo } from '../../reducers/loginInUserInfoReducer';
+import { changeSettingApi } from '../../Services/auth';
+import UpLoadPhoto from '../../components/UpLoadPhoto';
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 16 },

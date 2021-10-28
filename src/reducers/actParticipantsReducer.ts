@@ -11,8 +11,7 @@ import { getNotifyApi, getSettingApi } from '@/Services/auth';
 import { role, volunteerApplicationState } from '@/Utils/config';
 import { message } from 'antd';
 
-const initState = [];
-const actParticipantsReducer = (state: any[] = initState, action: any) => {
+
   switch (action.type) {
     case 'INIT_PARTICIPANTS':
       return action.data;

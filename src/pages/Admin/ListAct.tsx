@@ -7,9 +7,9 @@ import {
   DeleteOutlined,
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { initList } from '@/reducers/actReducer';
-import { initActDetail } from '@/reducers/actDetailReducer';
-import { detailApi } from '@/Services/activity';
+import { initList } from '../../reducers/actReducer';
+import { initActDetail } from '../../reducers/actDetailReducer';
+import { detailApi } from '../../Services/activity';
 // 活动列表
 
 function ListAct(props: any) {
@@ -94,11 +94,15 @@ function ListAct(props: any) {
                 <EditOutlined
                   onClick={() => {
                     dispatch(initActDetail(txt.id));
-                    detailApi(txt.id).then(res=>{
-                      dispatch(initActDetail(res.data));
-                    }).then(res=>{
-                      props.history.push(`/home/adminAct/createact/${txt.id}`);
-                    })
+                    detailApi(txt.id)
+                      .then(res => {
+                        dispatch(initActDetail(res.data));
+                      })
+                      .then(res => {
+                        props.history.push(
+                          `/home/adminAct/createact/${txt.id}`,
+                        );
+                      });
                   }}
                 />
               </Popover>
