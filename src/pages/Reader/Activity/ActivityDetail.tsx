@@ -5,12 +5,13 @@ import { actSignUpApi, userVolSignUpApi } from '../../../Services/activity';
 import './ActivityDetail.css';
 import { getUserID, isLogined } from '../../../Utils/auth';
 import { useSelector, useDispatch } from 'react-redux';
-import { volunteerApplicationState } from '../../../Utils/config';
-import { addRegisteredAct } from '../../../reducers/actRegisteredReducer';
-import HandleDate from '../../../components/HandleDate';
-import { getPhoto } from './../../../photoStorage/photoStorage';
-import StepShow from '../../../components/StepShow';
-import ShowMap from '../../../components/ShowMap';
+import { volunteerApplicationState } from '@/Utils/config';
+import { addRegisteredAct } from '@/reducers/actRegisteredReducer';
+import HandleDate from '@/components/HandleDate';
+import { getPhoto } from '@/photoStorage/photoStorage';
+import StepShow, { StepItem, StepShowProps } from '@/components/StepShow';
+import ShowMap from '@/components/ShowMap';
+
 //活动页
 function ActivityDetail(props: any) {
   //活动详情页，做成对话框形式，把所有活动信息列出来，加上报名志愿者和报名活动的按钮
@@ -58,6 +59,7 @@ function ActivityDetail(props: any) {
     } catch (err) {
       setLoading([loading[0], false]);
       console.log(err);
+      message.error('申请失败');
     }
   };
   const [stepShowProps, setStepShowProps] = useState({
@@ -81,6 +83,7 @@ function ActivityDetail(props: any) {
   const handleVisibleChange = (visible: boolean) => {
     setSignUpVisible(visible);
   };
+
   return (
     <Modal
       className="actDetail-modal"

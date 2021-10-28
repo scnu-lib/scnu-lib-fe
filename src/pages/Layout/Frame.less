@@ -1,4 +1,14 @@
 @import '~antd/lib/style/themes/default.less';
+
+
+.header-none {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0) !important;
+  box-shadow: none !important;
+}
+
 .Hero.ant-layout-content {
   display: flex;
   flex-direction: column;
@@ -15,6 +25,10 @@
   border: none;
 }
 
+.ant-layout-content {
+  padding: 0px !important;
+}
+
 .LOGO {
   width: 50px;
   height: 40px;
@@ -22,9 +36,7 @@
   background-image: url('https://pages-1304363322.cos.ap-guangzhou.myqcloud.com/LOGO.png');
   background-size: 100% 100%;
 }
-.Hero-title {
-  color: @primary-7;
-}
+
 .Hero-href > a {
   color: #fff;
 }
@@ -48,13 +60,11 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  background: white;
 }
 .LOGO-Menu {
   display: flex;
   justify-content: left;
   width: 100%;
-  background: white;
 }
 
 .ant-dropdown-trigger {

@@ -21,8 +21,12 @@ import { getPhoto } from '../../photoStorage/photoStorage';
 const { Header, Content, Footer } = Layout;
 function Frame(props: any) {
   const dispatch = useDispatch();
-  const userInfo = useSelector(store => store.loginInUserSetting);
+  const userInfo = useSelector((store: any) => store.loginInUserSetting);
+  //条件渲染样式
+  let locPath: string = props.children.props.location.pathname;
+
   useEffect(() => {
+    console.log('children', props.children.props.location);
     if (isLogined()) {
       getSettingApi(getUserID())
         .then(res => {
@@ -105,7 +109,7 @@ function Frame(props: any) {
   };
   return (
     <Layout className="layout">
-      <Header className="navbg_selector">
+      <Header className={locPath === '/home/activity' ? 'header-none' : ''}>
         <div className="LOGO-Menu">
           <a
             className="LOGO"

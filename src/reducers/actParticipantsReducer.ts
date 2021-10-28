@@ -4,16 +4,14 @@ import {
   getVolApi,
   signVolApi,
   userVolSignUpApi,
-} from '../Services/activity';
-import {
-  listActParticipantsApi,
-  listActVolAppliesApi,
-} from '../Services/admin';
-import { getNotifyApi } from '../Services/auth';
-import { volunteerApplicationState } from '../Utils/config';
+  volSignUpApi,
+} from '@/Services/activity';
+import { listActParticipantsApi, listActVolAppliesApi } from '@/Services/admin';
+import { getNotifyApi, getSettingApi } from '@/Services/auth';
+import { role, volunteerApplicationState } from '@/Utils/config';
 import { message } from 'antd';
-const initState = [];
-const actParticipantsReducer = (state: any = initState, action: any) => {
+
+
   switch (action.type) {
     case 'INIT_PARTICIPANTS':
       return action.data;
@@ -49,6 +47,7 @@ const actParticipantsReducer = (state: any = initState, action: any) => {
       return state;
   }
 };
+
 export const rejectVol = (activityID: number, userID: number) => {
   return async dispatch => {
     try {
@@ -75,6 +74,7 @@ export const rejectVol = (activityID: number, userID: number) => {
     }
   };
 };
+
 export const signInVol = (activityID: number, userID: number) => {
   return async dispatch => {
     try {
@@ -97,6 +97,7 @@ export const signInVol = (activityID: number, userID: number) => {
     }
   };
 };
+
 export const delVol = (activityID: number, userID: number) => {
   return async dispatch => {
     try {
@@ -122,6 +123,7 @@ export const delVol = (activityID: number, userID: number) => {
     }
   };
 };
+
 export const initParticipants = (
   activityID: number,
   page: number,
@@ -186,10 +188,12 @@ export const initParticipants = (
     }
   };
 };
+
 export const cleanParticipants = () => {
   return {
     type: 'CLEAN_PARTICIPANTS',
     data: initState,
   };
 };
+
 export default actParticipantsReducer;

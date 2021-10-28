@@ -68,7 +68,7 @@ export const userVolSignUpApi = (
 ) => {
   const data = { state, reason };
   return put(
-    `${serverUrl}/activ ity/activities/${activityID}/volunteer-application/${userID}`,
+    `${serverUrl}/activity/activities/${activityID}/volunteer-application/${userID}`,
     data,
   );
 };
