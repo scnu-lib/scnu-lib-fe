@@ -158,9 +158,11 @@ function Frame(props: any) {
           <SignUp setModalState={setModalState} />
         )}
       </Modal>
-      <Footer style={{ textAlign: 'center' }}>
+      <Footer style={{ textAlign: 'center' }} className="footer-container">
         华师阅马开发小分队
-        <a>QQ群</a> - <a>关于</a> - <a>联系我们</a>
+        <div className="footer">
+          <a>QQ群</a> - <a>关于</a> - <a>联系我们</a>
+        </div>
       </Footer>
     </Layout>
   );
