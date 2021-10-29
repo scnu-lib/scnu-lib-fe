@@ -67,10 +67,10 @@ function Activity(props: any) {
             <span
               style={{
                 margin: '22px',
-                fontSize: '24px',
+                fontSize: '32px',
                 fontWeight: 2000,
                 textAlign: 'center',
-                color: '#5c6b77',
+                color: '#5c64a4',
                 textTransform: 'capitalize',
               }}
             >
