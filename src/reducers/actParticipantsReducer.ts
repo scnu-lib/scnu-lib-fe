@@ -4,13 +4,16 @@ import {
   getVolApi,
   signVolApi,
   userVolSignUpApi,
-  volSignUpApi,
+  //volSignUpApi,
 } from '@/Services/activity';
 import { listActParticipantsApi, listActVolAppliesApi } from '@/Services/admin';
 import { getNotifyApi, getSettingApi } from '@/Services/auth';
 import { role, volunteerApplicationState } from '@/Utils/config';
 import { message } from 'antd';
 
+
+const initState = [];
+const actParticipantsReducer = (state: any[] = initState, action: any) => {
 
   switch (action.type) {
     case 'INIT_PARTICIPANTS':

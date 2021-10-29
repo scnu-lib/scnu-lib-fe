@@ -44,7 +44,7 @@ export const changeLoginInUserInfo = (
         type: 'CHANGE_USERINFO',
         data: { /*...res.data,*/ ...setRes.data },
       });
-      message.success('保存成功！');
+      // message.success('保存成功！');
     } catch (err) {
       if (err instanceof PropertyRequiredError) {
         message.error('后台数据错误！');

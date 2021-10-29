@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { history, Link } from 'umi';
-import { Layout, Menu, Button, Dropdown, Avatar, message } from 'antd';
+import { Layout, Menu, Button, Dropdown, Avatar, message, Modal } from 'antd';
 import { activityRoutes } from '../../Routes/routes';
 import {
   isLogined,
@@ -9,18 +9,30 @@ import {
   clearRole,
   getUserID,
 } from '../../Utils/auth';
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined, UserOutlined } from '@ant-design/icons';
 import './Frame.less';
-import { changeClient } from '../../reducers/globalConfigReducer';
+import { changeClient } from '@/reducers/globalConfigReducer';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNotifyApi, getSettingApi } from '../../Services/auth';
-import { cleanUserInfo, initUserInfo } from '../../reducers/userReducer';
-import { initLoginInUserSetting } from '../../reducers/loginInUserSetting';
-import { getPhoto } from '../../photoStorage/photoStorage';
-
+import { getNotifyApi, getSettingApi } from '@/Services/auth';
+import { cleanUserInfo, initUserInfo } from '@/reducers/userReducer';
+import { initLoginInUserSetting } from '@/reducers/loginInUserSetting';
+import { getPhoto } from '@/photoStorage/photoStorage';
+import SignIn from '../Login/SignIn';
+import SignUp from '../Login/SignUp';
 const { Header, Content, Footer } = Layout;
 function Frame(props: any) {
   const dispatch = useDispatch();
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [modalState, setModalState] = useState('登录'); // 根据状态显示注册、登录页面
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleModalCancel = () => {
+    setIsModalVisible(false);
+    setModalState('登录'); // 回到登录状态
+  };
   const userInfo = useSelector((store: any) => store.loginInUserSetting);
   //条件渲染样式
   let locPath: string = props.children.props.location.pathname;
@@ -86,6 +98,7 @@ function Frame(props: any) {
         <Dropdown overlay={menu}>
           <label>
             <Avatar
+              icon={<UserOutlined />}
               src={`${getPhoto(
                 `avatarPhoto${userInfo?.id}`,
               )}?dummy=${new Date().getTime()}`}
@@ -97,12 +110,7 @@ function Frame(props: any) {
       );
     }
     return (
-      <Button
-        type="text"
-        onClick={() => {
-          history.push('/login');
-        }}
-      >
+      <Button type="text" onClick={showModal}>
         注册 | 登录
       </Button>
     );
@@ -137,11 +145,22 @@ function Frame(props: any) {
       <Content className="layout-content">
         <div className="site-layout-content">{props.children}</div>
       </Content>
-      <Footer className="footer-bg" style={{ textAlign: 'center' }}>
+      <Modal
+        style={{ maxWidth: '400px', textAlign: 'center' }}
+        title={modalState}
+        visible={isModalVisible}
+        footer={false}
+        onCancel={handleModalCancel}
+      >
+        {modalState === '登录' ? (
+          <SignIn setModalState={setModalState} />
+        ) : (
+          <SignUp setModalState={setModalState} />
+        )}
+      </Modal>
+      <Footer style={{ textAlign: 'center' }}>
         华师阅马开发小分队
-        <div className="Hero-href">
-          <a>QQ群</a> - <a>关于</a> - <a>联系我们</a>
-        </div>
+        <a>QQ群</a> - <a>关于</a> - <a>联系我们</a>
       </Footer>
     </Layout>
   );

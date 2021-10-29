@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { RootState } from '@/store';
 import { Form, Input, Button, Select, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { initSetting } from '../../reducers/userSettingReducer';
-import { changeSettingApi, getSettingApi } from '../../Services/auth';
-
+import { initSetting, changeSetting } from '@/reducers/userSettingReducer';
+import { listUserApi } from '@/Services/admin';
+import { changeSettingApi, getSettingApi } from '@/Services/auth';
+import PropertyRequiredError from '@/error/PropertyRequiredError';
 const { Option } = Select;
 const layout = {
   labelCol: { span: 8 },
@@ -14,7 +16,7 @@ const tailLayout = {
 };
 
 function AUserSetting(props: any) {
-  const userSetting = useSelector(store => store.userSetting);
+  const userSetting = useSelector((store: RootState) => store.userSetting);
   const dispatch = useDispatch();
   useEffect(() => {
     //防止刷新丢失数据

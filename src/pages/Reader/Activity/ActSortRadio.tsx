@@ -1,25 +1,28 @@
 import React from 'react';
 import { Popover, Affix, Menu } from 'antd';
-import { isLogined } from '../../../Utils/auth';
-import { registeredState } from '../../../reducers/actListShowReducer';
-import { actLabel } from '../../../Utils/config';
-import {
-  changeLabel,
-  changeRegistered,
-} from '../../../reducers/actListShowReducer';
-import { addRegisteredAct } from '../../../reducers/actRegisteredReducer';
+import { isLogined } from '@/Utils/auth';
+import { RootState } from '@/store';
+import { registeredState } from '@/reducers/actListShowReducer';
+import { actLabel } from '@/Utils/config';
+import { changeLabel, changeRegistered } from '@/reducers/actListShowReducer';
+import { addRegisteredAct } from '@/reducers/actRegisteredReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
-export const ActSortRadio = (props: object) => {
+
+export const ActSortRadio = (props: {
+  listData: object[];
+  regData: (number | [])[];
+}) => {
   //列表分类控制组件
+  console.log(props.regData);
   const dispatch = useDispatch();
-  const actListShow = useSelector(store => store.actListShow);
-  const labelGroupOnClick = (e: object) => {
+  const actListShow = useSelector((store: RootState) => store.actListShow);
+  const labelGroupOnClick = (e: { key: string }) => {
     // 改变label
     console.log(`radio checked:${e.key}`);
     dispatch(changeLabel(e.key));
   };
-  const showRegisteredGroupOnClick = (e: object) => {
+  const showRegisteredGroupOnClick = (e: any) => {
     // 只显示已报名活动
     dispatch(changeRegistered(e.key));
     if (e.key === registeredState.registeredOnly && !props.regData.length)

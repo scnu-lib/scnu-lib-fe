@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react';
-import { Card, Table, Popover, Tag, Space, message } from 'antd';
+import { Card, Table, Button, Popover, Tag, Space, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { cleanUser, initUserList } from '../../reducers/usermReducer';
+import { RootState } from '@/store';
+import { initList } from '@/reducers/actReducer';
+import { cleanUser, initUserList } from '@/reducers/usermReducer';
 import { EditOutlined, CommentOutlined } from '@ant-design/icons';
-import { initSetting } from '../../reducers/userSettingReducer';
-import { getNotifyApi, getSettingApi } from '../../Services/auth';
-import { cleanUserInfo, initUserInfo } from '../../reducers/userReducer';
+import { initSetting } from '@/reducers/userSettingReducer';
+import { getNotifyApi, getSettingApi } from '@/Services/auth';
+import { cleanUserInfo, initUserInfo } from '@/reducers/userReducer';
+import { getUserID } from '@/Utils/auth';
 function User(props: any) {
-  const dataSource = useSelector(store => store.userList);
+  const dataSource = useSelector((store: RootState) => store.userList);
   const dispatch = useDispatch();
   const getList = (size: number) => {
     dispatch(cleanUser());
@@ -20,7 +23,7 @@ function User(props: any) {
   useEffect(() => {
     getList(999);
   }, []);
-  const columns = [
+  const columns: object[] = [
     {
       title: '名称',
       dataIndex: 'name',

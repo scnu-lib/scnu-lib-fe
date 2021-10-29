@@ -10,7 +10,7 @@ import {
   Popover,
 } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { RootState } from '@/store';
 import { SmileOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import {
   cleanParticipants,
@@ -18,9 +18,9 @@ import {
   initParticipants,
   rejectVol,
   signInVol,
-} from '../../../reducers/actParticipantsReducer';
-import { actSignInApi } from '../../../Services/activity';
-import { volunteerApplicationState } from '../../../Utils/Config';
+} from '@/Reducers/ActParticipantsReducer';
+import { actSignInApi } from '@/Services/Activity';
+import { volunteerApplicationState } from '@/Utils/Config';
 function ActParticipants(props: any) {
   const handleSignUp = async (record: object) => {
     // 确认签到
@@ -44,7 +44,7 @@ function ActParticipants(props: any) {
     // 志愿者删除
     dispatch(delVol(props.match.params.id, record.id));
   };
-  const dataSource = useSelector(store => store.actParticipants);
+  const dataSource = useSelector((store: RootState) => store.actParticipants);
   const dispatch = useDispatch();
   const getParticipants = (
     activityID: number,
@@ -59,7 +59,7 @@ function ActParticipants(props: any) {
     console.log(dataSource);
   }, []);
 
-  const columns = [
+  const columns: object[] = [
     {
       title: '名称',
       dataIndex: 'name',

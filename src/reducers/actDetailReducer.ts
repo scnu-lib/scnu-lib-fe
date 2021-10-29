@@ -1,3 +1,9 @@
+import PropertyRequiredError, {
+  checkActProperty,
+} from '@/error/PropertyRequiredError';
+import { detailApi } from '@/Services/activity';
+import { message } from 'antd';
+
 const initState = {
   id: 0,
   title: '',
@@ -12,7 +18,10 @@ const initState = {
   src: '',
   labels: [''],
 };
-const actDetailReducer = (state: any = initState, action: object) => {
+const actDetailReducer = (
+  state: any = initState,
+  action: { type: string; data: any },
+) => {
   switch (action.type) {
     case 'INIT_ACTIVITY':
       return action.data;

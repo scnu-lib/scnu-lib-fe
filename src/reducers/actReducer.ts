@@ -1,13 +1,13 @@
 import PropertyRequiredError, {
   checkActProperty,
 } from '@/error/PropertyRequiredError';
-import { listActApi } from '../Services/activity';
-import { getUserID, isLogined } from '../Utils/auth';
+import { listActApi } from '@/Services/activity';
+import { getUserID, isLogined } from '@/Utils/auth';
 import { message } from 'antd';
 import { initActReg } from './actRegisteredReducer';
 // 活动的reducer，功能有初始化（与后端通信）
 const initState = [];
-const actReducer = (state = initState, action: object) => {
+const actReducer = (state = initState, action: { type: string; data: any }) => {
   switch (action.type) {
     case 'INIT':
       return [...action.data];

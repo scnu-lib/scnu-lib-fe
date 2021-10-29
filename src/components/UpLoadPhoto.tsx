@@ -4,10 +4,18 @@ import ImgCrop from 'antd-img-crop';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import * as photoStorage from '../photoStorage/photoStorage';
 const UpLoadPhoto = (props: object) => {
-  const [state, setState] = useState({ key: '-1', loading: false });
+  const [state, setState] = useState({
+    key: '-1',
+    loading: false,
+    isNull: false,
+  });
   useEffect(() => {
     console.log(props);
-    setState({ key: props.photoKey, loading: false });
+    setState({
+      key: props.photoKey,
+      loading: false,
+      isNull: props.photoKey === undefined ? true : false,
+    });
   }, []);
   const uploadButton = (
     <div>
@@ -17,7 +25,7 @@ const UpLoadPhoto = (props: object) => {
   );
 
   function beforeUpload(file: object) {
-    const isPhoto = file.type.match(/^image/); //匹配image开头的文件
+    const isPhoto = file.type.match(/^image/); // 匹配image开头的文件
     if (!isPhoto) {
       message.error('目前只能上传图片');
     }
@@ -38,7 +46,7 @@ const UpLoadPhoto = (props: object) => {
     }
   };
   const handleUpLoad = ({ file }) => {
-    setState({ key: state.key, loading: true });
+    setState({ ...state, loading: true });
     console.log(file);
     new Promise((resolve, reject) => {
       photoStorage.postPhoto(file, state.key, resolve, reject);
@@ -49,12 +57,12 @@ const UpLoadPhoto = (props: object) => {
           img.setAttribute(
             'src',
             `${photoStorage.getPhoto(state.key)}?dummy=${new Date().getTime()}`,
-          ); //to disable browser cache use a unrepeatable query params to renew the src            setState({key:state.key,loading:false})
-        setState({ key: state.key, loading: false });
+          ); // to disable browser cache use a unrepeatable query params to renew the src            setState({key:state.key,loading:false})
+        setState({ ...state, loading: false, isNull: false });
         message.success('成功上传图片');
       })
       .catch(err => {
-        setState({ key: state.key, loading: false });
+        setState({ ...state, loading: false, isNull: true });
         message.error('上传失败，请重试');
       });
   };
@@ -69,7 +77,7 @@ const UpLoadPhoto = (props: object) => {
         onChange={handleChange}
         customRequest={handleUpLoad}
       >
-        {state.key && !state.loading ? (
+        {!state.isNull && state.key && !state.loading ? (
           <div id="outSideUpLoadImg">
             <img
               id="upLoadImg"
@@ -77,7 +85,7 @@ const UpLoadPhoto = (props: object) => {
               src={`${photoStorage.getPhoto(
                 state.key,
               )}?dummy=${new Date().getTime()}`}
-              alt={`请上传图片`}
+              onError={(ev: any) => setState({ ...state, isNull: true })}
             />
           </div>
         ) : (
