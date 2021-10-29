@@ -8,7 +8,7 @@ import { changeSettingApi, getSettingApi } from '@/Services/auth';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
 const { Option } = Select;
 const layout = {
-  labelCol: { span: 8 },
+  labelCol: { span: 3 },
   wrapperCol: { span: 16 },
 };
 const tailLayout = {
@@ -166,9 +166,9 @@ function AUserSetting(props: any) {
   };
 
   return (
-    <>
+    <div style={{ margin: '10px' }}>
       <UserSettingForm />
-    </>
+    </div>
   );
 }
 
