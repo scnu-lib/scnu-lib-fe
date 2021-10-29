@@ -8,6 +8,7 @@ import { changeLabel, changeRegistered } from '@/reducers/actListShowReducer';
 import { addRegisteredAct } from '@/reducers/actRegisteredReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
+
 export const ActSortRadio = (props: {
   listData: object[];
   regData: (number | [])[];

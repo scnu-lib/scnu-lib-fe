@@ -33,7 +33,6 @@ function Frame(props: any) {
     setIsModalVisible(false);
     setModalState('登录'); // 回到登录状态
   };
-
   const userInfo = useSelector((store: any) => store.loginInUserSetting);
   //条件渲染样式
   let locPath: string = props.children.props.location.pathname;

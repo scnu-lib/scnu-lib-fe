@@ -12,7 +12,7 @@ import HandleDate from '@/components/HandleDate';
 import { getPhoto } from '@/photoStorage/photoStorage';
 import StepShow, { StepItem, StepShowProps } from '@/components/StepShow';
 import ShowMap from '@/components/ShowMap';
-//活动页
+
 function ActivityDetail(props: any) {
   //活动详情页，做成对话框形式，把所有活动信息列出来，加上报名志愿者和报名活动的按钮
   const [isSigned, setIsSigned] = useState(false);
