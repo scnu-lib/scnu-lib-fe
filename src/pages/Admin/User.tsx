@@ -114,7 +114,7 @@ function User(props: any) {
   ];
 
   return (
-    <Card title="用户列表">
+    <Card title="用户列表" style={{ margin: '0 10px' }}>
       <Table columns={columns} dataSource={dataSource} />
     </Card>
   );
