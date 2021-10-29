@@ -1,8 +1,9 @@
 import React from 'react';
-import { Card, Form, Input, Select, Checkbox, Button, message } from 'antd';
+import { Card, Form, Input, Select, Checkbox, Button, message,Cascader } from 'antd';
 import { getNextAvailableIDApi, loginApi, signUpApi } from '@/Services/auth';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
 import { setRole, setToken, setUserID } from '@/Utils/auth';
+import { collegeList } from './collegeList';
 //注册页面
 const { Option } = Select;
 function SignUp(props: any) {
@@ -14,7 +15,7 @@ function SignUp(props: any) {
       password: values.password,
       detail: {
         name: values.nickname,
-        college: values.college,
+        college: values.college.join('/'),
         studentId: values.studentId,
       },
     };
@@ -35,6 +36,12 @@ function SignUp(props: any) {
       }
     }
   };
+  function filter(inputValue, path) {
+    return path.some(
+      option =>
+        option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
+    );
+  }
   return (
     <div
       style={{
@@ -55,6 +62,7 @@ function SignUp(props: any) {
           name="nickname"
           rules={[
             { required: true, message: '请输入你的昵称', whitespace: true },
+            { max: 31, message: '请输入小于32位字符的昵称' }
           ]}
         >
           <Input placeholder="昵称" />
@@ -67,17 +75,27 @@ function SignUp(props: any) {
               message: '只能使用数字组合',
             },
             { required: true, message: '请输入你的学号', whitespace: true },
+            { max: 11, min: 10, message: '请输入10-11位数字的学号' }
           ]}
         >
           <Input placeholder="学号" />
         </Form.Item>
+
         <Form.Item
           name="college"
           rules={[
-            { required: true, message: '请输入你的学院', whitespace: true },
+            {
+              type: 'array',
+              required: true,
+              message: '请输入或选择你的学院',
+            },
           ]}
         >
-          <Input placeholder="学院" />
+          <Cascader
+            options={collegeList}
+            showSearch={{ filter }}
+            placeholder="学院"
+          />
         </Form.Item>
 
         <Form.Item
