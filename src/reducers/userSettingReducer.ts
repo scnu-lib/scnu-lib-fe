@@ -1,7 +1,8 @@
-import PropertyRequiredError from '../error/PropertyRequiredError';
-import { changeSettingApi } from '../Services/auth';
+import PropertyRequiredError from '@/error/PropertyRequiredError';
+import { changeSettingApi, getSettingApi } from '@/Services/auth';
 import { message } from 'antd';
-const initstate = {};
+const initstate = {
+};
 
 // 存储指定用户的信息，有get和put修改功能
 const userSettingReducer = (state: any = initstate, action: any) => {
@@ -49,9 +50,10 @@ export const changeSetting = (newSetting: object) => {
   };
 };
 export const initSetting = (data: object) => {
-  return {
-    type: 'INIT_SETTING',
-    data,
-  };
+
+   return  {
+       type: 'INIT_SETTING',
+        data,
+      };
 };
 export default userSettingReducer;

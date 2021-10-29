@@ -1,15 +1,15 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import usermReducer from './reducers/usermReducer';
+import usermReducer from '@/reducers/usermReducer';
 import userReducer from './reducers/userReducer';
 import actReducer from './reducers/actReducer';
-import actDetailReducer from './reducers/actDetailReducer';
-import actParticipantsReducer from './reducers/actParticipantsReducer';
-import userSettingReducer from './reducers/userSettingReducer';
-import actRegisteredReducer from './reducers/actRegisteredReducer';
+import actDetailReducer from '@/reducers/actDetailReducer';
+import actParticipantsReducer from '@/reducers/actParticipantsReducer';
+import userSettingReducer from '@/reducers/userSettingReducer';
+import actRegisteredReducer from '@/reducers/actRegisteredReducer';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import actListShowReducer from './reducers/actListShowReducer';
-import globalConfigReducer from './reducers/globalConfigReducer';
+import globalConfigReducer from '@/reducers/globalConfigReducer';
 import loginInUserReducer from './reducers/loginInUserInfoReducer';
 import loginInUserSettingReducer from './reducers/loginInUserSetting';
 const reducer = combineReducers({
@@ -30,3 +30,4 @@ console.log(store.getState());
 store.subscribe(() => console.log(store.getState()));
 
 export default store;
+export type RootState = ReturnType<typeof store.getState>;

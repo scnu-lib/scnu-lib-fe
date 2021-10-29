@@ -9449,7 +9449,9 @@
                 (-1 !== t && Nn.splice(t, 1),
                 Ye(),
                 st || r.contains(document.activeElement)) ||
-                  null === (e = Fe.current) || void 0 === e || e.focus();
+                  null === (e = Fe.current) ||
+                  void 0 === e ||
+                  e.focus();
               });
               Nn.push(o);
             }
@@ -25326,7 +25328,10 @@
     function Pe(e, t, n, r) {
       return (
         !!(t && n && r) &&
-        !ke(e, t, r) && !ke(e, n, r) && e.isAfter(r, t) && e.isAfter(n, r)
+        !ke(e, t, r) &&
+        !ke(e, n, r) &&
+        e.isAfter(r, t) &&
+        e.isAfter(n, r)
       );
     }
     function Re(e, t, n) {
@@ -31646,7 +31651,7 @@
           void 0 === e ||
           null === e ||
           !('array' !== t || !Array.isArray(e) || e.length) ||
-            !(!h(t) || 'string' !== typeof e || e)
+          !(!h(t) || 'string' !== typeof e || e)
         );
       }
       function v(e, t, n) {
@@ -40922,8 +40927,9 @@
       return (
         'function' === typeof r &&
         'function' === typeof Symbol &&
-          'symbol' === typeof r('foo') &&
-            'symbol' === typeof Symbol('bar') && o()
+        'symbol' === typeof r('foo') &&
+        'symbol' === typeof Symbol('bar') &&
+        o()
       );
     };
   },
@@ -45159,7 +45165,8 @@
           -1 === e.indexOf('Mobile Safari') ||
           -1 !== e.indexOf('Chrome') ||
           -1 !== e.indexOf('Windows Phone')) &&
-        window.history && 'pushState' in window.history
+        window.history &&
+        'pushState' in window.history
       );
     }
     function S() {
@@ -76448,7 +76455,8 @@
             ? e.pageX === t.pageX && e.pageY === t.pageY
             : 'clientX' in t &&
               'clientY' in t &&
-              e.clientX === t.clientX && e.clientY === t.clientY))
+              e.clientX === t.clientX &&
+              e.clientY === t.clientY))
       );
     }
     function rt(e, t) {
@@ -83698,7 +83706,7 @@
             return (
               e ||
               b ||
-                (t && t.includes('-') ? t.replace(/^(.*)-[^-]*$/, '$1') : k())
+              (t && t.includes('-') ? t.replace(/^(.*)-[^-]*$/, '$1') : k())
             );
           },
         };
@@ -84614,7 +84622,8 @@
           ('ReactNative' !== navigator.product &&
             'NativeScript' !== navigator.product &&
             'NS' !== navigator.product)) &&
-        'undefined' !== typeof window && 'undefined' !== typeof document
+        'undefined' !== typeof window &&
+        'undefined' !== typeof document
       );
     }
     function x(e, t) {
@@ -85155,8 +85164,8 @@
             ? 0 === o.type
             : !r &&
               2 < t.length &&
-                ('o' === t[0] || 'O' === t[0]) &&
-                ('n' === t[1] || 'N' === t[1]);
+              ('o' === t[0] || 'O' === t[0]) &&
+              ('n' === t[1] || 'N' === t[1]);
       a ||
         ($(t, n, o, r) && (n = null),
         r || null === o
@@ -87893,7 +87902,8 @@
           ? e.shouldComponentUpdate(r, a, i)
           : !t.prototype ||
             !t.prototype.isPureReactComponent ||
-            !no(n, r) || !no(o, a)
+            !no(n, r) ||
+            !no(o, a)
       );
     }
     function _a(e, t, n) {

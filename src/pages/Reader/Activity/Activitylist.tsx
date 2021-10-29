@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Card, List, Affix, Drawer } from 'antd';
+import { RootState } from '@/store';
 import { MenuOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
 import Labels from '../../../components/Labels';
-import { actLabel } from '../../../Utils/config';
+import { actLabel } from '@/Utils/config';
 import {
   changeDrawer,
   changeLabel,
   initActShow,
   registeredState,
-} from '../../../reducers/actListShowReducer';
+} from '@/reducers/actListShowReducer';
 import { ActSortRadio } from './ActSortRadio';
 import { lazy, Suspense } from 'react';
 
@@ -18,12 +19,14 @@ const ActivityDetail = lazy(() => import('./ActivityDetail'));
 function ActivityList() {
   const [isDetailsVisible, setIsDetailsVisible] = useState(false);
   const [modalDetail, setModalDetail] = useState({}); // 把活动详情做成一个小对话框，用state控制其打开和关闭
-  const actListShow = useSelector(store => store.actListShow);
+  const actListShow = useSelector((store: RootState) => store.actListShow);
   const showModal = (id: number) => {
     setModalDetail(listData.find(note => note.id === id));
     setIsDetailsVisible(true);
   }; // 这几个都是相应的控制活动的函数
-  const clientWidth = useSelector(store => store.globalConfig.clientWidth);
+  const clientWidth = useSelector(
+    (store: RootState) => store.globalConfig.clientWidth,
+  );
   const handleOk = () => {
     setIsDetailsVisible(false);
   };
@@ -31,12 +34,20 @@ function ActivityList() {
   const handleCancel = () => {
     setIsDetailsVisible(false);
   };
-  const listData = useSelector(state => state.act);
-  const regData = useSelector(state => state.regAct);
+  const listData = useSelector((state: RootState) => state.act);
+  const regData = useSelector((state: RootState) => state.regAct);
+  //将regAc数据格式从数字数组转换为可接受的数据
+  function filterReg() {
+    let regTmp: object[] = [];
+    if (regData.length === 0) return [];
+    regTmp = listData.filter(item => regData.some(num => num === item.id));
+    return regTmp;
+  }
   let showData =
     actListShow.registered === registeredState.registeredOnly
-      ? regData
-      : listData; // 显示到屏幕上的数据，默认是所有,有两层逻辑，这里是第一层
+      ? filterReg()
+      : listData;
+  // 显示到屏幕上的数据，默认是所有,有两层逻辑，这里是第一层
   (() => {
     switch (
       actListShow.label // 根据标签选取特定数据，第二层
@@ -86,6 +97,7 @@ function ActivityList() {
   return (
     <div className="act-list-content">
       {clientWidth > 1100 ? (
+        //这里面的props数据单纯是为了组件渲染，和控制数据无关
         <ActSortRadio listData={listData} regData={regData} />
       ) : (
         <div>

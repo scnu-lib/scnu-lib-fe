@@ -1,11 +1,13 @@
 import React from 'react';
 import { Tag } from 'antd';
 import { actLabel } from '@/Utils/config';
-function Labels(props: object) {
+function Labels(props: { labels: []; itemId: any }) {
+  console.log(props.labels);
+  const labels = props.labels || [];
   //管理标签的组件
   return (
     <div className="note-labels" key="note-labels">
-      {props.labels.map(label => {
+      {labels.map(label => {
         switch (label) {
           case actLabel.readingClub:
             return (

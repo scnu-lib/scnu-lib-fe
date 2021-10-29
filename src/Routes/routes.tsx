@@ -2,13 +2,15 @@ import SignIn from '../Pages/Login/SignIn';
 import SignUp from '../Pages/Login/SignUp';
 import PageNotFound from '../Pages/PageNotFound';
 import Activity from '../Pages/Reader/Activity/Activity';
-import { getRole } from '../Utils/auth';
+import ActivityDetail from '../Pages/Reader/Activity/ActivityDetail';
+import RegisteredAct from '../Pages/Reader/Activity/RegisteredAct';
+import { isLogined, getRole } from '../Utils/auth';
 import User from '../Pages/User/User';
 import AdminAct from '../pages/Admin/AdminAct';
 import AdminUser from '../pages/Admin/AdminUser';
 import CreateAct from '../Pages/Admin/CreateAct';
 import ListAct from '../pages/Admin/ListAct';
-import { role } from '../Utils/config';
+import { role } from '@/Utils/config';
 // 主页路由
 export const mainRoutes = [
   {

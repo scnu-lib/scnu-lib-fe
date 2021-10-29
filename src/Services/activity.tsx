@@ -1,5 +1,5 @@
-import { del, get, post, put } from '../Utils/request';
-import { serverUrl, volunteerApplicationState } from '../Utils/config';
+import { del, get, post, put } from '@/Utils/request';
+import { serverUrl, volunteerApplicationState } from '@/Utils/config';
 
 export const listActApi = (
   label: string,

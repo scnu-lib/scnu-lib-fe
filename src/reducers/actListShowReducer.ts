@@ -12,7 +12,7 @@ const initState = {
 };
 
 const actListShowReducer = (
-  state: object = initState,
+  state: any = initState,
   action: { type: string; data: any },
 ) => {
   switch (action.type) {
