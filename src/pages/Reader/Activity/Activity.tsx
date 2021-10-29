@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { message, Space } from 'antd';
+import Banner from '@/components/banner';
 import './Activity.less';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
@@ -55,13 +56,10 @@ function Activity(props: any) {
 
   return (
     <Space direction="vertical" className="Activity .flex" size="large">
-      <div
-        className="Hero ant-layout-content"
-        style={{ color: '@primary-color' }}
-      >
-        <h2 className="Hero-title">欢迎来到阅马活动系统</h2>
-        <p>🏠华南师大图书馆————活动发布、报名、签到</p>
-      </div>
+      <Banner
+        title="来到阅马活动系统"
+        subTitle="🏠华南师大图书馆————活动发布、报名、签到"
+      />
       <Space direction="vertical" className="recent-Act" size="middle">
         {recent.length ? (
           <>

@@ -2,13 +2,84 @@
     width:400px;
     height:500px;
 }
+
 .map{
     width:100%;
     height:70%;
 }
-@media(max-width:600px){
+
+.banner-bg{
+  width: 100vw;
+  height: 60vh;
+  background-color: rgba(239, 244, 250, 0.24);
+  position: relative;
+  margin-bottom: 6.8vw;
+}
+
+.contect-container{
+  position: absolute;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  bottom: -6.8vw;
+}
+
+.contect-zone{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.bg-images{
+  width: 40vw;
+  height: 35vw;
+  background: url('./images/生活场景-阅读.png') no-repeat center center;
+  background-size: 100% 100%;
+}
+
+.welcome-contect{
+  font-size: 2.4vw;
+  color: #b7bed4;
+}
+
+.title-contect{
+  font-size: 3.2vw;
+  color: #5c64a4;
+}
+
+.subtitle-contect{
+  font-size: 1.6vw;
+  color: #7c9ac3;
+}
+
+@media(max-width:640px){
     .popover{
         width:300px;
         height:400px;
     }
+
+    .contect-zone-media{
+      flex-direction: column;
+      align-items: center;
+      height: auto;
+    }
+
+    .contect-container-media{
+      flex-direction: column-reverse;
+      align-items: center;
+      bottom: 0;
+      height: 100%;
+      justify-content: center;
+    }
+}
+
+@media (max-width: 1024px) {
+
+}
+
+@media (max-width: 1280px) {
+
 }
