@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tag } from 'antd';
 import { actLabel } from '@/Utils/config';
-function Labels(props: { labels: []; itemId: any }) {
+function Labels(props: { labels: []; itemId?: any }) {
   console.log(props.labels);
   const labels = props.labels || [];
   //管理标签的组件
