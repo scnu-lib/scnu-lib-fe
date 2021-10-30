@@ -74,6 +74,7 @@ const ChangeUser = (props: any) => {
     const processDefaultValues = { ...userSetting, ...userSetting.detail };
     delete processDefaultValues.detail;
     values = Object.assign(processDefaultValues, values);
+    values.college = values.college.join('/');
     changeNotify(values);
     changeUserSetting(values); //把新的value覆盖到原有的设置上，可以不用一定要填某个值
     //message.success('保存成功！');

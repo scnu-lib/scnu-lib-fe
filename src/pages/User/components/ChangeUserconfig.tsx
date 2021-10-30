@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button, message } from 'antd';
+import { Form, Input, Button, message, Cascader } from 'antd';
 import { getUserID, isLogined } from '@/Utils/auth';
 import { initLoginInUserSetting } from '@/reducers/loginInUserSetting';
 import { initUserInfo } from '@/reducers/userReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNotifyApi, getSettingApi } from '@/Services/auth';
+import { collegeList } from '../../Login/collegeList';
 export default function ChangeUserconfig({
   userSetting,
   userInfo,
@@ -32,6 +33,12 @@ export default function ChangeUserconfig({
         });
     }
   }, []);
+  function filter(inputValue, path) {
+    return path.some(
+      option =>
+        option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
+    );
+  }
   return (
     <Form name="notify-form" onFinish={onFinish} {...layout}>
       <Form.Item
@@ -42,14 +49,26 @@ export default function ChangeUserconfig({
       >
         <Input disabled />
       </Form.Item>
+
       <Form.Item
         name="college"
         label="学院"
-        initialValue={userSetting?.detail?.college}
-        rules={[{ required: true, message: '请填写学院' }]}
+        initialValue={userSetting?.detail?.college.split('/')}
+        rules={[
+          {
+            type: 'array',
+            required: true,
+            message: '请输入或选择你的学院',
+          },
+        ]}
       >
-        <Input maxLength={20} />
+        <Cascader
+          options={collegeList}
+          showSearch={{ filter }}
+          placeholder=""
+        />
       </Form.Item>
+
       <Form.Item
         name="studentId"
         label="学号"
