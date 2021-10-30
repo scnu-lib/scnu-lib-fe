@@ -105,11 +105,14 @@ function ActivityDetail(props: any) {
 
       <div className="actDetail-details">
         <p>
-          报名截止于: {HandleDate(props.modalDetail?.signUpDeadline)} 活动日期：
+          报名截止于: {HandleDate(props.modalDetail?.signUpDeadline)}
+          <br />
+          活动日期：
           {HandleDate(props.modalDetail?.startTime)}~
           {HandleDate(props.modalDetail?.endTime)} <br />
           活动地点：{props.modalDetail?.location}{' '}
           {props.modalDetail?.volunteered ? '招募志愿者' : '暂不招募志愿者'}{' '}
+          <br />
           当前报名人数：{props.modalDetail?.currentParticipant}/
           {props.modalDetail?.maxParticipant} 人
         </p>
