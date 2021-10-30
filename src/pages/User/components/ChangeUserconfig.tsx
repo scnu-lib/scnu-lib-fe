@@ -73,7 +73,10 @@ export default function ChangeUserconfig({
         name="studentId"
         label="学号"
         initialValue={userSetting?.detail?.studentId}
-        rules={[{ required: true, message: '请填写学号' }]}
+        rules={[
+          { required: true, message: '请填写学号' },
+          { max: 11, min: 10, message: '请输入10-11位数字的学号' },
+        ]}
       >
         <Input maxLength={20} />
       </Form.Item>
