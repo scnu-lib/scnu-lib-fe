@@ -43,7 +43,7 @@ export default function ChangeUserconfig({
     <Form name="notify-form" onFinish={onFinish} {...layout}>
       <Form.Item
         name="username"
-        label="账户"
+        label="账号"
         rules={[{ required: true }]}
         initialValue={userSetting?.username}
       >

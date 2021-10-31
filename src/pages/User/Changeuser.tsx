@@ -65,9 +65,13 @@ const ChangeUser = (props: any) => {
         setTimeout(() => history.push('/'), 1000);
       })
       .catch(err => {
-        if (err.response.title === 'Incorrect password')
+        if (err.response.title === 'Incorrect password') {
           message.error('旧密码输入错误，请重新输入');
-        else message.error('Oops!发生了未知的错误(可能是学号重复了)');
+        } else if (err.response?.status === 500) {
+          message.error('该学号已被注册，换一个试试?');
+        } else {
+          message.error('Oops!发生了未知的错误');
+        }
       });
   };
   const onFinish = (values: object) => {
