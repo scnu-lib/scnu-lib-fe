@@ -21,6 +21,7 @@ function ActivityDetail(props: any) {
   const dispatch = useDispatch(); // 更新已报名活动的状态
   const acts = useSelector((store: RootState) => store.act); // 下面报名成功后只有id，通过id查找活动详情放到已报名活动中
   const regActs = useSelector((store: RootState) => store.regAct);
+
   useEffect(() => {
     //console.log(regActs,props.modalDetail?.id)
     if (regActs.find(a => a === props.modalDetail?.id)) {
@@ -83,7 +84,12 @@ function ActivityDetail(props: any) {
   const handleVisibleChange = (visible: boolean) => {
     setSignUpVisible(visible);
   };
-
+  let client = /Android|webOS|iPhone|iPod|BlackBerry/i.test(
+    navigator.userAgent,
+  );
+  if (!client && isSigned) {
+    message.error('请使用移动端进行定位');
+  }
   return (
     <Modal
       className="actDetail-modal"
@@ -133,7 +139,7 @@ function ActivityDetail(props: any) {
               onVisibleChange={handleVisibleChange}
             >
               <Button
-                disabled={!isSigned}
+                disabled={!client}
                 onClick={() => {
                   isLogined()
                     ? handleSignUpVisible()

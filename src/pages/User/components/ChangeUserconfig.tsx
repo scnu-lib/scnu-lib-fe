@@ -74,7 +74,11 @@ export default function ChangeUserconfig({
       <Form.Item
         name="college"
         label="学院"
-        initialValue={userSetting?.detail?.college.split('/')}
+        initialValue={
+          userSetting?.detail?.college == null
+            ? null
+            : userSetting?.detail?.college.split('/')
+        }
         rules={[
           {
             type: 'array',
