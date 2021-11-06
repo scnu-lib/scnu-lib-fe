@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, message, Modal, Popover } from 'antd';
+import { Button, message, Modal, Popover, Tooltip } from 'antd';
 import Labels from '../../../components/Labels';
 import { RootState } from '@/store';
 import { actSignUpApi, userVolSignUpApi } from '@/Services/activity';
@@ -87,9 +87,6 @@ function ActivityDetail(props: any) {
   let client = /Android|webOS|iPhone|iPod|BlackBerry/i.test(
     navigator.userAgent,
   );
-  if (!client && isSigned) {
-    message.error('请使用移动端进行定位');
-  }
   return (
     <Modal
       className="actDetail-modal"
@@ -138,16 +135,18 @@ function ActivityDetail(props: any) {
               visible={signUpvisible}
               onVisibleChange={handleVisibleChange}
             >
-              <Button
-                disabled={!client}
-                onClick={() => {
-                  isLogined()
-                    ? handleSignUpVisible()
-                    : message.error('请先登录');
-                }}
-              >
-                签到
-              </Button>{' '}
+              <Tooltip title={client ? '' : '请使用移动端进行定位'}>
+                <Button
+                  disabled={!client}
+                  onClick={() => {
+                    isLogined()
+                      ? handleSignUpVisible()
+                      : message.error('请先登录');
+                  }}
+                >
+                  签到
+                </Button>{' '}
+              </Tooltip>
             </Popover>
           ) : (
             <Button
