@@ -19,6 +19,7 @@ import { initLoginInUserSetting } from '@/reducers/loginInUserSetting';
 import { getPhoto } from '@/photoStorage/photoStorage';
 import SignIn from '../Login/SignIn';
 import SignUp from '../Login/SignUp';
+import ResetPassword from '../Login/ResetPassword';
 const { Header, Content, Footer } = Layout;
 function Frame(props: any) {
   const dispatch = useDispatch();
@@ -152,15 +153,20 @@ function Frame(props: any) {
         footer={false}
         onCancel={handleModalCancel}
       >
-        {modalState === '登录' ? (
-          <SignIn setModalState={setModalState} />
-        ) : (
-          <SignUp setModalState={setModalState} />
+        {modalState === '登录' && <SignIn setModalState={setModalState} />}
+        {modalState === '注册' && <SignUp setModalState={setModalState} />}
+        {modalState === '忘记密码' && (
+          <ResetPassword setModalState={setModalState} />
         )}
       </Modal>
       <Footer style={{ textAlign: 'center' }}>
         华师阅马开发小分队
-        <a>QQ群</a> - <a>关于</a> - <a>联系我们</a>
+        <a
+          href="https://www.yuque.com/docs/share/d3502a8f-432b-4d82-a38d-34c27edcd605?# 《联系方式》"
+          target="_blank"
+        >
+          QQ群-关于-联系我们
+        </a>
       </Footer>
     </Layout>
   );
