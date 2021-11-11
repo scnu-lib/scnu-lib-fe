@@ -1,5 +1,5 @@
 import { post, get, put } from '../Utils/request';
-import { serverUrl } from '../Utils/config';
+import { serverUrl, stsUrl } from '../Utils/config';
 
 interface ServerResponse {
   data: ServerData;
@@ -18,7 +18,7 @@ export interface imgCredentials {
 }
 //获取临时密钥的api
 export const getImgCredentials = (): Promise<ServerResponse> => {
-  return get(`http://localhost:3000/sts`, {});
+  return get(stsUrl, {});
 };
 
 export const loginApi = (user: object) => {

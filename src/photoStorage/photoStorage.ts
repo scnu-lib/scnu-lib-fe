@@ -1,25 +1,5 @@
 import COS, { UploadBody } from 'cos-js-sdk-v5';
 import { getImgCredentials } from '../Services/auth';
-const cos = new COS({
-  //从服务器拿临时密钥
-  getAuthorization: (options, callback) => {
-    getImgCredentials()
-      .then(res => {
-        console.log(options);
-        callback({
-          TmpSecretId: res.data.credentials.tmpSecretId,
-          TmpSecretKey: res.data.credentials.tmpSecretKey,
-          SecurityToken: res.data.credentials.sessionToken,
-          // 建议返回服务器时间作为签名的开始时间，避免用户浏览器本地时间偏差过大导致签名错误
-          StartTime: res.data.startTime, // 时间戳，单位秒，如：1580000000
-          ExpiredTime: res.data.expiredTime, // 时间戳，单位秒，如：1580000900
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  },
-});
 
 export const postPhoto = (
   photo: UploadBody,
@@ -29,6 +9,27 @@ export const postPhoto = (
   changeLoading: Function,
   type: 'avatar' | 'actPoster',
 ) => {
+  const cos = new COS({
+    //从服务器拿临时密钥
+    getAuthorization: (options, callback) => {
+      getImgCredentials()
+        .then(res => {
+          console.log(options);
+          callback({
+            TmpSecretId: res.data.credentials.tmpSecretId,
+            TmpSecretKey: res.data.credentials.tmpSecretKey,
+            SecurityToken: res.data.credentials.sessionToken,
+            // 建议返回服务器时间作为签名的开始时间，避免用户浏览器本地时间偏差过大导致签名错误
+            StartTime: res.data.startTime, // 时间戳，单位秒，如：1580000000
+            ExpiredTime: res.data.expiredTime, // 时间戳，单位秒，如：1580000900
+          });
+        })
+        .catch(err => {
+          reject(err); //只能每次new一个，否则无法显示错误
+        });
+    },
+  });
+
   cos.putObject(
     {
       Bucket: 'pages-1304363322' /* 必须 */,
@@ -41,7 +42,6 @@ export const postPhoto = (
       },
     },
     function(err, data) {
-      changeLoading(false);
       if (err) {
         reject(err);
       }
