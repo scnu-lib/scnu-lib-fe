@@ -1,13 +1,15 @@
 import UpLoadPhoto from '@/components/UpLoadPhoto';
+import { useState } from 'react';
 import React from 'react';
 
 export default function ChangeAvatar({ id }: any) {
   console.log(id);
+  const [imgUrl, setImgUrl] = useState('');
   return (
     <UpLoadPhoto
       photoKey={`avatarPhoto${id}`}
-      photoPercentage={1}
-      photoShowSize={{ width: '100px', height: '100px' }}
+      type={'avatar'}
+      recordUrl={setImgUrl}
     />
   );
 }
