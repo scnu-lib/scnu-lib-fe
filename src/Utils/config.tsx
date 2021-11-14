@@ -1,9 +1,11 @@
 export const serverUrl = 'https://lib.scnu.life/api'; // 'https://lib.scnu.life/api' //服务器地址
+export const stsUrl =
+  'https://nodejs-2gedhfjz37cefe31-1304363322.ap-guangzhou.app.tcloudbase.com/sts';
 export enum volunteerApplicationState {
   applied = 'APPLIED',
   accepted = 'ACCEPTED',
   rejected = 'REJECTED',
-  pending = 'PENGDING'
+  pending = 'PENGDING',
 }
 
 export enum role {

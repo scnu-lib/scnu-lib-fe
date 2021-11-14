@@ -164,8 +164,9 @@ function CreateAct(props: any) {
   const handleVolCheckBoxChange = (e: { target: any }) => {
     setVolCheckBox(e.target.checked); //设置志愿者开启的状态
   };
-  const [state, setState] = useState({ imageUrl: '', loading: false });
-
+  //记录imageUrl与表单一起提交
+  const [imageUrl, setImageUrl] = useState('');
+  console.log(imageUrl);
   return (
     <Card title={cardTitle} className="create-act-card">
       <Form
@@ -298,14 +299,14 @@ function CreateAct(props: any) {
           {initId ? (
             <UpLoadPhoto
               photoKey={`actPhoto${initId}`}
-              photoPercentage={2.35}
-              photoShowSize={{ width: '100px', height: '60px' }}
+              type={'actPoster'}
+              recordUrl={setImageUrl}
             />
           ) : (
             <UpLoadPhoto
               photoKey={`actPhoto`}
-              photoPercentage={2.35}
-              photoShowSize={{ width: '100px', height: '60px' }}
+              type={'actPoster'}
+              recordUrl={setImageUrl}
             />
           )}
         </Form.Item>
