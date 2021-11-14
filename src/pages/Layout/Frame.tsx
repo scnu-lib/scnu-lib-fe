@@ -105,7 +105,7 @@ function Frame(props: any) {
               )}?dummy=${new Date().getTime()}`}
             ></Avatar>
             <div className="userName">{userInfo?.detail?.name}</div>{' '}
-            <DownOutlined />
+            <DownOutlined className="downoutlined" />
           </label>
         </Dropdown>
       );
