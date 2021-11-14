@@ -138,11 +138,7 @@ function ListAct(props: any) {
         </Button>
       }
     >
-      {document.body.clientWidth < 676 ? (
-        <Table columns={columns} dataSource={dataSource} size="small" />
-      ) : (
-        <Table columns={columns} dataSource={dataSource} size="middle" />
-      )}
+      {<Table columns={columns} dataSource={dataSource} size="middle" />}
     </Card>
   );
 }
