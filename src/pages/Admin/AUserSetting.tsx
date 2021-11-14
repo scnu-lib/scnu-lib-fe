@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { RootState } from '@/store';
-import { Form, Input, Button, Select, message } from 'antd';
+import { Form, Input, Button, Select, message, Cascader } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { initSetting, changeSetting } from '@/reducers/userSettingReducer';
 import { listUserApi } from '@/Services/admin';
 import { changeSettingApi, getSettingApi } from '@/Services/auth';
 import PropertyRequiredError from '@/error/PropertyRequiredError';
+import { collegeList } from '../Login/collegeList';
 const { Option } = Select;
 const layout = {
   labelCol: { span: 8 },
@@ -70,6 +71,10 @@ function AUserSetting(props: any) {
       });
   };
   const onFinish = (values: object) => {
+    const processDefaultValues = { ...userSetting, ...userSetting.detail };
+    delete processDefaultValues.detail;
+    values = Object.assign(processDefaultValues, values);
+    values.college = values.college.join('/');
     changeUserSetting(values);
   };
   interface FieldData {
@@ -80,7 +85,12 @@ function AUserSetting(props: any) {
     validating: boolean;
     errors: string[];
   }
-
+  function filter(inputValue, path) {
+    return path.some(
+      option =>
+        option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1,
+    );
+  }
   const CustomizedForm = () => {
     return (
       <Form name="global_state" {...layout} onFinish={onFinish}>
@@ -111,10 +121,24 @@ function AUserSetting(props: any) {
         <Form.Item
           name="college"
           label="学院"
-          initialValue={userSetting?.detail?.college}
-          rules={[{ required: true, message: '请填写学院' }]}
+          initialValue={
+            userSetting?.detail?.college == null
+              ? null
+              : userSetting?.detail?.college.split('/')
+          }
+          rules={[
+            {
+              type: 'array',
+              required: true,
+              message: '请输入或选择你的学院',
+            },
+          ]}
         >
-          <Input maxLength={20} />
+          <Cascader
+            options={collegeList}
+            showSearch={{ filter }}
+            placeholder=""
+          />
         </Form.Item>
         <Form.Item
           name="studentId"
