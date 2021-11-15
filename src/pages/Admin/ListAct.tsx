@@ -1,5 +1,13 @@
 import React, { useEffect } from 'react';
-import { Card, Table, Button, Popconfirm, Space, Popover } from 'antd';
+import {
+  Card,
+  Table,
+  Button,
+  Popconfirm,
+  Space,
+  Popover,
+  Skeleton,
+} from 'antd';
 import { RootState } from '@/store';
 import {
   UserSwitchOutlined,
@@ -138,7 +146,12 @@ function ListAct(props: any) {
         </Button>
       }
     >
-      {<Table columns={columns} dataSource={dataSource} size="middle" />}
+      {/* {<Table columns={columns} dataSource={dataSource} size="middle" />} */}
+      {dataSource.length === 0 ? (
+        <Skeleton active paragraph={{ rows: 10 }} />
+      ) : (
+        <Table columns={columns} dataSource={dataSource} />
+      )}
     </Card>
   );
 }
