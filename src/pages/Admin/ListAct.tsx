@@ -136,6 +136,7 @@ function ListAct(props: any) {
   ];
   return (
     <Card
+      style={{ margin: '0px 10px 0px 10px' }}
       title="活动列表"
       extra={
         <Button

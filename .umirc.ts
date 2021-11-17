@@ -117,7 +117,7 @@ export default defineConfig({
     },
   ],
   theme: {
-    'primary-color': '#1DA57A',
+    'primary-color': '#92A0C2',
     'body-background': '#fff',
     'popover-background': '#',
     'font-size-base': '14px',

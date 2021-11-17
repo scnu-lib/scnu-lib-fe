@@ -159,7 +159,7 @@ function Frame(props: any) {
           <ResetPassword setModalState={setModalState} />
         )}
       </Modal>
-      <Footer style={{ textAlign: 'center' }}>
+      <Footer style={{ textAlign: 'center' }} className="footer-container">
         华师阅马开发小分队
         <a
           href="https://www.yuque.com/docs/share/d3502a8f-432b-4d82-a38d-34c27edcd605?# 《联系方式》"

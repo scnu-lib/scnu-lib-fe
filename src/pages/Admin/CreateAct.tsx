@@ -167,7 +167,11 @@ function CreateAct(props: any) {
   const [state, setState] = useState({ imageUrl: '', loading: false });
 
   return (
-    <Card title={cardTitle} className="create-act-card">
+    <Card
+      title={cardTitle}
+      className="create-act-card"
+      style={{ margin: '0 10px 0 10px', border: 'none' }}
+    >
       <Form
         {...layout}
         name="nest-messages"
