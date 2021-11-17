@@ -164,6 +164,7 @@ function Frame(props: any) {
         <a
           href="https://www.yuque.com/docs/share/d3502a8f-432b-4d82-a38d-34c27edcd605?# 《联系方式》"
           target="_blank"
+          style={{ color: 'white' }}
         >
           QQ群-关于-联系我们
         </a>
