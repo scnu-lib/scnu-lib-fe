@@ -147,7 +147,6 @@ function ListAct(props: any) {
         </Button>
       }
     >
-      {/* {<Table columns={columns} dataSource={dataSource} size="middle" />} */}
       {dataSource.length === 0 ? (
         <Skeleton active paragraph={{ rows: 10 }} />
       ) : (
