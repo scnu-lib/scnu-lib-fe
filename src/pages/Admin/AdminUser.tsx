@@ -20,7 +20,7 @@ function AdminUser(props: any) {
               collapsedWidth="0"
               zeroWidthTriggerStyle={{
                 top: '-20px',
-                color: '#1DA57A',
+                color: 'rgb(146, 160, 194)',
                 backgroundColor: 'white',
                 boxShadow: '2px 0 8px rgba(0,0,0,.15)',
                 height: '36px',
