@@ -1,5 +1,13 @@
 import React, { useEffect } from 'react';
-import { Card, Table, Button, Popconfirm, Space, Popover } from 'antd';
+import {
+  Card,
+  Table,
+  Button,
+  Popconfirm,
+  Space,
+  Popover,
+  Skeleton,
+} from 'antd';
 import { RootState } from '@/store';
 import {
   UserSwitchOutlined,
@@ -128,6 +136,7 @@ function ListAct(props: any) {
   ];
   return (
     <Card
+      style={{ margin: '0px 10px 0px 10px' }}
       title="活动列表"
       extra={
         <Button
@@ -138,10 +147,10 @@ function ListAct(props: any) {
         </Button>
       }
     >
-      {document.body.clientWidth < 676 ? (
-        <Table columns={columns} dataSource={dataSource} size="small" />
+      {dataSource.length === 0 ? (
+        <Skeleton active paragraph={{ rows: 10 }} />
       ) : (
-        <Table columns={columns} dataSource={dataSource} size="middle" />
+        <Table columns={columns} dataSource={dataSource} />
       )}
     </Card>
   );

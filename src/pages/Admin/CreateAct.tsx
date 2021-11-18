@@ -168,7 +168,11 @@ function CreateAct(props: any) {
   const [imageUrl, setImageUrl] = useState('');
   console.log(imageUrl);
   return (
-    <Card title={cardTitle} className="create-act-card">
+    <Card
+      title={cardTitle}
+      className="create-act-card"
+      style={{ margin: '0 10px 0 10px', border: 'none' }}
+    >
       <Form
         {...layout}
         name="nest-messages"

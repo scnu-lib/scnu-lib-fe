@@ -8,7 +8,6 @@ import { changeLabel, changeRegistered } from '@/reducers/actListShowReducer';
 import { addRegisteredAct } from '@/reducers/actRegisteredReducer';
 import { useDispatch, useSelector } from 'react-redux';
 
-
 export const ActSortRadio = (props: {
   listData: object[];
   regData: (number | [])[];
@@ -31,7 +30,7 @@ export const ActSortRadio = (props: {
   };
 
   return (
-    <Affix offsetTop={100}>
+    <Affix offsetTop={100} style={{ width: '230px' }}>
       <div className="act-sort-radio">
         <Menu
           className="act-list-sort-menu act-list-sort-menu1"

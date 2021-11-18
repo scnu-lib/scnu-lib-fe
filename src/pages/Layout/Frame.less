@@ -18,15 +18,9 @@
   color: @primary-7;
   background-color: @primary-1;
 }
-
-.header-none {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0) !important;
-  box-shadow: none !important;
+.sign-in-up {
+  width: auto;
 }
-
 .navbg_selector {
   border: none;
 }
@@ -36,10 +30,10 @@
 }
 
 .LOGO {
-  width: 50px;
+  width: 40px;
   height: 40px;
   margin: 10px 10px;
-  background-image: url('https://pages-1304363322.cos.ap-guangzhou.myqcloud.com/LOGO.png');
+  background-image: url('https://pages-1304363322.file.myqcloud.com/%E9%98%85%E8%AF%BB.png');
   background-size: 100% 100%;
 }
 
@@ -51,17 +45,6 @@
   width: 50%;
 }
 
-@media (max-width: 600px) {
-  .ant-menu-submenu {
-    display: block;
-    width: 20%;
-  }
-
-  .ant-menu {
-    display: block;
-    width: 45%;
-  }
-}
 .ant-layout-header {
   display: flex;
   justify-content: space-between;
@@ -69,29 +52,47 @@
 }
 .LOGO-Menu {
   display: flex;
+  align-items: center;
   justify-content: left;
   width: 100%;
 }
 
 .ant-dropdown-trigger {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  width: 88px;
+  width: auto;
   height: 64px;
-  line-height: 64px;
+  line-height: 50px;
 }
 .userName {
-  width: 50px;
+  width: auto;
   margin-left: 4px;
   overflow: hidden;
   white-space: nowrap;
 }
-
+.downoutlined {
+  margin-left: 10px;
+}
 .ant-menu.ant-menu-light.act-list-sort-menu.act-list-sort-menu1.ant-menu-root.ant-menu-vertical-left {
   width: 100%;
 }
 .ant-menu.ant-menu-light.act-list-sort-menu.act-list-sort-menu2.ant-menu-root.ant-menu-vertical {
   width: 100%;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.footer > a {
+  color: white;
+}
+
+.footer-container {
+  color: white;
+  background-color: rgb(6, 12, 17) !important;
 }
