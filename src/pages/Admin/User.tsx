@@ -123,7 +123,7 @@ function User(props: any) {
   ];
 
   return (
-    <Card title="用户列表">
+    <Card title="用户列表" style={{ margin: '0px 10px 0px 10px' }}>
       {dataSource.length === 0 ? (
         <Skeleton active paragraph={{ rows: 10 }} />
       ) : (
