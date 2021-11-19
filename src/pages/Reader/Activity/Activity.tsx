@@ -3,6 +3,7 @@ import { message, Space } from 'antd';
 import Banner from '@/components/banner';
 import { RootState } from '@/store';
 import './Activity.less';
+import { RootState } from '@/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { initList } from '../../../reducers/actReducer';
 import { lazy, Suspense } from 'react';
@@ -10,6 +11,7 @@ import EmptyState from '../../../components/EmptyState';
 import Loading from '../../../components/Loading';
 import { initActDetail } from '../../../reducers/actDetailReducer';
 import { detailApi } from '../../../Services/activity';
+import { RouterOptions } from '_@umijs_deps@3.5.15@@umijs/deps/compiled/express';
 
 const ActivityDetail = lazy(() => import('./ActivityDetail')); //lazyload详情页面，保证首屏的速率
 const RecentAct = lazy(() => import('../../../components/RecentAct'));
