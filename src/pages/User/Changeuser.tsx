@@ -17,7 +17,7 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 const tailLayout = {
-  wrapperCol: { offset: 4, span: 16 },
+  wrapperCol: { offset: 10, span: 16 },
 };
 const { Title } = Typography;
 const ChangeUser = (props: any) => {
@@ -87,7 +87,7 @@ const ChangeUser = (props: any) => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <Card
-        style={{ margin: '20px 0', minWidth: '300px' }}
+        style={{ margin: '20px 20px', minWidth: '300px' }}
         title={<Title level={5}>修改个人信息</Title>}
       >
         <ChangeUserconfig
@@ -104,7 +104,8 @@ const ChangeUser = (props: any) => {
           flexDirection: 'row',
           flexWrap: 'wrap',
           justifyContent: 'space-between',
-          width: '100%',
+          width: 'auto',
+          margin: '20px 20px',
         }}
       >
         <Card
@@ -115,7 +116,7 @@ const ChangeUser = (props: any) => {
             justifyContent: 'center',
             alignContent: 'center',
           }}
-          style={{ margin: '20px 0', width: '300px' }}
+          style={{ margin: '20px 0', width: '333px' }}
           title={<Title level={5}>上传/修改头像</Title>}
         >
           <div style={{ padding: '40px 0' }}>

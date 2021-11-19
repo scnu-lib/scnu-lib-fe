@@ -9,7 +9,7 @@ import PropertyRequiredError from '@/error/PropertyRequiredError';
 import { collegeList } from '../Login/collegeList';
 const { Option } = Select;
 const layout = {
-  labelCol: { span: 8 },
+  labelCol: { span: 3 },
   wrapperCol: { span: 16 },
 };
 const tailLayout = {
@@ -190,9 +190,9 @@ function AUserSetting(props: any) {
   };
 
   return (
-    <>
+    <div style={{ margin: '10px' }}>
       <UserSettingForm />
-    </>
+    </div>
   );
 }
 

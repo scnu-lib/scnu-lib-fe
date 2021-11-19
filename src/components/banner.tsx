@@ -8,9 +8,15 @@ type BannerProps = {
 };
 const Banner = (props: BannerProps) => {
   return (
-    <div className={cn('bg')}>
-      <div className="contect-container"></div>
-      <div className="imgBg"></div>
+    <div className={cn('banner-bg', 'banner-bg-mobile', 'banner-bg-media')}>
+      <div className={cn('contect-container', 'contect-container-media')}>
+        <div className={cn('contect-zone', 'contect-zone-media')}>
+          <div className="welcome-contect">欢迎</div>
+          <div className="title-contect">{props.title}</div>
+          <div className="subtitle-contect">{props.subTitle}</div>
+        </div>
+        <div className="bg-images"></div>
+      </div>
     </div>
   );
 };

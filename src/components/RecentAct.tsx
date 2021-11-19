@@ -15,7 +15,10 @@ const NullActCard = id => {
     </Card>
   );
 };
-const RecentAct = (props: object) => {
+const RecentAct = (props: {
+  recent: any[];
+  showModal: (id: number) => void;
+}) => {
   const length = props.recent.length; // 倒序输出
   let i = 0;
   const lackNumber = 6 - props.recent.length; // 计算需要填充的活动数量
