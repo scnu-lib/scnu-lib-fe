@@ -21,7 +21,7 @@ const StepShow: React.FunctionComponent<StepShowProps> = ({
     <Popover content={<span>{allStep[index].description}</span>}>{dot}</Popover>
   );
   return (
-    <Steps current={current} progressDot={SimpleDot}>
+    <Steps current={current} progressDot={SimpleDot} responsive={true}>
       {allStep.map(step => (
         <Step title={step.title} />
       ))}
