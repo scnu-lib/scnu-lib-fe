@@ -49,6 +49,7 @@ function CreateAct(props: any) {
   let cardTitle = '修改活动';
   let initId = props.location.pathname.slice(25); //url传参，判断是修改还是创建
   const dispatch = useDispatch();
+  const [imageUrl, setImageUrl] = useState('');
   const getAct = async () => {
     if (!props.location.pathname.slice(25)) {
       try {
@@ -59,8 +60,8 @@ function CreateAct(props: any) {
       console.log(initId);
     } else {
       console.log(props);
-      setState({ imageUrl: act?.src, loading: false });
       setVolCheckBox(act?.volunteered); //初始化各个组件
+      setImageUrl(act?.url);
     }
   };
   useEffect(() => {
@@ -165,7 +166,7 @@ function CreateAct(props: any) {
     setVolCheckBox(e.target.checked); //设置志愿者开启的状态
   };
   //记录imageUrl与表单一起提交
-  const [imageUrl, setImageUrl] = useState('');
+
   console.log(imageUrl);
   return (
     <Card
