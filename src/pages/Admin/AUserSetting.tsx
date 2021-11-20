@@ -104,11 +104,14 @@ function AUserSetting(props: any) {
         </Form.Item>
         <Form.Item
           name="name"
-          label="用户名"
+          label="昵称"
           initialValue={userSetting?.detail?.name}
-          rules={[{ required: true, message: '请填写用户名' }]}
+          rules={[
+            { required: true, message: '请填写昵称' },
+            { max: 10, message: '请输入10位字符以内的昵称' },
+          ]}
         >
-          <Input maxLength={20} />
+          <Input />
         </Form.Item>
         <Form.Item
           name="username"

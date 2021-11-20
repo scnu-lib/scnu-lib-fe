@@ -71,7 +71,7 @@ function SignUp(props: any) {
           name="nickname"
           rules={[
             { required: true, message: '请输入你的昵称', whitespace: true },
-            { max: 31, message: '请输入小于32位字符的昵称' },
+            { max: 10, message: '请输入10位字符以内的昵称' },
           ]}
         >
           <Input placeholder="昵称" />
