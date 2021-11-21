@@ -65,7 +65,7 @@ const ChangeUser = (props: any) => {
         setTimeout(() => history.push('/'), 1000);
       })
       .catch(err => {
-        if (err.response.title === 'Incorrect password') {
+        if (err.response?.status === 400) {
           message.error('旧密码输入错误，请重新输入');
         } else if (err.response?.status === 500) {
           message.error('该学号已被注册，换一个试试?');
@@ -78,7 +78,10 @@ const ChangeUser = (props: any) => {
     const processDefaultValues = { ...userSetting, ...userSetting.detail };
     delete processDefaultValues.detail;
     values = Object.assign(processDefaultValues, values);
-    values.college = values.college.join('/');
+    if (values.email == null) values.email = userInfo.email.address;
+    if (values.wechat == null) values.wechat = userInfo.wechat.wxid;
+    if (typeof values.college == 'object')
+      values.college = values.college.join('/');
     changeNotify(values);
     changeUserSetting(values); //把新的value覆盖到原有的设置上，可以不用一定要填某个值
     //message.success('保存成功！');

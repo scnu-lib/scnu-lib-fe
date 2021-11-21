@@ -74,7 +74,8 @@ function AUserSetting(props: any) {
     const processDefaultValues = { ...userSetting, ...userSetting.detail };
     delete processDefaultValues.detail;
     values = Object.assign(processDefaultValues, values);
-    values.college = values.college.join('/');
+    if (typeof values.college == 'object')
+      values.college = values.college.join('/');
     changeUserSetting(values);
   };
   interface FieldData {
