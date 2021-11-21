@@ -23,7 +23,7 @@ function SignIn(props: any) {
         escape(window.atob(res?.data?.jwt?.split('.')[1])),
       );
       const userID = JSON.parse(payload).userID; //从jwt获得userid
-      const role = JSON.parse(payload).auth; //从jwt获得roles
+      const role = JSON.parse(payload).role; //从jwt获得roles
       setToken(res.data.jwt);
       setUserID(userID);
       setRole(role);

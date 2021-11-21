@@ -56,7 +56,7 @@ export default function ChangeUserconfig({
         initialValue={userSetting?.detail?.name}
         rules={[
           { required: true, message: '请填写昵称' },
-          { max: 31, message: '请输入小于32位字符的昵称' },
+          { max: 10, message: '请输入10位字符以内的昵称' },
         ]}
       >
         <Input />
